@@ -80,13 +80,12 @@
   h1.title{font-family:'Newsreader',Georgia,serif;font-size:clamp(54px,7.6vw,112px);line-height:0.92;letter-spacing:-0.022em;font-weight:400;font-variation-settings:"opsz" 72;margin:0;color:var(--ink)}
   .hero-subtitle{font-family:'Newsreader',Georgia,serif;font-size:clamp(24px,2.35vw,34px);font-weight:400;letter-spacing:0;line-height:1.08;color:var(--ink-soft);max-width:560px;font-variation-settings:"opsz" 72}
 
-  /* Vertical list of visual forms — Inter caps tracked, em-dash prefix.
-     Same typographic system as the top eyebrow so the page reads as:
-     eyebrow → title → forms-index → (foot strip below) all in one voice. */
+  /* Vertical list of visual forms — a small Newsreader index under the title. */
   .forms-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
   .forms-list li{
-    font-family:'Inter',sans-serif;font-size:11px;font-weight:500;
-    letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);
+    font-family:'Newsreader',Georgia,serif;font-size:11px;font-weight:400;
+    letter-spacing:0;text-transform:none;color:var(--ink-soft);
+    font-variation-settings:"opsz" 20;
     display:flex;align-items:baseline;gap:12px;
   }
   .forms-list li::before{content:"·";color:var(--ink-soft);opacity:0.55;flex-shrink:0}
@@ -310,7 +309,7 @@
       <span class="right">
         <span class="num" id="statMethods">0</span> methods
         <span class="sep">·</span>
-        <span class="num" id="statContributors">0</span> contributors
+        <span class="num" id="statContributors">0</span> submitters
       </span>
     </div>
 
@@ -523,13 +522,13 @@
             <text class="vcount" data-cat="c" x="481" y="479" text-anchor="middle" dominant-baseline="middle"></text>
           </g>
 
-          <!-- "and other" — 2 short arc fragments of an imagined larger containing circle, + label -->
+          <!-- "and beyond" — 2 short arc fragments of an imagined larger containing circle, + label -->
           <g class="vc-other" data-cat="o">
             <!-- Upper-right fragment of the outer circle -->
             <path d="M 538 100 A 290 290 0 0 1 568 240"/>
             <!-- Lower fragment of the outer circle (label sits on this) -->
             <path d="M 410 558 A 290 290 0 0 1 192 558"/>
-            <text class="vlabel" x="301" y="558" text-anchor="middle" dominant-baseline="middle">and other</text>
+            <text class="vlabel" x="301" y="558" text-anchor="middle" dominant-baseline="middle">and beyond</text>
             <!-- invisible hit area covering bottom arc + label -->
             <rect x="180" y="525" width="245" height="55" fill="transparent" pointer-events="all"/>
             <rect x="510" y="80" width="80" height="180" fill="transparent" pointer-events="all"/>
@@ -552,7 +551,7 @@
           <span class="count"><b id="countN">0</b>of <span id="countTotal">0</span></span>
           <button class="reset" id="resetBtn">Reset</button>
         </div>
-        <p class="venn-note">Bubble size represents the number of methods documented in this archive, not the importance of each category.</p>
+        <p class="venn-note">Bubble size represents the number of methods documented in this archive, not the importance of each category. Click an area in the Venn diagram to filter the methods shown below.</p>
       </div>
     </div>
 
