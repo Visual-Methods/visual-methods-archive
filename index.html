@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Visual Methods · An open archive</title>
+<meta name="description" content="An open archive of visual research methods for gathering, understanding, and communicating in research. Sketching, photography, mapping, data physicalization, and more.">
+<meta name="theme-color" content="#e8e6df">
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Visual Methods · An open archive">
+<meta property="og:description" content="A community-maintained archive of visual methods researchers use to inquire, analyze and present.">
+<meta property="og:url" content="https://visualmethods.github.io/">
+<meta property="og:image" content="https://visualmethods.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Favicon: three overlapping Venn circles in the brand palette -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='16' cy='10' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%232e7290' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%232e7290' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='u' cx='10' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ac5832' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ac5832' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='22' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236e3c70' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%236e3c70' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='10' r='9' fill='url(%23g)'/%3E%3Ccircle cx='10' cy='21' r='9' fill='url(%23u)'/%3E%3Ccircle cx='22' cy='21' r='9' fill='url(%23c)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f1ef;
+    --bg-card:#faf9f6;
+    --ink:#15151a;
+    --ink-soft:#5e5c54;
+    --line:#c7c2b7;
+    --accent:#2a3e6e;
+    --accent-bright:#7e9ad0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    color:var(--ink);font-family:'Inter',-apple-system,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.5;position:relative;min-height:100%;
+    /* base color + 3 soft radial gradients echoing the Venn palette */
+    background-color:var(--bg);
+    /* Same gradient definitions as method.html — keeps the base gray identical across pages.
+       Difference between pages is only which color LAYERS are active. */
+    background-image:
+      radial-gradient(ellipse 90% 78% at 15% 18%, rgba(42,90,110,0.20), transparent 60%),   /* teal — Gathering */
+      radial-gradient(ellipse 84% 74% at 88% 32%, rgba(168,90,50,0.18), transparent 60%),   /* terracotta — Understanding */
+      radial-gradient(ellipse 92% 72% at 50% 100%, rgba(94,58,94,0.18), transparent 60%);   /* plum — Communicating */
+    background-attachment:fixed;
+  }
+  /* page-wide paper grain overlay */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:0.45;mix-blend-mode:multiply;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 32px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18px;letter-spacing:-0.012em;font-variation-settings:"opsz" 36}
+  .logo .num{font-family:'Inter',sans-serif;font-weight:500;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px}
+  .nav-links{display:flex;gap:28px;font-size:13px;color:var(--ink-soft)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{font-size:12px;border:1px solid var(--ink);padding:8px 14px;border-radius:2px;font-weight:500;transition:all .2s}
+  .nav-cta:hover{background:var(--ink);color:var(--bg)}
+
+  /* HERO — three-band poster layout: eyebrow / title+venn / foot strip */
+  .hero{padding:40px 32px 56px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .hero-inner{max-width:1400px;margin:0 auto}
+
+  /* top eyebrow — single line, all static credentials live here */
+  .hero-eyebrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:56px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .hero-eyebrow .dash{color:var(--ink-soft);opacity:.6;margin-right:4px}
+  .hero-eyebrow .right{margin-left:auto;display:flex;align-items:baseline;gap:6px;color:var(--ink-soft);font-family:'Inter',sans-serif}
+  .hero-eyebrow .right .num{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+  .hero-eyebrow .right .sep{opacity:.4;margin:0 6px}
+
+  /* main row: title-stack left (title + visual-forms index), venn right.
+     Both columns now top-align so the title sits at the top-left corner
+     and the forms list hangs below it like an archive table-of-contents. */
+  .hero-main{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  .hero-left{display:flex;flex-direction:column;gap:34px}
+  h1.title{font-family:'Newsreader',Georgia,serif;font-size:clamp(54px,7.6vw,112px);line-height:0.92;letter-spacing:-0.022em;font-weight:400;font-variation-settings:"opsz" 72;margin:0;color:var(--ink)}
+
+  /* Vertical list of visual forms — Inter caps tracked, em-dash prefix.
+     Same typographic system as the top eyebrow so the page reads as:
+     eyebrow → title → forms-index → (foot strip below) all in one voice. */
+  .forms-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+  .forms-list li{
+    font-family:'Inter',sans-serif;font-size:11px;font-weight:500;
+    letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);
+    display:flex;align-items:baseline;gap:12px;
+  }
+  .forms-list li::before{content:"·";color:var(--ink-soft);opacity:0.55;flex-shrink:0}
+  .forms-list li.and-more{opacity:0.55}
+  /* Desktop (≥960px, two-column hero): bigger Venn to balance with the title.
+     On narrower viewports (≤960px) the grid stacks, and the responsive block
+     below caps the Venn back to a reasonable mobile size. */
+  .venn-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:580px;position:relative;margin:0 auto}
+  svg.venn{width:100%;height:auto;display:block;position:relative}
+  /* Venn clickable circles + the in-SVG "and other" group share one visual treatment */
+  svg.venn .vc,
+  svg.venn .vc-other{cursor:pointer}
+  svg.venn .vc,
+  svg.venn .vc-other path{
+    fill:transparent;stroke:var(--ink);stroke-width:1;stroke-dasharray:4 4;
+    opacity:0.42;stroke-linecap:round;
+    transition:opacity .25s,stroke-width .25s,stroke-dasharray .35s;
+  }
+  svg.venn .vc:hover,
+  svg.venn .vc-other:hover path{opacity:0.7}
+  svg.venn .vc.active,
+  svg.venn .vc-other.active path{opacity:0.95;stroke-dasharray:0 0;stroke-width:1.5}
+  /* When two or three circles are selected, the filter shows their intersection,
+     so we fade the full circle outlines to dashed and draw only the overlap solid. */
+  svg.venn.multi .vc.active{opacity:0.45;stroke-dasharray:4 4;stroke-width:1}
+  svg.venn #intersect{pointer-events:none}
+  svg.venn #intersect circle{
+    fill:none;stroke:var(--ink);stroke-width:2;opacity:0.95;stroke-linecap:round;
+    stroke-dasharray:80 0;animation:vennIntersectIn .42s ease both;
+  }
+  svg.venn #intersect.exiting circle{animation:vennIntersectOut .34s ease forwards}
+  @keyframes vennIntersectIn{
+    from{stroke-dasharray:5 5;stroke-dashoffset:18;opacity:0.45}
+    to{stroke-dasharray:80 0;stroke-dashoffset:0;opacity:0.95}
+  }
+  @keyframes vennIntersectOut{
+    from{stroke-dasharray:80 0;stroke-dashoffset:0;opacity:0.95}
+    to{stroke-dasharray:5 5;stroke-dashoffset:-18;opacity:0.45}
+  }
+  svg.venn .vlabel{
+    font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+    fill:var(--ink);pointer-events:none;font-variation-settings:"opsz" 10;
+    paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round;stroke-linecap:round;
+  }
+  svg.venn .vcount{
+    font-family:'Inter',sans-serif;font-weight:500;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;
+    fill:var(--ink-soft);pointer-events:none;
+    paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;stroke-linecap:round;
+  }
+
+  .hero-note{display:flex;flex-direction:column;align-items:flex-end;justify-self:end;gap:8px;max-width:520px}
+  .venn-note{font-size:12px;line-height:1.55;color:var(--ink-soft);text-align:right;max-width:440px;margin:0}
+
+  /* foot strip — filter status, no hairline */
+  .hero-foot{margin-top:18px;padding-top:0;border-top:0;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  .hero-lede{font-size:14px;line-height:1.55;color:var(--ink);max-width:520px;margin:0}
+  .hero-lede.mobile{display:none}
+
+  .venn-status{margin:0;display:inline-flex;gap:14px;align-items:baseline;padding:0;background:transparent;border:none;justify-self:end}
+  .venn-status .pick{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent)}
+  .venn-status .pick em{font-style:normal;color:inherit}
+  .venn-status .sep{width:3px;height:3px;background:var(--ink-soft);border-radius:50%;opacity:.4}
+  .venn-status .count{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft)}
+  .venn-status .count b{color:var(--ink);font-weight:500;margin-right:4px;font-variant-numeric:tabular-nums}
+  .venn-status .reset{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);cursor:pointer;border:none;padding:0;background:transparent;font-family:'Inter',sans-serif;font-weight:500;border-bottom:1px solid transparent;padding-bottom:2px;transition:color .15s,border-color .15s}
+  .venn-status .reset:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+  /* GALLERY */
+  .grid-section{padding:60px 32px 100px;max-width:1400px;margin:0 auto}
+  .section-head{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:baseline;padding:0 0 22px;border-bottom:1px solid var(--line);margin-bottom:32px}
+  .section-head .head-l{display:flex;align-items:baseline;gap:20px}
+  .section-head .head-num{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+  .section-head h2{font-family:'Newsreader',Georgia,serif;font-size:42px;font-weight:400;letter-spacing:-0.022em;line-height:1;font-variation-settings:"opsz" 72}
+  .section-head h2 em{font-style:normal;font-weight:400;color:inherit}
+  .section-head .meta{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.12em;justify-self:start}
+  /* sort — inline text tabs, no dropdown */
+  .sort{display:flex;align-items:baseline;gap:16px;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft)}
+  .sort .lbl{color:var(--ink-soft);opacity:.7}
+  .sort .opt{padding:0 0 3px;cursor:pointer;color:var(--ink-soft);background:transparent;border:none;border-bottom:1px solid transparent;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;text-transform:inherit}
+  .sort .opt:hover{color:var(--ink)}
+  .sort .opt.active{color:var(--ink);border-bottom:1px solid var(--ink)}
+  .view{display:flex;gap:12px;align-items:baseline;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
+  .view .lbl{color:var(--ink-soft);opacity:.7}
+  .view .vopt{padding:0 0 3px;cursor:pointer;color:var(--ink-soft);background:transparent;border:none;border-bottom:1px solid transparent;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;text-transform:inherit;display:inline-flex;align-items:center;gap:6px}
+  .view .vopt:hover{color:var(--ink)}
+  .view .vopt.active{color:var(--ink);border-bottom:1px solid var(--ink)}
+
+  .controls{display:flex;align-items:baseline;gap:26px;flex-wrap:wrap;justify-self:end}
+  .filter-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);background:transparent;border:none;border-bottom:1px solid transparent;cursor:pointer;padding:0 0 3px}
+  .filter-btn:hover{color:var(--ink)}
+  .filter-btn.active{color:var(--ink);border-bottom:1px solid var(--ink)}
+  .labelbar{display:none;flex-direction:column;gap:14px;margin:-6px 0 34px}
+  .labelbar.open{display:flex}
+  .facet{display:grid;grid-template-columns:128px 1fr;gap:18px;align-items:start}
+  .facet-name{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);padding-top:6px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .fchip{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.04em;color:var(--ink-soft);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 13px;cursor:pointer;transition:color .18s,border-color .18s,background .18s}
+  .fchip:hover{border-color:var(--ink);color:var(--ink)}
+  .fchip.active{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+  @media(max-width:760px){.facet{grid-template-columns:1fr;gap:6px}}
+  .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--bg-card);border-radius:2px;overflow:hidden;position:relative;cursor:pointer;transition:border-color .25s,background .25s;display:flex;flex-direction:column;border:1px solid var(--line)}
+  .card.hidden{display:none}
+  .card:hover{border-color:var(--ink)}
+  .card-img{
+    position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#efece2;isolation:isolate;
+  }
+  .card-img > img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  }
+  .card-img .card-img-filtered{
+    filter:saturate(.78) sepia(.1) contrast(.96) brightness(1.02);
+  }
+  .card-img .card-img-original{
+    z-index:4;filter:none;pointer-events:none;
+    clip-path:inset(100% 0 0 0);
+    transition:clip-path .58s cubic-bezier(.22,.61,.36,1);
+    will-change:clip-path;
+  }
+  .card:hover .card-img-original{clip-path:inset(0 0 0 0)}
+  .card-img::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:
+      radial-gradient(circle at 18% 26%, rgba(46,114,144,.26), transparent 42%),
+      radial-gradient(circle at 78% 22%, rgba(172,88,50,.18), transparent 48%),
+      radial-gradient(circle at 62% 86%, rgba(110,60,112,.20), transparent 48%);
+    mix-blend-mode:overlay;opacity:.44;
+  }
+  .card-img::after{
+    content:"";position:absolute;inset:-18%;z-index:3;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0.42 0 0 0 0.42  0 0.42 0 0 0.42  0 0 0.42 0 0.42  0 0 0 0.72 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity:.38;mix-blend-mode:overlay;
+  }
+  /* List view — compact index rows; toggled via the Grid/List control */
+  .bento.list{display:block}
+  .bento.list .card{display:grid;grid-template-columns:56px 1fr;gap:18px;align-items:center;border:none;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:13px 4px;overflow:visible}
+  .bento.list .card:hover{background:var(--bg-card)}
+  .bento.list .card-img{width:56px;height:56px;aspect-ratio:auto}
+  .bento.list .card-tag,.bento.list .card-num{display:none}
+  .bento.list .card-body{flex-direction:row;align-items:baseline;justify-content:space-between;gap:20px;padding:0;background:transparent}
+  .bento.list .card-title{font-size:20px;margin:0}
+  .bento.list .card-meta{flex:none;text-align:right;white-space:nowrap}
+  .card-tag{position:absolute;z-index:2;top:0;left:0;background:var(--ink);padding:5px 10px 5px 12px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--bg)}
+  .card-num{position:absolute;z-index:2;top:0;right:0;padding:5px 12px 5px 10px;background:var(--ink);color:var(--bg);font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .card-body{padding:16px 18px 18px;background:var(--bg-card);flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
+  .card-title{font-family:'Newsreader',Georgia,serif;font-size:24px;line-height:1.1;letter-spacing:-0.022em;margin-bottom:0;font-weight:400;font-variation-settings:"opsz" 72}
+  .card-meta{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .card-meta .sep{width:3px;height:3px;background:var(--ink-soft);border-radius:50%;opacity:.5}
+  .card-meta .cat{display:inline-flex;align-items:center;gap:6px}
+  .card-meta .cdot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+  .bento.list .card-meta{justify-content:flex-end}
+
+  /* empty state */
+  .empty{
+    padding:60px 0;text-align:center;color:var(--ink-soft);
+    font-family:'Inter',-apple-system,sans-serif;font-size:14px;font-weight:400;line-height:1.65;
+    max-width:620px;margin:0 auto;display:none;
+  }
+  .empty.show{display:block}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:var(--bg);padding:80px 32px 32px}
+  .footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(232,230,222,.14)}
+  footer h3{font-family:'Newsreader',Georgia,serif;font-size:42px;line-height:1.05;letter-spacing:-0.022em;margin-bottom:20px;font-weight:400;font-variation-settings:"opsz" 72}
+  footer h3 em{font-style:normal;color:inherit;font-weight:400}
+  footer p{color:rgba(232,230,222,.62);font-size:14px;line-height:1.6;max-width:380px}
+  footer .col h4{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:rgba(232,230,222,.5);margin-bottom:16px}
+  footer .col a{display:block;font-size:14px;padding:4px 0;color:rgba(232,230,222,.85);cursor:pointer}
+  footer .col a:hover{color:var(--accent-bright)}
+  footer .col a[aria-disabled="true"]{cursor:not-allowed;opacity:.6}
+  footer .col a[aria-disabled="true"]:hover{color:rgba(232,230,222,.85)}
+  .footer-bottom{max-width:1400px;margin:32px auto 0;display:flex;justify-content:space-between;font-size:12px;font-weight:500;color:rgba(232,230,222,.5);letter-spacing:.08em;text-transform:uppercase}
+
+  /* responsive */
+  @media (max-width:960px){
+    .hero-main{grid-template-columns:1fr;gap:36px}
+    .hero-foot{grid-template-columns:1fr;gap:18px}
+    .hero-lede.mobile{display:block}
+    .hero-foot>.hero-lede{display:none}
+    .hero-note{align-items:flex-start}
+    .venn-note{text-align:left}
+    .venn-status{justify-self:start}
+    .hero-eyebrow .right{margin-left:0;width:100%}
+    .venn-wrap{max-width:520px}  /* when stacked under the title, smaller is fine */
+    .bento{grid-template-columns:repeat(2,1fr)}
+    .footer-inner{grid-template-columns:1fr 1fr;gap:40px}
+    .section-head{grid-template-columns:1fr;gap:14px}
+  }
+  @media (max-width:560px){
+    nav{padding:12px 18px}
+    .nav-links{display:none}
+    .hero-left{gap:22px}
+    .hero{padding:28px 18px 36px}
+    .hero-eyebrow{margin-bottom:36px;font-size:10px}
+    .grid-section{padding-left:18px;padding-right:18px}
+    .bento{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Visual Methods</a>
+  <div class="nav-links">
+    <a href="#archive">Archive</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events &amp; Publications</a>
+  </div>
+  <a href="submit.html" class="nav-cta">Submit a method →</a>
+</nav>
+
+<!-- HERO — three-band poster layout -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <!-- top band: single eyebrow line with all static credentials -->
+    <div class="hero-eyebrow">
+      <span>An open archive in progress · 2026</span>
+      <span class="right">
+        <span class="num" id="statMethods">0</span> methods
+        <span class="sep">·</span>
+        <span class="num" id="statContributors">0</span> contributors
+      </span>
+    </div>
+
+    <!-- middle band: title-stack (title + forms list) left, Venn right -->
+    <div class="hero-main">
+      <div class="hero-left">
+        <h1 class="title">The Visual<br>Methods.</h1>
+        <p class="hero-lede mobile">Open and community-maintained, the archive keeps growing as people share and crowd-source visual methods.</p>
+        <ul class="forms-list" aria-label="Visual forms in the archive">
+          <li>Sketches</li>
+          <li>Photos</li>
+          <li>Diagrams</li>
+          <li>Visualizations</li>
+          <li>Physical artifacts</li>
+          <li class="and-more">And more</li>
+        </ul>
+      </div>
+
+      <div class="venn-wrap">
+        <svg class="venn" viewBox="0 0 580 580" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Colored grain filter — generates fractal noise, compresses
+                 it to mid-gray (so it modulates LIGHTNESS rather than
+                 introducing a separate color), masks it to the source
+                 shape so it only appears over the gradient areas, then
+                 blends with OVERLAY so the color underneath is preserved.
+                 Result: spray-paint / risograph texture in the same hue
+                 family as the gradient — never black dots. -->
+            <filter id="venn-grain" x="0%" y="0%" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" stitchTiles="stitch" result="noise"/>
+              <feColorMatrix in="noise" values="0.35 0 0 0 0.35
+                                                0 0.35 0 0 0.35
+                                                0 0 0.35 0 0.35
+                                                0 0 0 0.7 0" result="midGrain"/>
+              <feComposite in="midGrain" in2="SourceGraphic" operator="in" result="grainMasked"/>
+              <feBlend in="SourceGraphic" in2="grainMasked" mode="overlay"/>
+            </filter>
+            <!--
+              Each Venn circle uses FIVE layered gradients to give the
+              soft multi-layer diffusion of the reference image:
+                (1) base       — soft full-circle tint
+                (2) deep-halo  — wide medium-dark surround that bridges base→core
+                (3) deep-core  — small intense saturated core
+                (4) mid        — same-family HUE SHIFT pocket
+                                 (teal→cyan, terracotta→coral, plum→mauve)
+                (5) light      — airy bright highlight, slow falloff
+
+              Every gradient uses r="50%" (so it fades EXACTLY to alpha 0 at the
+              circle's own edge, no hard boundary) and 5 stops with progressively
+              lower alpha — so each pocket diffuses smoothly outward instead of
+              showing a visible circle outline.
+            -->
+            <!-- ── Gathering · teal → cyan → marine ─────────────────── -->
+            <!-- BASE keeps visible color at the 100% edge (alpha ≈ 0.22) so the
+                 circle has a CLEAR boundary, not a fading cloud. -->
+            <radialGradient id="grad-g-base" cx="50%" cy="50%" r="50%" fx="55%" fy="48%">
+              <stop offset="0%"   stop-color="#2e7290" stop-opacity="0.74"/>
+              <stop offset="28%"  stop-color="#46839e" stop-opacity="0.62"/>
+              <stop offset="55%"  stop-color="#6896ac" stop-opacity="0.48"/>
+              <stop offset="82%"  stop-color="#90aebc" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="#a8c4cc" stop-opacity="0.22"/>
+            </radialGradient>
+            <radialGradient id="grad-g-deep-halo" cx="50%" cy="50%" r="50%" fx="50%" fy="48%">
+              <stop offset="0%"   stop-color="#1e4e6a" stop-opacity="0.42"/>
+              <stop offset="35%"  stop-color="#356884" stop-opacity="0.26"/>
+              <stop offset="68%"  stop-color="#5e88a0" stop-opacity="0.10"/>
+              <stop offset="90%"  stop-color="#5e88a0" stop-opacity="0.02"/>
+              <stop offset="100%" stop-color="#5e88a0" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-g-deep-core" cx="50%" cy="50%" r="50%" fx="42%" fy="38%">
+              <stop offset="0%"   stop-color="#1c5072" stop-opacity="0.54"/>
+              <stop offset="20%"  stop-color="#26607e" stop-opacity="0.44"/>
+              <stop offset="45%"  stop-color="#3e7290" stop-opacity="0.26"/>
+              <stop offset="78%"  stop-color="#5e88a0" stop-opacity="0.06"/>
+              <stop offset="100%" stop-color="#5e88a0" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-g-mid" cx="50%" cy="50%" r="50%" fx="58%" fy="62%">
+              <stop offset="0%"   stop-color="#2da0b0" stop-opacity="0.60"/>  <!-- cyan shift -->
+              <stop offset="25%"  stop-color="#4eb0bc" stop-opacity="0.42"/>
+              <stop offset="55%"  stop-color="#74c2ca" stop-opacity="0.20"/>
+              <stop offset="82%"  stop-color="#94d2d8" stop-opacity="0.04"/>
+              <stop offset="100%" stop-color="#94d2d8" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-g-light" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+              <stop offset="0%"   stop-color="#e8f0f0" stop-opacity="0.34"/>
+              <stop offset="32%"  stop-color="#d4e6e6" stop-opacity="0.20"/>
+              <stop offset="65%"  stop-color="#b8d4d4" stop-opacity="0.07"/>
+              <stop offset="88%"  stop-color="#b8d4d4" stop-opacity="0.01"/>
+              <stop offset="100%" stop-color="#b8d4d4" stop-opacity="0"/>
+            </radialGradient>
+            <!-- ── Understanding · terracotta → coral → rose ─────────── -->
+            <radialGradient id="grad-u-base" cx="50%" cy="50%" r="50%" fx="48%" fy="52%">
+              <stop offset="0%"   stop-color="#ac5832" stop-opacity="0.74"/>
+              <stop offset="28%"  stop-color="#bc6e48" stop-opacity="0.62"/>
+              <stop offset="55%"  stop-color="#cc8a66" stop-opacity="0.48"/>
+              <stop offset="82%"  stop-color="#d8a48a" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="#e0b0a0" stop-opacity="0.22"/>
+            </radialGradient>
+            <radialGradient id="grad-u-deep-halo" cx="50%" cy="50%" r="50%" fx="50%" fy="52%">
+              <stop offset="0%"   stop-color="#94421e" stop-opacity="0.42"/>
+              <stop offset="35%"  stop-color="#a85a36" stop-opacity="0.26"/>
+              <stop offset="68%"  stop-color="#c2785c" stop-opacity="0.10"/>
+              <stop offset="90%"  stop-color="#c2785c" stop-opacity="0.02"/>
+              <stop offset="100%" stop-color="#c2785c" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-u-deep-core" cx="50%" cy="50%" r="50%" fx="58%" fy="62%">
+              <stop offset="0%"   stop-color="#94421e" stop-opacity="0.54"/>
+              <stop offset="20%"  stop-color="#a05028" stop-opacity="0.44"/>
+              <stop offset="45%"  stop-color="#b06640" stop-opacity="0.26"/>
+              <stop offset="78%"  stop-color="#c2785c" stop-opacity="0.06"/>
+              <stop offset="100%" stop-color="#c2785c" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-u-mid" cx="50%" cy="50%" r="50%" fx="42%" fy="42%">
+              <stop offset="0%"   stop-color="#c85e58" stop-opacity="0.60"/>  <!-- rose-coral shift -->
+              <stop offset="25%"  stop-color="#d4746c" stop-opacity="0.42"/>
+              <stop offset="55%"  stop-color="#dc8a82" stop-opacity="0.20"/>
+              <stop offset="82%"  stop-color="#e8a89e" stop-opacity="0.04"/>
+              <stop offset="100%" stop-color="#e8a89e" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-u-light" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+              <stop offset="0%"   stop-color="#f4dcc4" stop-opacity="0.34"/>
+              <stop offset="32%"  stop-color="#eccdb4" stop-opacity="0.20"/>
+              <stop offset="65%"  stop-color="#dcb89c" stop-opacity="0.07"/>
+              <stop offset="88%"  stop-color="#dcb89c" stop-opacity="0.01"/>
+              <stop offset="100%" stop-color="#dcb89c" stop-opacity="0"/>
+            </radialGradient>
+            <!-- ── Communicating · plum → mauve → lavender ──────────── -->
+            <radialGradient id="grad-c-base" cx="50%" cy="50%" r="50%" fx="52%" fy="50%">
+              <stop offset="0%"   stop-color="#6e3c70" stop-opacity="0.74"/>
+              <stop offset="28%"  stop-color="#825482" stop-opacity="0.62"/>
+              <stop offset="55%"  stop-color="#9c7aa0" stop-opacity="0.48"/>
+              <stop offset="82%"  stop-color="#b294b8" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="#c0a8c0" stop-opacity="0.22"/>
+            </radialGradient>
+            <radialGradient id="grad-c-deep-halo" cx="50%" cy="50%" r="50%" fx="50%" fy="52%">
+              <stop offset="0%"   stop-color="#481e4e" stop-opacity="0.42"/>
+              <stop offset="35%"  stop-color="#683868" stop-opacity="0.26"/>
+              <stop offset="68%"  stop-color="#8a608a" stop-opacity="0.10"/>
+              <stop offset="90%"  stop-color="#8a608a" stop-opacity="0.02"/>
+              <stop offset="100%" stop-color="#8a608a" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-c-deep-core" cx="50%" cy="50%" r="50%" fx="55%" fy="62%">
+              <stop offset="0%"   stop-color="#4a2050" stop-opacity="0.54"/>
+              <stop offset="20%"  stop-color="#582c5a" stop-opacity="0.44"/>
+              <stop offset="45%"  stop-color="#6e4670" stop-opacity="0.26"/>
+              <stop offset="78%"  stop-color="#8a608a" stop-opacity="0.06"/>
+              <stop offset="100%" stop-color="#8a608a" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-c-mid" cx="50%" cy="50%" r="50%" fx="42%" fy="40%">
+              <stop offset="0%"   stop-color="#a04880" stop-opacity="0.60"/>  <!-- rose-mauve shift -->
+              <stop offset="25%"  stop-color="#b06090" stop-opacity="0.42"/>
+              <stop offset="55%"  stop-color="#c082a4" stop-opacity="0.20"/>
+              <stop offset="82%"  stop-color="#d2a8bc" stop-opacity="0.04"/>
+              <stop offset="100%" stop-color="#d2a8bc" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="grad-c-light" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+              <stop offset="0%"   stop-color="#e8d4e4" stop-opacity="0.34"/>
+              <stop offset="32%"  stop-color="#dabcd8" stop-opacity="0.20"/>
+              <stop offset="65%"  stop-color="#c4a4c4" stop-opacity="0.07"/>
+              <stop offset="88%"  stop-color="#c4a4c4" stop-opacity="0.01"/>
+              <stop offset="100%" stop-color="#c4a4c4" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- 5-layer Venn blobs.
+               Stack order = base → deep-halo → deep-core → mid → light.
+               The deep-halo is the SAME position as deep-core but larger, so it
+               bridges the saturated dark core to the surrounding base softly —
+               killing the "hard edge" of an isolated dark pocket.
+               Only the .vc-fill base circles are resized by JS. -->
+          <g pointer-events="none" filter="url(#venn-grain)">
+            <!-- 5 soft gradient layers per blob + colored grain texture
+                 applied via the venn-grain filter (overlay blend — keeps
+                 each blob's hue family, just adds spray-paint texture). -->
+            <!-- Gathering -->
+            <circle class="vc-fill" data-cat="g" cx="340" cy="200" r="152" fill="url(#grad-g-base)"/>
+            <circle cx="372" cy="174" r="118" fill="url(#grad-g-deep-halo)"/>
+            <circle cx="372" cy="174" r="76"  fill="url(#grad-g-deep-core)"/>
+            <circle cx="304" cy="232" r="85"  fill="url(#grad-g-mid)"/>
+            <circle cx="352" cy="248" r="56"  fill="url(#grad-g-light)"/>
+            <!-- Understanding -->
+            <circle class="vc-fill" data-cat="u" cx="195" cy="285" r="168" fill="url(#grad-u-base)"/>
+            <circle cx="165" cy="316" r="118" fill="url(#grad-u-deep-halo)"/>
+            <circle cx="165" cy="316" r="76"  fill="url(#grad-u-deep-core)"/>
+            <circle cx="230" cy="254" r="85"  fill="url(#grad-u-mid)"/>
+            <circle cx="187" cy="244" r="56"  fill="url(#grad-u-light)"/>
+            <!-- Communicating -->
+            <circle class="vc-fill" data-cat="c" cx="370" cy="360" r="152" fill="url(#grad-c-base)"/>
+            <circle cx="400" cy="390" r="118" fill="url(#grad-c-deep-halo)"/>
+            <circle cx="400" cy="390" r="76"  fill="url(#grad-c-deep-core)"/>
+            <circle cx="336" cy="330" r="85"  fill="url(#grad-c-mid)"/>
+            <circle cx="386" cy="336" r="56"  fill="url(#grad-c-light)"/>
+
+          </g>
+
+          <circle class="vc" data-cat="g" cx="340" cy="200" r="152"/>
+          <circle class="vc" data-cat="u" cx="195" cy="285" r="168"/>
+          <circle class="vc" data-cat="c" cx="370" cy="360" r="152"/>
+
+          <!-- Labels on outer arcs, knockout style — positioned by JS based on radius -->
+          <g pointer-events="none">
+            <text class="vlabel" data-cat="g" x="345" y="48" text-anchor="middle" dominant-baseline="middle">gathering</text>
+            <text class="vcount" data-cat="g" x="345" y="63" text-anchor="middle" dominant-baseline="middle"></text>
+            <text class="vlabel" data-cat="u" x="76" y="404" text-anchor="middle" dominant-baseline="middle">understanding</text>
+            <text class="vcount" data-cat="u" x="76" y="419" text-anchor="middle" dominant-baseline="middle"></text>
+            <text class="vlabel" data-cat="c" x="481" y="464" text-anchor="middle" dominant-baseline="middle">communicating</text>
+            <text class="vcount" data-cat="c" x="481" y="479" text-anchor="middle" dominant-baseline="middle"></text>
+          </g>
+
+          <!-- "and other" — 2 short arc fragments of an imagined larger containing circle, + label -->
+          <g class="vc-other" data-cat="o">
+            <!-- Upper-right fragment of the outer circle -->
+            <path d="M 538 100 A 290 290 0 0 1 568 240"/>
+            <!-- Lower fragment of the outer circle (label sits on this) -->
+            <path d="M 410 558 A 290 290 0 0 1 192 558"/>
+            <text class="vlabel" x="301" y="558" text-anchor="middle" dominant-baseline="middle">and other</text>
+            <!-- invisible hit area covering bottom arc + label -->
+            <rect x="180" y="525" width="245" height="55" fill="transparent" pointer-events="all"/>
+            <rect x="510" y="80" width="80" height="180" fill="transparent" pointer-events="all"/>
+          </g>
+
+          <!-- Solid outline of the selected circles' intersection (built by JS) -->
+          <defs id="vclipdefs"></defs>
+          <g id="intersect" pointer-events="none"></g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- bottom band: filter status -->
+    <div class="hero-foot">
+      <p class="hero-lede">Open and community-maintained, the archive keeps growing as people share and crowd-source visual methods.</p>
+      <div class="hero-note">
+        <div class="venn-status">
+          <span class="pick" id="pickLabel">All methods</span>
+          <span class="sep"></span>
+          <span class="count"><b id="countN">0</b>of <span id="countTotal">0</span></span>
+          <button class="reset" id="resetBtn">Reset</button>
+        </div>
+        <p class="venn-note">Bubble size represents the number of methods documented in this archive, not the importance of each category.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="grid-section" id="archive">
+  <div class="section-head">
+    <h2 id="sectionCount">Six methods</h2>
+    <span class="meta" id="sectionTotal">in the archive</span>
+    <div class="controls">
+      <div class="sort">
+        <span class="lbl">Sort</span>
+        <button class="opt active" data-sort="newest">Newest</button>
+        <button class="opt" data-sort="oldest">Oldest</button>
+        <button class="opt" data-sort="az">A — Z</button>
+      </div>
+      <button class="filter-btn" id="filterToggle" aria-expanded="false" aria-controls="labelBar">Filter</button>
+      <div class="view" role="group" aria-label="View mode">
+        <span class="lbl">View</span>
+        <button class="vopt active" data-view="grid" aria-label="Grid view">Grid</button>
+        <button class="vopt" data-view="list" aria-label="List view">List</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Label filter bar (medium + activity), rendered by JS -->
+  <div class="labelbar" id="labelBar"></div>
+
+  <!-- Gallery: cards rendered by JS from the METHODS array in the script tag below -->
+  <div class="bento" id="gallery"></div>
+
+  <div class="empty" id="emptyState">
+    No methods sit at the intersection of all your selected categories. <br>Submit a method of your own, or one you have seen under this category.
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3>An archive,<br><em>always growing.</em></h3>
+      <p>An open, community-maintained archive of methods.</p>
+    </div>
+    <!-- Footer links are placeholders until destinations exist. Set the real href and remove aria-disabled when ready. -->
+    <div class="col">
+      <h4>Project</h4>
+      <a href="about.html#project">About</a>
+      <a href="about.html#editors">Editors</a>
+      <a href="about.html#contributors">Submit</a>
+      <a href="#" aria-disabled="true">Cite us</a>
+    </div>
+    <div class="col">
+      <h4>Follow</h4>
+      <a href="#" aria-disabled="true">Newsletter</a>
+      <a href="#" aria-disabled="true">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Visual Methods 2026 · Open archive</span>
+  </div>
+</footer>
+
+<script>
+  // ───────────────────────────────────────────────────────────────
+  //  Data — single source of truth for the entire archive.
+  //  Six visual methods drawn from Wang, Carpendale & Huron (2026)
+  //  "Towards Visual Methods". Add a new method = add one entry
+  //  below; UI auto-updates.
+  // ───────────────────────────────────────────────────────────────
+  const METHODS = [
+    { num:'001', title:'Data sketching',          medium:'Sketching',     cats:['g','u'], note:'Workshop', facets:{format:['Sketching'],activity:['Workshop'],skill:['Basic sketching'],time:['Hours']},        image:'method-001/data-sketching-cover.jpeg', alt:'A hand-drawn participant data sketch: a colored area chart of how accepted laughing is across situations',      href:'method.html' },
+    { num:'002', title:'Template-guided sketching',  medium:'Sketching',     cats:['g','u'], note:'Group · 3 — 5 ppl', facets:{format:['Sketching'],activity:['Workshop'],skill:['Basic sketching'],time:['Hours']}, image:'method-002/templateSketching.png', alt:'Participants sketching onto templates during a speculative design workshop',     href:'method-002.html' },
+    { num:'003', title:'Personal physicalization construction', medium:'Physicalization', cats:['g','u'], note:'2 — 4 weeks', facets:{format:['Physicalization','Photography'],activity:['Diary study','Interview'],skill:['Hand-making'],time:['Weeks']},  image:'method-003/personalDataPhy-cover.png',  alt:'A personal data physicalization: colored beads pinned to a map with handwritten place labels', href:'method-003.html' },
+    { num:'004', title:'Reverse wireframing', medium:'Diagramming',  cats:['u','c'], note:'Comparative', facets:{format:['Diagramming','Visual analysis'],activity:['Corpus analysis'],skill:['Design literacy'],time:['Weeks']},     image:'method-004/mosaic.png',  alt:'A mosaic of abstract wireframes for 25 debate platform interfaces, colored by interface block',               href:'method-004.html' },
+    { num:'005', title:'Coding for design patterns',               medium:'Diagramming',   cats:['u','c'], note:'Corpus-based', facets:{format:['Diagramming','Visual analysis'],activity:['Corpus analysis'],skill:['Qualitative coding'],time:['Weeks']}, image:'method-005/cover.png', alt:'A design space derived by coding a corpus of examples',                 href:'method-005.html' },
+    { num:'006', title:'Reader-drawn viewing paths',   medium:'Sketching',     cats:['g','u'], note:'Behavioral', facets:{format:['Sketching','Video recording'],activity:['Lab study','Interview'],skill:['Basic sketching'],time:['Hours']},     image:'method-006/cover.png',  alt:'Reader viewing-path traces drawn over a visual story',             href:'method-006.html' }
+  ];
+
+  const STATS = { contributors: 3 };  // editors / contributors credited on the About page
+
+  const labelMap = { g:'Gathering', u:'Understanding', c:'Communicating', o:'Other' };
+  const state = { g:false, u:false, c:false, o:false };
+  const facetConfig = [
+    { key:'format',   name:'Visual format' },
+    { key:'activity', name:'Activity' },
+    { key:'skill',    name:'Skill' },
+    { key:'time',     name:'Duration' }
+  ];
+  const activeFacets = { format:null, activity:null, skill:null, time:null };
+
+  // ── Render the gallery from METHODS ──────────────────────────
+  function renderGallery() {
+    const gallery = document.getElementById('gallery');
+    const catColor = { g:'#2e7290', u:'#ac5832', c:'#6e3c70', o:'#888780' };
+    gallery.innerHTML = METHODS.map((m, i) => {
+      const safe = (s) => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const cats = m.cats.filter(c => labelMap[c]).map(c =>
+        `<span class="cat"><span class="cdot" style="background:${catColor[c] || catColor.o}"></span>${labelMap[c]}</span>`).join('');
+      return `
+        <a class="card" href="${m.href}" data-idx="${i}" data-cats="${m.cats.join(',')}" aria-label="${safe(m.title)}, ${m.medium}">
+          <div class="card-img">
+            <img class="card-img-filtered" src="${m.image}" alt="${safe(m.alt || m.title)}" loading="lazy">
+            <img class="card-img-original" src="${m.image}" alt="" aria-hidden="true" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="card-title">${safe(m.title)}</div>
+            <div class="card-meta">${cats}</div>
+          </div>
+        </a>`;
+    }).join('');
+  }
+
+  // ── Update header / section stats from real data ──────────────
+  function updateStats() {
+    const total = METHODS.length;
+    document.getElementById('statMethods').textContent = total;
+    document.getElementById('statContributors').textContent = STATS.contributors;
+    document.getElementById('sectionTotal').textContent = `of ${total} cataloged`;
+    document.getElementById('countTotal').textContent = total;
+    document.getElementById('countN').textContent = total;
+  }
+
+  // ── Venn circle sizing — area ∝ method count per category ────
+  const vennConfig = {
+    g: { cx:340, cy:200, labelAngleDeg:-88 },
+    u: { cx:195, cy:285, labelAngleDeg:135 },
+    c: { cx:370, cy:360, labelAngleDeg:43 }
+  };
+
+  function sizeVennByCount() {
+    const counts = { g:0, u:0, c:0, o:0 };
+    METHODS.forEach(m => m.cats.forEach(cat => { if (counts[cat] !== undefined) counts[cat]++; }));
+
+    const MAX_R = 168, MIN_R = 90;
+    const maxCount = Math.max(counts.g, counts.u, counts.c, 1);
+    const radiusOf = (n) => n === 0 ? MIN_R : Math.max(MIN_R, MAX_R * Math.sqrt(n / maxCount));
+    const radii = { g:radiusOf(counts.g), u:radiusOf(counts.u), c:radiusOf(counts.c) };
+
+    ['g','u','c'].forEach(cat => {
+      const r = radii[cat];
+      document.querySelectorAll(`svg.venn .vc-fill[data-cat="${cat}"], svg.venn .vc[data-cat="${cat}"]`)
+        .forEach(c => c.setAttribute('r', r.toFixed(1)));
+      const cfg = vennConfig[cat];
+      const rad = cfg.labelAngleDeg * Math.PI / 180;
+      const x = Math.round(cfg.cx + r * Math.cos(rad));
+      const y = Math.round(cfg.cy + r * Math.sin(rad));
+      const label = document.querySelector(`svg.venn text.vlabel[data-cat="${cat}"]`);
+      if (label) { label.setAttribute('x', x); label.setAttribute('y', y); }
+      const countEl = document.querySelector(`svg.venn text.vcount[data-cat="${cat}"]`);
+      if (countEl) {
+        const n = counts[cat];
+        countEl.textContent = n + (n === 1 ? ' method' : ' methods');
+        countEl.setAttribute('x', x);
+        countEl.setAttribute('y', y + 15);
+      }
+    });
+  }
+
+  // ── Boot order: data → DOM → wire up interactivity ───────────
+  renderGallery();
+  updateStats();
+  sizeVennByCount();
+
+  const circles = document.querySelectorAll('svg.venn .vc, svg.venn .vc-other');
+  const cards = document.querySelectorAll('#gallery .card');
+  const pickLabel = document.getElementById('pickLabel');
+  const countN = document.getElementById('countN');
+  const emptyState = document.getElementById('emptyState');
+  const resetBtn = document.getElementById('resetBtn');
+
+  resetBtn.addEventListener('click', () => resetVenn());
+
+  // ── Solid outline of the intersection of the selected circles ──
+  const vsvg = document.querySelector('svg.venn');
+  const vclipdefs = document.getElementById('vclipdefs');
+  const vintersect = document.getElementById('intersect');
+  let intersectExitTimer = null;
+  const circleGeom = (cat) => {
+    const el = document.querySelector(`svg.venn .vc[data-cat="${cat}"]`);
+    return { cx:+el.getAttribute('cx'), cy:+el.getAttribute('cy'), r:+el.getAttribute('r') };
+  };
+  function hasVennSelection() {
+    return Object.keys(state).some(k => state[k]);
+  }
+  function clearVennState() {
+    state.g = state.u = state.c = state.o = false;
+  }
+  function cancelIntersectionExit() {
+    if (intersectExitTimer) {
+      window.clearTimeout(intersectExitTimer);
+      intersectExitTimer = null;
+    }
+    vintersect.classList.remove('exiting');
+  }
+
+  // ── Region-based selection: a single click selects exactly the set of
+  // circles that contain the clicked point. Clicking a lens (overlap) selects
+  // that intersection (AND); clicking a circle's solo area selects just that
+  // circle; clicking outside all circles clears the selection. ──────────────
+  const catsAtPoint = (loc) => ['g','u','c'].filter(cat => {
+    const g = circleGeom(cat);
+    const dx = loc.x - g.cx, dy = loc.y - g.cy;
+    return dx*dx + dy*dy <= g.r*g.r;
+  });
+  vsvg.addEventListener('click', (e) => {
+    const ctm = vsvg.getScreenCTM();
+    if (!ctm) return;
+    const pt = vsvg.createSVGPoint();
+    pt.x = e.clientX; pt.y = e.clientY;
+    const loc = pt.matrixTransform(ctm.inverse());
+    const inside = catsAtPoint(loc);
+    if (inside.length) {
+      state.g = inside.includes('g');
+      state.u = inside.includes('u');
+      state.c = inside.includes('c');
+      state.o = false;
+    } else if (e.target.closest && e.target.closest('.vc-other')) {
+      state.g = state.u = state.c = false; state.o = true;
+    } else {
+      resetVenn();
+      return;
+    }
+    update();
+  });
+  function updateIntersection(sel) {
+    cancelIntersectionExit();
+    vclipdefs.innerHTML = '';
+    vintersect.innerHTML = '';
+    vsvg.classList.toggle('multi', sel.length >= 2);
+    if (sel.length < 2) return;
+    // a clip circle per selected category
+    sel.forEach(cat => {
+      const g = circleGeom(cat);
+      vclipdefs.insertAdjacentHTML('beforeend',
+        `<clipPath id="vclip-${cat}"><circle cx="${g.cx}" cy="${g.cy}" r="${g.r}"/></clipPath>`);
+    });
+    // each selected circle, stroked but clipped by all the others -> only the
+    // arcs that bound the shared overlap remain, tracing the intersection outline
+    sel.forEach(cat => {
+      const g = circleGeom(cat);
+      const others = sel.filter(o => o !== cat);
+      const open = others.map(o => `<g clip-path="url(#vclip-${o})">`).join('');
+      const close = others.map(() => '</g>').join('');
+      vintersect.insertAdjacentHTML('beforeend',
+        `${open}<circle cx="${g.cx}" cy="${g.cy}" r="${g.r}"/>${close}`);
+    });
+  }
+
+  function resetVenn() {
+    if (!hasVennSelection()) return;
+    const hadIntersection = vintersect.childElementCount > 0;
+    clearVennState();
+    if (hadIntersection) {
+      if (intersectExitTimer) window.clearTimeout(intersectExitTimer);
+      vintersect.classList.add('exiting');
+      update({ keepIntersection:true });
+      intersectExitTimer = window.setTimeout(() => {
+        intersectExitTimer = null;
+        vintersect.classList.remove('exiting');
+        updateIntersection([]);
+      }, 340);
+      return;
+    }
+    update();
+  }
+
+  function update(options = {}) {
+    circles.forEach(c => c.classList.toggle('active', state[c.dataset.cat]));
+    const selected = Object.keys(state).filter(k => state[k]);
+    if (options.keepIntersection) vsvg.classList.remove('multi');
+    else updateIntersection(['g','u','c'].filter(k => state[k]));
+
+    if (selected.length === 0) pickLabel.textContent = 'All methods';
+    else if (selected.length <= 2) pickLabel.textContent = selected.map(s => labelMap[s]).join(' + ');
+    else pickLabel.textContent = `${selected.length} categories at once`;
+
+    let visible = 0;
+    cards.forEach(card => {
+      const m = METHODS[+card.dataset.idx];
+      const cats = card.dataset.cats.split(',');
+      const matchCats = selected.every(s => cats.includes(s));
+      const matchFacets = facetConfig.every(f => {
+        const av = activeFacets[f.key];
+        return !av || ((m.facets && m.facets[f.key]) || []).includes(av);
+      });
+      const matches = matchCats && matchFacets;
+      card.classList.toggle('hidden', !matches);
+      if (matches) visible++;
+    });
+    countN.textContent = visible;
+    const sc = document.getElementById('sectionCount');
+    if (sc) sc.textContent = visible + (visible === 1 ? ' method' : ' methods');
+    emptyState.classList.toggle('show', visible === 0);
+  }
+
+  document.querySelector('.hero').addEventListener('click', (e) => {
+    if (!hasVennSelection()) return;
+    const insideInteractive = e.target.closest(
+      'svg.venn, a, button, input, select, textarea, label, .card, .controls, .labelbar'
+    );
+    if (insideInteractive) return;
+    resetVenn();
+  });
+
+  // ── Faceted filter bar — one labeled row per facet, pick one option ──
+  function renderFacets() {
+    const bar = document.getElementById('labelBar');
+    bar.innerHTML = facetConfig.map(f => {
+      const vals = [];
+      METHODS.forEach(m => ((m.facets && m.facets[f.key]) || []).forEach(v => { if (!vals.includes(v)) vals.push(v); }));
+      vals.sort();
+      const chips = `<button class="fchip active" data-facet="${f.key}" data-val="">All</button>` +
+        vals.map(v => `<button class="fchip" data-facet="${f.key}" data-val="${v}">${v}</button>`).join('');
+      return `<div class="facet"><span class="facet-name">${f.name}</span><div class="chips">${chips}</div></div>`;
+    }).join('');
+    bar.querySelectorAll('.fchip').forEach(ch => ch.addEventListener('click', () => {
+      const k = ch.dataset.facet, v = ch.dataset.val || null;
+      activeFacets[k] = v;
+      bar.querySelectorAll(`.fchip[data-facet="${k}"]`).forEach(x =>
+        x.classList.toggle('active', (x.dataset.val || null) === v));
+      update();
+    }));
+  }
+  renderFacets();
+  update();
+
+  function sortGallery(mode) {
+    const gallery = document.getElementById('gallery');
+    const ordered = [...cards].sort((a, b) => {
+      const ai = +a.dataset.idx;
+      const bi = +b.dataset.idx;
+      if (mode === 'az') {
+        return METHODS[ai].title.localeCompare(METHODS[bi].title, undefined, { sensitivity:'base' });
+      }
+      if (mode === 'oldest') return ai - bi;
+      return bi - ai;
+    });
+    ordered.forEach(card => gallery.appendChild(card));
+  }
+
+  // Sort tab toggle
+  document.querySelectorAll('.sort .opt').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.sort .opt').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    sortGallery(b.dataset.sort || 'newest');
+  }));
+  sortGallery(document.querySelector('.sort .opt.active')?.dataset.sort || 'newest');
+
+  // ── Filter bar show/hide ─────────────────────────────────────
+  const filterToggle = document.getElementById('filterToggle');
+  const labelBarEl = document.getElementById('labelBar');
+  filterToggle.addEventListener('click', () => {
+    const open = labelBarEl.classList.toggle('open');
+    filterToggle.classList.toggle('active', open);
+    filterToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // ── Grid / List view toggle ──────────────────────────────────
+  const galleryEl = document.getElementById('gallery');
+  const viewBtns = document.querySelectorAll('.view .vopt');
+  function setView(v){
+    galleryEl.classList.toggle('list', v === 'list');
+    viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === v));
+    try { localStorage.setItem('vm-view', v); } catch(e){}
+  }
+  viewBtns.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+  let savedView = 'grid';
+  try { savedView = localStorage.getItem('vm-view') || 'grid'; } catch(e){}
+  setView(savedView);
+</script>
+</body>
+</html>

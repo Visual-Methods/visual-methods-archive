@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>N° 001 · Data sketching analysis · Visual Methods</title>
+<meta name="description" content="Data sketching analysis: collecting hand-drawn representations of a dataset from participants, then analyzing the corpus through affinity diagramming to reveal patterns of visual reasoning.">
+<meta name="theme-color" content="#e8e6df">
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data sketching analysis · N° 001 · Visual Methods">
+<meta property="og:description" content="A method in the Visual Methods archive: studying how people spontaneously visualize data through pencil-and-paper sketches.">
+<meta property="og:url" content="https://visualmethods.github.io/method.html">
+<meta property="og:image" content="https://supplemental-material.github.io/Data-Sketching/site-assets/images/AA-continuum.gif">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Favicon: three overlapping Venn circles in the brand palette -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='16' cy='10' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%232e7290' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%232e7290' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='u' cx='10' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ac5832' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ac5832' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='22' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236e3c70' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%236e3c70' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='10' r='9' fill='url(%23g)'/%3E%3Ccircle cx='10' cy='21' r='9' fill='url(%23u)'/%3E%3Ccircle cx='22' cy='21' r='9' fill='url(%23c)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f1ef;
+    --bg-card:#faf9f6;
+    --ink:#15151a;
+    --ink-soft:#5e5c54;
+    --line:#c7c2b7;
+    --accent:#2a3e6e;
+    --accent-bright:#7e9ad0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    color:var(--ink);font-family:'Inter',-apple-system,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55;position:relative;min-height:100%;
+    /* Per-method background: each category contributes one layer. Add class has-g / has-u / has-c to <body> based on the method's categories. */
+    --layer-g:none; --layer-u:none; --layer-c:none;
+    background-color:var(--bg);
+    background-image:var(--layer-g), var(--layer-u), var(--layer-c);
+    background-attachment:fixed;
+  }
+  /* Same gradient values as index.html — keeps the base gray identical across pages. */
+  body.has-g{ --layer-g: radial-gradient(ellipse 90% 78% at 15% 18%, rgba(42,90,110,0.20), transparent 60%); }  /* teal — Gathering */
+  body.has-u{ --layer-u: radial-gradient(ellipse 84% 74% at 88% 32%, rgba(168,90,50,0.18), transparent 60%); }  /* terracotta — Understanding */
+  body.has-c{ --layer-c: radial-gradient(ellipse 92% 72% at 50% 100%, rgba(94,58,94,0.18), transparent 60%); }  /* plum — Communicating */
+  /* page-wide paper grain overlay (same as index) */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:0.45;mix-blend-mode:multiply;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 32px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18px;letter-spacing:-0.012em;font-variation-settings:"opsz" 36}
+  .logo .num{font-family:'Inter',sans-serif;font-weight:500;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px}
+  .nav-links{display:flex;gap:28px;font-size:13px;color:var(--ink-soft)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{font-size:12px;border:1px solid var(--ink);padding:8px 14px;border-radius:2px;font-weight:500;transition:all .2s}
+  .nav-cta:hover{background:var(--ink);color:var(--bg)}
+
+  /* HEADER */
+  .header{max-width:1400px;margin:0 auto;padding:40px 32px 56px;display:grid;grid-template-columns:1.5fr 1fr;gap:80px;border-bottom:1px solid var(--line);align-items:end}
+  .header-eyebrow{display:flex;align-items:baseline;gap:14px;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);grid-column:1 / -1;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .header-eyebrow .dash{opacity:.6;margin-right:4px}
+  .header-eyebrow .right{margin-left:auto}
+  .header-eyebrow .num{color:var(--ink);font-weight:500}
+
+  .pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px}
+  .pill{display:inline-flex;align-items:center;padding:5px 10px;border:1px solid var(--line);border-radius:2px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink);background:transparent}
+  .pill.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+  h1.title{font-family:'Newsreader',Georgia,serif;font-size:clamp(54px,7.4vw,104px);line-height:0.96;letter-spacing:-0.024em;font-weight:400;font-variation-settings:"opsz" 72;margin:0;color:var(--ink)}
+
+  .lede{font-family:'Newsreader',Georgia,serif;font-size:22px;line-height:1.4;color:var(--ink);max-width:520px;letter-spacing:-0.008em;font-variation-settings:"opsz" 36;margin-bottom:32px;font-weight:400}
+  /* Editor byline under the title */
+  .byline{display:flex;align-items:center;gap:12px;margin-top:22px}
+  .byline .by-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft)}
+  .byline .avatars{display:flex}
+  .byline .avatar{width:28px;height:28px;border-radius:50%;background:#efece2;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Newsreader',Georgia,serif;font-size:11px;font-weight:500;color:var(--ink-soft);margin-left:-8px;box-shadow:0 0 0 2px var(--bg);overflow:hidden}
+  .byline .avatar:first-child{margin-left:0}
+  .byline .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .meta-card{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;align-self:start}
+  .meta-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);gap:18px}
+  .meta-row:last-child{border:none}
+  .meta-row .k{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft);flex-shrink:0}
+  .meta-row .v{font-size:13px;font-weight:500;text-align:right;color:var(--ink)}
+
+  /* HERO IMAGE */
+  .hero-img{max-width:1400px;margin:36px auto;padding:0 32px}
+  .hero-img-inner{border-radius:2px;overflow:hidden;aspect-ratio:16/9;background:#efece2;border:1px solid var(--line);padding:24px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative;transition:border-color .2s ease}
+  .hero-img-inner:hover{border-color:var(--ink)}
+  .hero-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;mix-blend-mode:multiply;display:block}
+  .caption{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft);margin-top:12px;padding:0 2px;display:flex;justify-content:space-between;gap:24px}
+
+  /* BODY */
+  .body{max-width:1400px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:200px 1fr;gap:80px}
+  aside.toc{position:sticky;top:80px;align-self:start;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-soft);display:flex;flex-direction:column;gap:8px}
+  aside.toc h5{color:var(--ink);font-weight:500;margin-bottom:8px;letter-spacing:0.14em;font-size:10px}
+  aside.toc a{padding:3px 0;display:flex;align-items:baseline;gap:8px;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+  aside.toc a:hover{color:var(--ink)}
+  aside.toc .sec-num{color:var(--ink-soft);font-weight:500;opacity:.7}
+  aside.toc a:hover .sec-num{color:var(--ink);opacity:1}
+
+  article{max-width:760px}
+  article h2{font-family:'Newsreader',Georgia,serif;font-size:38px;line-height:1.08;letter-spacing:-0.022em;font-weight:400;margin:56px 0 18px;font-variation-settings:"opsz" 72;display:flex;align-items:baseline;gap:22px;color:var(--ink)}
+  article h2:first-child{margin-top:0}
+  article h2 .sec-num{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;flex-shrink:0}
+  article p{font-size:16px;line-height:1.7;color:var(--ink);margin-bottom:18px;max-width:640px}
+  article p strong{font-weight:600}
+  article p em{font-style:italic}
+  article .drop::first-letter{font-family:'Newsreader',Georgia,serif;font-size:80px;line-height:0.85;float:left;padding:6px 14px 0 0;color:var(--accent);font-style:italic;font-variation-settings:"opsz" 72;font-weight:400}
+
+  /* STEPS */
+  .steps{margin:28px 0 36px;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+  .step{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:56px 1fr;gap:32px;align-items:start}
+  .step-num{width:36px;height:36px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:500;font-size:14px;color:var(--ink);flex-shrink:0;font-variant-numeric:tabular-nums;margin-top:2px}
+  .step h4{font-family:'Newsreader',Georgia,serif;font-size:22px;font-weight:400;letter-spacing:-0.018em;margin-bottom:6px;font-variation-settings:"opsz" 36;color:var(--ink)}
+  .step p{font-size:15px;color:var(--ink-soft);max-width:560px;margin:0;line-height:1.6}
+  .step-img{aspect-ratio:4/3;overflow:hidden;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:8px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative;transition:border-color .2s ease, transform .2s ease}
+  .step-img:hover, .hero-img-inner:hover, .image-row figure:hover{border-color:var(--ink)}
+  .step-img:hover::after, .hero-img-inner:hover::after, .image-row figure:hover::after{opacity:1}
+  .step-img::after, .hero-img-inner::after, .image-row figure::after{content:"⤢";position:absolute;top:10px;right:12px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;transition:opacity .2s ease;font-family:'Inter',sans-serif;line-height:1;pointer-events:none}
+  .step-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .step-fig{margin:18px 0 2px;max-width:460px}
+  .step-fig .step-img{aspect-ratio:auto;padding:12px}
+  .step-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+  .step-fig figcaption a{color:var(--accent);text-underline-offset:2px}
+  /* Lightbox */
+  .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(21,21,26,0.88);display:flex;align-items:center;justify-content:center;padding:48px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(4px)}
+  .lightbox.open{opacity:1;pointer-events:auto}
+  .lightbox-inner{max-width:min(1200px,95vw);max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:14px;transform:scale(0.97);transition:transform .25s ease}
+  .lightbox.open .lightbox-inner{transform:scale(1)}
+  .lightbox img{max-width:100%;max-height:80vh;width:auto;height:auto;object-fit:contain;background:#efece2;padding:18px;border:1px solid #c7c2b7;box-shadow:0 30px 90px rgba(0,0,0,0.4)}
+  .lightbox-caption{color:#e8e6df;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:0.01em;text-align:center;max-width:680px;line-height:1.5;font-weight:300}
+  .lightbox-close{position:absolute;top:20px;right:24px;width:36px;height:36px;border:1px solid rgba(232,230,223,0.4);border-radius:50%;background:transparent;color:#e8e6df;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s ease, border-color .2s ease}
+  .lightbox-close:hover{background:rgba(232,230,223,0.1);border-color:#e8e6df}
+  body.lightbox-open{overflow:hidden}
+  .img-credit{font-size:12px;color:var(--ink-soft);margin:14px 0 28px;line-height:1.5;font-style:normal;letter-spacing:0.005em;max-width:680px}
+  .img-credit a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:0.5px}
+  .img-credit a:hover{color:var(--accent)}
+
+  /* IMAGE GRID */
+  .image-row{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin:32px 0 12px}
+  .image-row.two{grid-template-columns:repeat(2,1fr)}
+  .image-row figure{border-radius:2px;overflow:hidden;background:#efece2;aspect-ratio:4/3;border:1px solid var(--line);padding:16px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;transition:border-color .2s ease;position:relative}
+  .image-row figure:hover{border-color:var(--ink)}
+  .image-row figure img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;mix-blend-mode:multiply;display:block}
+  .image-row figure.tall{aspect-ratio:auto;height:100%}
+
+  /* PULL QUOTE */
+  .pullquote{margin:48px 0;padding:32px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .pullquote .q{font-family:'Newsreader',Georgia,serif;font-size:30px;line-height:1.25;letter-spacing:-0.018em;font-weight:400;font-variation-settings:"opsz" 72;color:var(--ink)}
+  .pullquote .a{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;color:var(--ink-soft);margin-top:16px;letter-spacing:0.14em}
+
+  /* RELATED */
+  .related{max-width:1400px;margin:64px auto 80px;padding:0 32px}
+  .related-head{display:flex;justify-content:space-between;align-items:end;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:28px}
+  .related-head h3{font-family:'Newsreader',Georgia,serif;font-size:38px;font-weight:400;letter-spacing:-0.022em;font-variation-settings:"opsz" 72;line-height:1}
+  .related-head .meta{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft)}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  /* Cards match the homepage gallery exactly: cover image + serif title + category dots */
+  .related-grid .card{background:var(--bg-card);border-radius:2px;overflow:hidden;position:relative;cursor:pointer;transition:border-color .25s,background .25s;display:flex;flex-direction:column;border:1px solid var(--line)}
+  .related-grid .card:hover{border-color:var(--ink)}
+  .related-grid .card-img{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#efece2;isolation:isolate}
+  .related-grid .card-img > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .related-grid .card-img .card-img-filtered{filter:saturate(.78) sepia(.1) contrast(.96) brightness(1.02)}
+  .related-grid .card-img .card-img-original{z-index:4;filter:none;pointer-events:none;clip-path:inset(100% 0 0 0);transition:clip-path .58s cubic-bezier(.22,.61,.36,1);will-change:clip-path}
+  .related-grid .card:hover .card-img-original{clip-path:inset(0 0 0 0)}
+  .related-grid .card-img::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 18% 26%, rgba(46,114,144,.26), transparent 42%),radial-gradient(circle at 78% 22%, rgba(172,88,50,.18), transparent 48%),radial-gradient(circle at 62% 86%, rgba(110,60,112,.20), transparent 48%);mix-blend-mode:overlay;opacity:.44}
+  .related-grid .card-img::after{content:"";position:absolute;inset:-18%;z-index:3;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0.42 0 0 0 0.42  0 0.42 0 0 0.42  0 0 0.42 0 0.42  0 0 0 0.72 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");opacity:.38;mix-blend-mode:overlay}
+  .related-grid .card-body{padding:16px 18px 18px;background:var(--bg-card);flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
+  .related-grid .card-title{font-family:'Newsreader',Georgia,serif;font-size:24px;line-height:1.1;letter-spacing:-0.022em;font-weight:400;font-variation-settings:"opsz" 72;color:var(--ink)}
+  .related-grid .card-meta{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .related-grid .card-meta .cat{display:inline-flex;align-items:center;gap:6px}
+  .related-grid .card-meta .cdot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+
+  /* FOOTER — matches index */
+  footer{background:var(--ink);color:var(--bg);padding:80px 32px 32px;margin-top:80px}
+  .footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;padding-bottom:48px;border-bottom:1px solid rgba(232,230,222,.14)}
+  footer h3{font-family:'Newsreader',Georgia,serif;font-size:54px;line-height:1.05;letter-spacing:-0.024em;font-weight:400;font-variation-settings:"opsz" 72;color:var(--bg)}
+  footer .next{text-align:right;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:rgba(232,230,222,.5)}
+  footer .next a{display:inline-block;color:var(--bg);font-family:'Newsreader',Georgia,serif;font-size:22px;letter-spacing:-0.014em;text-transform:none;margin-top:6px;font-variation-settings:"opsz" 36;font-weight:400;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .15s,color .15s}
+  footer .next a:hover{color:var(--accent-bright);border-bottom-color:var(--accent-bright)}
+  .footer-bottom{max-width:1400px;margin:24px auto 0;display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:rgba(232,230,222,.5);letter-spacing:.08em;text-transform:uppercase}
+
+  /* RESPONSIVE */
+  @media (max-width:960px){
+    .header,.body{grid-template-columns:1fr;gap:36px}
+    aside.toc{position:static}
+    .image-row{grid-template-columns:1fr}
+    .image-row.two{grid-template-columns:1fr}
+    .related-grid{grid-template-columns:1fr}
+    .footer-inner{grid-template-columns:1fr;gap:24px}
+    footer .next{text-align:left}
+  }
+  @media (max-width:960px){
+    .step{grid-template-columns:56px 1fr;gap:24px}
+    .step-img{grid-column:1 / -1;aspect-ratio:16/9;max-width:480px;margin-top:6px}
+  }
+  @media (max-width:560px){
+    nav{padding:12px 18px}
+    .nav-links{display:none}
+    .header,.body,.related,.hero-img{padding-left:18px;padding-right:18px}
+    .step{grid-template-columns:1fr;gap:8px}
+    .step-img{grid-column:auto}
+    .meta-row{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
+    .meta-row .v{text-align:left}
+    article h2{gap:14px}
+  }
+  /* Cite-this-paper box (in §04) */
+  .cite-box{margin:24px 0 4px;padding:20px 22px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 2px 2px 0;background:var(--bg-card)}
+  .cite-box .cite-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .cite-box .cite-ref{font-size:14.5px;line-height:1.6;color:var(--ink);margin-bottom:14px;max-width:760px}
+  .cite-box .cite-ref em{font-style:italic}
+  .cite-box .cite-ref a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
+  .cite-box .cite-ref a:hover{border-color:var(--accent)}
+  .cite-box .cite-btn{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.02em;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:7px 14px;border-radius:2px;cursor:pointer;transition:all .2s}
+  .cite-box .cite-btn:hover{background:var(--ink);color:var(--bg)}
+  .cite-box .cite-btn.copied{background:var(--accent);border-color:var(--accent);color:#fff}
+  .cite-box .cite-fignote{font-size:11.5px;line-height:1.55;color:var(--ink-soft);margin-top:14px}
+  .cite-box .cite-fignote a{color:var(--accent)}
+  .cite-box .bibtex-src{display:none}
+  .section-submit{display:inline-flex;align-items:center;margin-top:16px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.02em;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:7px 14px;border-radius:2px;transition:all .2s}
+  .section-submit:hover{background:var(--ink);color:var(--bg)}
+</style>
+</head>
+<body class="has-g has-u">
+
+<nav>
+  <a href="index.html" class="logo">Visual Methods</a>
+  <div class="nav-links">
+    <a href="index.html#archive">Archive</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events &amp; Publications</a>
+  </div>
+  <a href="submit.html" class="nav-cta">Submit a method →</a>
+</nav>
+
+<!-- HEADER -->
+<section class="header">
+  <div class="header-eyebrow">
+    <span>Method <span class="num">N° 001</span> · Published 2015 · Cataloged 2026</span>
+    <span class="right">Family · Sketching</span>
+  </div>
+
+  <div>
+    <h1 class="title">Data<br>sketching.</h1>
+    <div class="byline">
+      <span class="by-label">Edited by</span>
+      <span class="avatars">
+        <span class="avatar" title="Sheelagh Carpendale" aria-label="Sheelagh Carpendale"><img src="about/sheelagh-carpendale.png" alt=""></span>
+        <span class="avatar" title="Samuel Huron" aria-label="Samuel Huron"><img src="about/samuel-huron.png" alt=""></span>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div class="meta-card">
+      <div class="meta-row"><span class="k">Form</span><span class="v">Sketching</span></div>
+      <div class="meta-row"><span class="k">Purpose</span><span class="v">Gathering · Understanding</span></div>
+      <div class="meta-row"><span class="k">Material and tool</span><span class="v">Plain A4 paper · Pencils · Colored pencils · Camera</span></div>
+      <div class="meta-row"><span class="k">Skill</span><span class="v">Basic sketching (Participants)</span></div>
+      <div class="meta-row"><span class="k">Time</span><span class="v">30 min — 2 hrs sketching · 2 — 4 days analysis</span></div>
+      <div class="meta-row"><span class="k">Setting</span><span class="v">Classroom or workshop</span></div>
+      <div class="meta-row"><span class="k">Output</span><span class="v">Sketch corpus + coded categories</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HERO IMAGE -->
+<section class="hero-img">
+  <div class="hero-img-inner">
+    <img src="method-001/dataSketch.png" alt="Excerpts of participant sketches classified along the data representation continuum, from numeric forms such as countable marks, dot plots and bar charts through to abstract forms such as Venn and pictorial sketches">
+  </div>
+  <div class="caption"><span>Fig. 1 · Excerpts of participant sketches classified along the data representation continuum, from numeric to abstract, from Walny, Huron &amp; Carpendale (2015)</span><span>↓ Read on</span></div>
+</section>
+
+<!-- BODY -->
+<section class="body">
+  <aside class="toc">
+    <h5>Contents</h5>
+    <a href="#what"><span class="sec-num">§ 01</span><span>What it is</span></a>
+    <a href="#why"><span class="sec-num">§ 02</span><span>Why use it</span></a>
+    <a href="#how"><span class="sec-num">§ 03</span><span>How to do it</span></a>
+    <a href="#example"><span class="sec-num">§ 04</span><span>In practice</span></a>
+    <a href="#variations"><span class="sec-num">§ 05</span><span>Variations</span></a>
+    <a href="#further"><span class="sec-num">§ 06</span><span>Research also applied this method</span></a>
+  </aside>
+
+  <article>
+    <h2 id="what"><span class="sec-num">§ 01</span><span>What it is.</span></h2>
+    <p class="drop"><strong>Data sketching</strong> is a method for studying how people spontaneously visualize data when given only pencils and paper. Participants are presented with a small, accessible dataset and asked to draw a visual representation of it. Researchers then collect the resulting sketches and analyze them together, through laying them out, grouping them, naming the groups, and reading the corpus as a single field of evidence.</p>
+
+    <div class="image-row two">
+      <figure><img src="https://supplemental-material.github.io/Data-Sketching/site-assets/images-sketches/A3-3.jpeg" alt="A participant's colored bar chart of the dataset" loading="lazy"></figure>
+      <figure><img src="https://supplemental-material.github.io/Data-Sketching/site-assets/images-sketches/A3-2.jpeg" alt="A participant's radar / parallel-coordinates style sketch of the dataset" loading="lazy"></figure>
+      <figure><img src="https://supplemental-material.github.io/Data-Sketching/site-assets/images-sketches/B3-1.jpeg" alt="A participant's abstract sketch grouping behaviors as nested, Venn-like sets" loading="lazy"></figure>
+      <figure><img src="https://supplemental-material.github.io/Data-Sketching/site-assets/images-sketches/A6-1.jpeg" alt="A participant's pictorial sketch using small human figures and scenes as units" loading="lazy"></figure>
+    </div>
+    <div class="caption"><span>Fig. 2 · Four participant sketches of the same dataset, spanning the continuum from numeric (bar chart) to abstract (pictorial).</span><span>VM-001 / 02</span></div>
+    <p class="img-credit">The dataset, figures, and participant sketches reproduced on this page are from the supplemental materials of Walny, Huron &amp; Carpendale (2015), reused under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> license. Original assets: <a href="https://supplemental-material.github.io/Data-Sketching/" target="_blank" rel="noopener">supplemental-material.github.io/Data-Sketching</a>.</p>
+
+    <h2 id="why"><span class="sec-num">§ 02</span><span>Why use it.</span></h2>
+    <p>Walny et al. used this approach to investigate whether the act of <strong>creating</strong> a sketch (not merely viewing a visualization) drives analytical thinking. The finding: participants who produced more abstract representations tended to produce <strong>data reports with greater analytic depth</strong>, suggesting a structural link between visual encoding choices and what a reader can think with them.</p>
+
+    <h2 id="how"><span class="sec-num">§ 03</span><span>How to do it.</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Prepare a small, accessible dataset.</h4>
+          <p>Choose data simple enough that anyone, including participants without statistical training, can read it in a single glance. The dataset should fit on one page. Provide it printed at the start of the session and leave it in front of every participant for reference. In the original study the data came from a 1974 psychology paper in which students rated how appropriate various behaviors were in various situations; each cell held the mean rating on a 0 to 9 scale, where 0 meant extremely inappropriate and 9 extremely appropriate (running in class, for instance, scored 2.52). Read one such cell aloud so the encoding is unambiguous before anyone starts drawing.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="https://supplemental-material.github.io/Data-Sketching/site-assets/images-paper/datasets.png" alt="The dataset given to participants: mean appropriateness ratings for each behavior-situation combination on a 0 to 9 scale" loading="lazy"></div>
+            <figcaption>The dataset used in the original study. <a href="https://supplemental-material.github.io/Data-Sketching/site-assets/download/dataset.pdf" target="_blank" rel="noopener">Download the PDF version ↗</a></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Collect freeform sketches of the dataset.</h4>
+          <p>Give each participant a stack of plain A4 paper, pencils, and a generous range of colored pencils. Frame the task as open exploration rather than reproduction: tell them to represent the dataset on the blank sheets however they choose, that there is no wrong way to do it, and that they should draw the data as they explore it. Offer prompts they can think with: connections between pieces of data, ways to group it, similarities and differences, interesting patterns, and surprising findings. Because the full dataset is large, make clear they need not draw all of it and may focus on whatever parts they find interesting. Some sketches will include minimal annotations (labels, axes, captions); some will not. Both are valid. Explicitly state that there are no wrong responses.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-001/colorPencil.png" alt="A stack of plain white paper, pencils, and a generous range of colored pencils on a desk" loading="lazy"></div>
+            <figcaption>Materials for participants: plain paper, pencils, and a generous range of colored pencils.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Ask for a short written report alongside each sketch.</h4>
+          <p>After sketching, ask participants to write a few sentences describing what they learned or found interesting about the data. This second artifact (the data report) becomes the triangulation source against the sketch when you analyze later.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="https://supplemental-material.github.io/Data-Sketching/site-assets/images-sketches/C5-1.jpeg" alt="A participant's dot-plot sketch with a handwritten report beside it, explaining which columns they compared and what they found in the data" loading="lazy"></div>
+            <figcaption>A participant's sketch with their written report alongside, describing what they found in the data.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Lay out the entire corpus.</h4>
+          <p>Spread all sketches on a wall, a large table, or a digital board such as Miro. The whole collection must be visible at a glance. This synoptic view is what makes pattern-recognition across the corpus possible.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-001/step4-v4.png" alt="Three researchers around a round table with the full corpus of sketch cards laid out in a grid" loading="lazy"></div>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h4>Build an affinity diagram. Group likes with likes.</h4>
+          <p>Physically (or digitally) move sketches into clusters of resemblance. Do not pre-define categories. Let the groupings emerge. Multiple coders should work together; disagreement during this step is generative.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-001/step5-v5.png" alt="Three researchers around a round table sorting sketch cards into loose clusters encircled by hand-drawn loops" loading="lazy"></div>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div>
+          <h4>Name and describe each group.</h4>
+          <p>For every cluster, write a working label and a short description of what makes that group cohesive. The first attempt rarely sticks; expect to rename and re-merge groups several times.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-001/step6-v5.png" alt="Three researchers around a round table adding header label cards above each cluster of grouped sketch cards" loading="lazy"></div>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div>
+          <h4>Stress-test the grouping. Trial and error.</h4>
+          <p>Apply three checks at each iteration: <strong>Does every sketch fit somewhere?</strong> If sketches are forced into a category, the taxonomy is wrong. <strong>Can the coders agree?</strong> Disagreement marks a category that needs splitting or renaming. <strong>Are there recurring patterns?</strong> Patterns that survive multiple iterations are the strongest findings.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-001/step7-v6.png" alt="Three researchers around a round table testing an ambiguous sketch card that sits between two clusters, marked with a question mark" loading="lazy"></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
+    <p>The original study took place in a classroom with ample tables, good lighting, blank sheets of paper, and a large variety of colored pencils. Participants with varying degrees of visualization expertise were asked to sketch a small, easily understandable dataset and to write what they found interesting about it. They were explicitly told that there were no wrong responses.</p>
+    <p>The collected corpus revealed a <strong>continuum</strong>: from numerate sketches (essentially re-drawing the table) at one end, to highly abstract pictorial representations at the other. Critically, the participants whose sketches sat closer to the abstract end of the spectrum tended to write data reports with greater analytic depth, suggesting that the act of sketching abstractly is not merely a stylistic choice but is itself an analytic move.</p>
+    <p>The findings were an early contribution to understanding how people spontaneously sketch visual representations of data, with implications for visualization design, education, and tools that support the early, exploratory stages of visual data analysis.</p>
+
+    <div class="cite-box">
+      <div class="cite-label">Cite this paper</div>
+      <p class="cite-ref">Walny, J., Huron, S. &amp; Carpendale, S. (2015) &lsquo;An exploratory study of data sketching for visual representation&rsquo;. <em>Computer Graphics Forum</em>, 34(3), 231&ndash;240. <a href="https://doi.org/10.1111/cgf.12635" target="_blank" rel="noopener">doi.org/10.1111/cgf.12635</a></p>
+      <button class="cite-btn" type="button">Copy BibTeX</button>
+      <pre class="bibtex-src">@article{Walny_2015, title={An Exploratory Study of Data Sketching for Visual Representation}, volume={34}, ISSN={1467-8659}, url={http://dx.doi.org/10.1111/cgf.12635}, DOI={10.1111/cgf.12635}, number={3}, journal={Computer Graphics Forum}, publisher={Wiley}, author={Walny, J. and Huron, S. and Carpendale, S.}, year={2015}, month=June, pages={231–240} }</pre>
+    </div>
+
+    <h2 id="variations"><span class="sec-num">§ 05</span><span>Ways to adapt it.</span></h2>
+    <p>Try <strong>digital sketching on a tablet</strong> when remote sessions are necessary, but be aware that the medium changes what people draw: pencil-on-paper invites more exploration than a stylus on glass.</p>
+    <a class="section-submit" href="submit.html#variation">Submit way(s) to adapt it →</a>
+
+    <h2 id="further"><span class="sec-num">§ 06</span><span>Other research using this method.</span></h2>
+    <p>To be added.</p>
+    <a class="section-submit" href="submit.html#reference">Submit other research using this method →</a>
+  </article>
+</section>
+
+<!-- RELATED -->
+<section class="related">
+  <div class="related-head">
+    <h3>Adjacent methods</h3>
+    <span class="meta">More in the archive</span>
+  </div>
+  <div class="related-grid">
+    <a class="card" href="method-002.html">
+      <div class="card-img">
+        <img class="card-img-filtered" src="method-002/templateSketching.png" alt="Participants sketching onto templates during a speculative design workshop" loading="lazy">
+        <img class="card-img-original" src="method-002/templateSketching.png" alt="" aria-hidden="true" decoding="async">
+      </div>
+      <div class="card-body">
+        <div class="card-title">Template-guided sketching</div>
+        <div class="card-meta">
+          <span class="cat"><span class="cdot" style="background:#2e7290"></span>Gathering</span>
+          <span class="cat"><span class="cdot" style="background:#ac5832"></span>Understanding</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="method-003.html">
+      <div class="card-img">
+        <img class="card-img-filtered" src="method-003/personalDataPhy-cover.png" alt="A personal data physicalization: colored beads pinned to a map with handwritten place labels" loading="lazy">
+        <img class="card-img-original" src="method-003/personalDataPhy-cover.png" alt="" aria-hidden="true" decoding="async">
+      </div>
+      <div class="card-body">
+        <div class="card-title">Personal physicalization construction</div>
+        <div class="card-meta">
+          <span class="cat"><span class="cdot" style="background:#2e7290"></span>Gathering</span>
+          <span class="cat"><span class="cdot" style="background:#ac5832"></span>Understanding</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="method-006.html">
+      <div class="card-img">
+        <img class="card-img-filtered" src="method-006/cover.png" alt="Reader viewing-path traces drawn over a visual story" loading="lazy">
+        <img class="card-img-original" src="method-006/cover.png" alt="" aria-hidden="true" decoding="async">
+      </div>
+      <div class="card-body">
+        <div class="card-title">Reader-drawn viewing paths</div>
+        <div class="card-meta">
+          <span class="cat"><span class="cdot" style="background:#2e7290"></span>Gathering</span>
+          <span class="cat"><span class="cdot" style="background:#ac5832"></span>Understanding</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3>Next:<br>Template-guided sketching.</h3>
+    </div>
+    <div class="next">
+      N° 002 →
+      <a href="method-002.html">Continue the archive</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Visual Methods 2026 · Open archive</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+  <div class="lightbox-inner">
+    <img id="lightboxImg" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const box = document.getElementById('lightbox');
+  const boxImg = document.getElementById('lightboxImg');
+  const boxCap = document.getElementById('lightboxCaption');
+  const boxClose = document.getElementById('lightboxClose');
+  function open(src, alt){
+    boxImg.src = src;
+    boxImg.alt = alt || '';
+    boxCap.textContent = alt || '';
+    box.classList.add('open');
+    box.setAttribute('aria-hidden','false');
+    document.body.classList.add('lightbox-open');
+  }
+  function close(){
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden','true');
+    document.body.classList.remove('lightbox-open');
+    // clear src after fade-out
+    setTimeout(()=>{ if(!box.classList.contains('open')) boxImg.removeAttribute('src'); }, 260);
+  }
+  document.querySelectorAll('.step-img, .hero-img-inner, .image-row figure').forEach(div => {
+    const img = div.querySelector('img');
+    if(!img) return;
+    div.setAttribute('role','button');
+    div.setAttribute('tabindex','0');
+    div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
+    div.addEventListener('click', () => open(img.src, img.alt));
+    div.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt); }
+    });
+  });
+  box.addEventListener('click', e => { if(e.target === box) close(); });
+  boxClose.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && box.classList.contains('open')) close();
+  });
+})();
+</script>
+
+<script>
+  document.querySelectorAll('.cite-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var src=btn.parentNode.querySelector('.bibtex-src'); if(!src) return;
+      navigator.clipboard.writeText(src.textContent.trim()).then(function(){
+        var old=btn.textContent; btn.textContent='Copied'; btn.classList.add('copied');
+        setTimeout(function(){btn.textContent=old; btn.classList.remove('copied');},1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About · The Visual Methods</title>
+<meta name="description" content="About the Visual Methods archive: an open, growing catalog of methods for gathering, understanding, and communicating with visual data, and the editors behind it.">
+<meta name="theme-color" content="#e8e6df">
+<meta property="og:type" content="website">
+<meta property="og:title" content="About · The Visual Methods">
+<meta property="og:description" content="About the Visual Methods archive and the editors behind it.">
+<meta property="og:url" content="https://visualmethods.github.io/about.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='16' cy='10' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%232e7290' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%232e7290' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='u' cx='10' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ac5832' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ac5832' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='22' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236e3c70' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%236e3c70' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='10' r='9' fill='url(%23g)'/%3E%3Ccircle cx='10' cy='21' r='9' fill='url(%23u)'/%3E%3Ccircle cx='22' cy='21' r='9' fill='url(%23c)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f1ef;
+    --bg-card:#faf9f6;
+    --ink:#15151a;
+    --ink-soft:#5e5c54;
+    --line:#c7c2b7;
+    --accent:#2a3e6e;
+    --accent-bright:#7e9ad0;
+    --g:#2e7290;--u:#ac5832;--c:#6e3c70;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    color:var(--ink);font-family:'Inter',-apple-system,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.5;position:relative;min-height:100%;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(ellipse 90% 78% at 15% 18%, rgba(42,90,110,0.20), transparent 60%),
+      radial-gradient(ellipse 84% 74% at 88% 32%, rgba(168,90,50,0.18), transparent 60%),
+      radial-gradient(ellipse 92% 72% at 50% 100%, rgba(94,58,94,0.18), transparent 60%);
+    background-attachment:fixed;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:0.45;mix-blend-mode:multiply;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+
+  /* NAV (shared with homepage) */
+  nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 32px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18px;letter-spacing:-0.012em;font-variation-settings:"opsz" 36}
+  .nav-links{display:flex;gap:28px;font-size:13px;color:var(--ink-soft)}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-links a.active{font-weight:500}
+  .nav-cta{font-size:12px;border:1px solid var(--ink);padding:8px 14px;border-radius:2px;font-weight:500;transition:all .2s}
+  .nav-cta:hover{background:var(--ink);color:var(--bg)}
+  .nav-cta[aria-disabled="true"]{cursor:not-allowed;opacity:.55}
+  .nav-cta[aria-disabled="true"]:hover{background:transparent;color:var(--ink)}
+
+  /* LAYOUT */
+  main{max-width:1180px;margin:0 auto;padding:0 32px 40px}
+
+  /* PAGE HEADER */
+  .pagehead{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+  .pagehead .kicker{font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:22px}
+  .pagehead h1{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(44px,6vw,80px);line-height:0.96;letter-spacing:-0.022em;font-variation-settings:"opsz" 72}
+  .pagehead .lede{margin-top:24px;max-width:640px;font-size:18px;line-height:1.6;color:var(--ink-soft);font-family:'Newsreader',Georgia,serif;font-weight:300}
+
+  /* SECTION SHELL */
+  section.block{padding:56px 0;border-bottom:1px solid var(--line)}
+  section.block:last-of-type{border-bottom:none}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:32px}
+  .sec-head .sn{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+  .sec-head h2{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:30px;letter-spacing:-0.018em}
+
+  /* PROJECT PROSE */
+  .prose{max-width:680px}
+  .prose p{font-size:16.5px;line-height:1.72;color:var(--ink);margin-bottom:20px}
+  .prose p.muted{color:var(--ink-soft)}
+  .prose em{font-style:italic}
+  .prose .cats{display:flex;flex-wrap:wrap;gap:18px;margin:30px 0 4px;padding:0;list-style:none}
+  .prose .cats li{display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--ink-soft)}
+  .prose .cats .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;position:relative;top:1px}
+  .prose .cite{margin-top:8px;font-size:13px;color:var(--ink-soft);border-left:2px solid var(--line);padding-left:16px;line-height:1.6}
+  .prose .cite em{font-style:italic}
+
+  /* EDITORS: 3-up profile blocks */
+  .editors{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .person .portrait{
+    width:min(100%,180px);aspect-ratio:1/1;background:#efece2;border:1px solid var(--line);
+    border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;position:relative;cursor:pointer;transition:border-color .18s;
+  }
+  .person .portrait:hover{border-color:var(--ink)}
+  .person .portrait img{width:100%;height:100%;object-fit:cover}
+  .person .portrait .mono{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:46px;color:var(--ink-soft);opacity:.7;letter-spacing:0.02em}
+  .person .role{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .person h3{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:23px;letter-spacing:-0.018em;line-height:1.12;margin-bottom:6px}
+  .person .affil{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;line-height:1.5}
+  .person .bio{font-size:14px;line-height:1.6;color:var(--ink-soft)}
+  .person .links{margin-top:12px;display:flex;gap:14px;font-size:12px}
+  .person .links a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
+  .person .links a:hover{border-color:var(--accent)}
+
+  /* CONTRIBUTORS: denser grid */
+  .contrib-intro{max-width:640px;font-size:15px;line-height:1.65;color:var(--ink-soft);margin-bottom:30px}
+  .contributors{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:22px}
+  .contrib{display:flex;flex-direction:column}
+  .contrib .thumb{aspect-ratio:1/1;background:#efece2;border:1px solid var(--line);border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+  .contrib .thumb img{width:100%;height:100%;object-fit:cover}
+  .contrib .thumb .mono{font-family:'Newsreader',Georgia,serif;font-size:28px;color:var(--ink-soft);opacity:.7}
+  .contrib .cname{font-family:'Newsreader',Georgia,serif;font-size:17px;line-height:1.15;letter-spacing:-0.01em;margin-bottom:4px}
+  .contrib .credit{font-size:11px;color:var(--ink-soft)}
+  .contrib .credit a{color:var(--accent)}
+  .contrib .credit a:hover{text-decoration:underline}
+
+  /* empty / invite state for contributors */
+  .invite{border:1px dashed var(--line);border-radius:2px;background:rgba(250,249,246,.5);padding:40px 32px;text-align:center;max-width:680px}
+  .invite p{font-size:15px;line-height:1.65;color:var(--ink-soft);margin-bottom:20px}
+  .invite .btn{display:inline-block;font-size:13px;font-weight:500;border:1px solid var(--ink);padding:10px 18px;border-radius:2px;transition:all .2s}
+  .invite .btn:hover{background:var(--ink);color:var(--bg)}
+  .invite .btn[aria-disabled="true"]{cursor:not-allowed;opacity:.6}
+  .invite .btn[aria-disabled="true"]:hover{background:transparent;color:var(--ink)}
+
+  /* FOOTER (shared with homepage) */
+  footer{background:var(--ink);color:var(--bg);padding:80px 32px 32px;margin-top:24px}
+  .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(232,230,222,.14)}
+  footer h3{font-family:'Newsreader',Georgia,serif;font-size:42px;line-height:1.05;letter-spacing:-0.022em;margin-bottom:20px;font-weight:400;font-variation-settings:"opsz" 72}
+  footer h3 em{font-style:normal;color:inherit;font-weight:400}
+  footer p{color:rgba(232,230,222,.62);font-size:14px;line-height:1.6;max-width:380px}
+  footer .col h4{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:rgba(232,230,222,.5);margin-bottom:16px}
+  footer .col a{display:block;font-size:14px;padding:4px 0;color:rgba(232,230,222,.85);cursor:pointer}
+  footer .col a:hover{color:var(--accent-bright)}
+  footer .col a[aria-disabled="true"]{cursor:not-allowed;opacity:.6}
+  footer .col a[aria-disabled="true"]:hover{color:rgba(232,230,222,.85)}
+  .footer-bottom{max-width:1180px;margin:32px auto 0;display:flex;justify-content:space-between;font-size:12px;font-weight:500;color:rgba(232,230,222,.5);letter-spacing:.08em;text-transform:uppercase}
+
+  @media(max-width:860px){
+    .footer-inner{grid-template-columns:1fr 1fr;gap:40px}
+    .editors{grid-template-columns:1fr;gap:36px;max-width:420px}
+  }
+  @media(max-width:560px){
+    .nav-links{display:none}
+    .footer-inner{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Visual Methods</a>
+  <div class="nav-links">
+    <a href="index.html#archive">Archive</a>
+    <a href="about.html" class="active">About</a>
+    <a href="events.html">Events &amp; Publications</a>
+  </div>
+  <a href="submit.html" class="nav-cta">Submit a method →</a>
+</nav>
+
+<main>
+
+  <header class="pagehead">
+    <div class="kicker">About the archive</div>
+    <h1>A way of thinking,<br>not just of showing.</h1>
+    <p class="lede">Each method is distilled from a published study and written up as a recipe everyone can follow.</p>
+  </header>
+
+  <!-- ── §01 · PROJECT ───────────────────────────────── -->
+  <section class="block" id="project">
+    <div class="sec-head"><span class="sn">§ 01</span><h2>The project</h2></div>
+    <div class="prose">
+      <p>In design disciplines, and particularly in human–computer interaction and information visualization, researchers often need to study material that is visual in nature: screenshots, sketches, photographs, videos, or images of physical objects and spaces. Despite a rich literature on analyzing visual artifacts in the social sciences and the arts, few resources reflect on the value and the means of doing so within information visualization or interface design, even though visual design is so often the primary channel for communicating data.</p>
+      <p>This archive takes up that gap. It collects concrete, reusable methods for working with visual data and documents each one as a step-by-step practice grounded in a real, published study, so a method is not just described in the abstract but shown with the figures, materials, and moves of the research it came from.</p>
+      <p>Every method is filed under one or more of three purposes:</p>
+      <ul class="cats">
+        <li><span class="dot" style="background:var(--g)"></span><strong>Gathering</strong>: eliciting and collecting visual data</li>
+        <li><span class="dot" style="background:var(--u)"></span><strong>Understanding</strong>: analyzing and interpreting it</li>
+        <li><span class="dot" style="background:var(--c)"></span><strong>Communicating</strong>: presenting it to others</li>
+      </ul>
+      <p class="muted">The project grew out of a paper that introduced the benefits of visual methods through a set of case studies and issued a call to crowd-source more of them. This archive is that call, made permanent: a place where the analytic moves that usually stay undocumented can be written down, shared, and built on.</p>
+      <p class="cite">Wang, Z., Carpendale, S., &amp; Huron, S. <em>Towards Visual Methods: Reflections on how visuals enrich empirical research.</em></p>
+    </div>
+  </section>
+
+  <!-- ── §02 · EDITORS ───────────────────────────────── -->
+  <section class="block" id="editors">
+    <div class="sec-head"><span class="sn">§ 02</span><h2>Editors</h2></div>
+    <div class="editors" id="editorsGrid"></div>
+  </section>
+
+  <!-- ── §03 · CONTRIBUTORS ──────────────────────────── -->
+  <section class="block" id="contributors">
+    <div class="sec-head"><span class="sn">§ 03</span><h2>Contributors</h2></div>
+    <p class="contrib-intro">The archive is built by its community. When a submitted method is reviewed and accepted, its author joins this page, credited beside the method they brought in.</p>
+    <div id="contribMount"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3>An archive,<br><em>always growing.</em></h3>
+      <p>Visual Methods is maintained by a community of researchers, designers, and educators who believe the visual is not just a vehicle for findings but a way of thinking.</p>
+    </div>
+    <div class="col">
+      <h4>Project</h4>
+      <a href="about.html#project">About</a>
+      <a href="about.html#editors">Editors</a>
+      <a href="about.html#contributors">Submit</a>
+      <a href="#" aria-disabled="true">Cite us</a>
+    </div>
+    <div class="col">
+      <h4>Follow</h4>
+      <a href="#" aria-disabled="true">Newsletter</a>
+      <a href="#" aria-disabled="true">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Visual Methods 2026 · Open archive</span>
+  </div>
+</footer>
+
+<script>
+  /* ── Editors: the three authors of the founding paper ──────────────
+     To add a photo, drop the file in an about/ folder and set `photo`. */
+  const EDITORS = [
+    {
+      name:'Zezhong Wang',
+      role:'Editor · Design & development',
+      affil:'University of St Andrews<br>Simon Fraser University',
+      bio:'Researches information visualization and visualization literacy, and designs and maintains this archive.',
+      photo:'about/zezhong-wang.jpg', position:'center 38%', site:'https://zezhongwang.com/', links:[]
+    },
+    {
+      name:'Sheelagh Carpendale',
+      role:'Editor',
+      affil:'Simon Fraser University',
+      bio:'Works across information visualization and human–computer interaction, with a long-standing interest in how people read, make, and reason with visual representations.',
+      photo:'about/sheelagh-carpendale.png', site:'https://www.sfu.ca/~sheelagh/', links:[]
+    },
+    {
+      name:'Samuel Huron',
+      role:'Editor',
+      affil:'Institut Polytechnique de Paris · Télécom Paris · CNRS i3',
+      bio:'Works on data physicalization, visualization, and design methods for thinking with and through visual material.',
+      photo:'about/samuel-huron.png', site:'https://samuel-huron.github.io/', links:[]
+    }
+  ];
+
+  /* ── Contributors: populate as submissions are accepted ────────────
+     e.g. {name:'A. Researcher', photo:'about/a.jpg', method:'N° 007', href:'method-007.html'} */
+  const CONTRIBUTORS = [];
+
+  const initials = n => n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+
+  function renderEditors(){
+    document.getElementById('editorsGrid').innerHTML = EDITORS.map(p=>{
+      const imagePosition = p.position ? ` style="object-position:${p.position}"` : '';
+      const portrait = p.photo
+        ? `<img src="${p.photo}" alt="Portrait of ${p.name}"${imagePosition}>`
+        : `<span class="mono" aria-hidden="true">${initials(p.name)}</span>`;
+      const portraitFrame = p.site
+        ? `<a class="portrait" href="${p.site}" target="_blank" rel="noopener" aria-label="${p.name} website">${portrait}</a>`
+        : `<div class="portrait">${portrait}</div>`;
+      const links = (p.links&&p.links.length)
+        ? `<div class="links">${p.links.map(l=>`<a href="${l.href}">${l.label}</a>`).join('')}</div>` : '';
+      return `<article class="person">
+        ${portraitFrame}
+        <h3>${p.name}</h3>
+        <div class="affil">${p.affil}</div>
+        <p class="bio">${p.bio}</p>
+        ${links}
+      </article>`;
+    }).join('');
+  }
+
+  function renderContributors(){
+    const mount = document.getElementById('contribMount');
+    if(!CONTRIBUTORS.length){
+      mount.innerHTML = `<div class="invite">
+        <p>No contributors yet; this archive is just getting started. If you use a visual method in your own research, or know one worth cataloging, you can submit it for review.</p>
+        <a href="submit.html" class="btn">Submit a method →</a>
+      </div>`;
+      return;
+    }
+    mount.innerHTML = `<div class="contributors">` + CONTRIBUTORS.map(p=>{
+      const thumb = p.photo
+        ? `<img src="${p.photo}" alt="Portrait of ${p.name}">`
+        : `<span class="mono" aria-hidden="true">${initials(p.name)}</span>`;
+      const credit = p.href
+        ? `<a href="${p.href}">${p.method}</a>` : (p.method||'');
+      return `<article class="contrib">
+        <div class="thumb">${thumb}</div>
+        <div class="cname">${p.name}</div>
+        <div class="credit">${credit}</div>
+      </article>`;
+    }).join('') + `</div>`;
+  }
+
+  renderEditors();
+  renderContributors();
+</script>
+</body>
+</html>

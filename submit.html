@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Submit a method · The Visual Methods</title>
+<meta name="description" content="Contribute to the Visual Methods archive: submit a new method, a variation of an existing method, or a published study that used a method.">
+<meta name="theme-color" content="#e8e6df">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Submit a method · The Visual Methods">
+<meta property="og:description" content="Three ways to contribute to the Visual Methods archive.">
+<meta property="og:url" content="https://visualmethods.github.io/submit.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='16' cy='10' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%232e7290' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%232e7290' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='u' cx='10' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ac5832' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ac5832' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='22' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236e3c70' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%236e3c70' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='10' r='9' fill='url(%23g)'/%3E%3Ccircle cx='10' cy='21' r='9' fill='url(%23u)'/%3E%3Ccircle cx='22' cy='21' r='9' fill='url(%23c)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f1ef;--bg-card:#faf9f6;--ink:#15151a;--ink-soft:#5e5c54;--line:#c7c2b7;
+    --accent:#2a3e6e;--accent-bright:#7e9ad0;--g:#2e7290;--u:#ac5832;--c:#6e3c70;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    color:var(--ink);font-family:'Inter',-apple-system,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.5;position:relative;min-height:100%;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(ellipse 90% 78% at 15% 18%, rgba(42,90,110,0.20), transparent 60%),
+      radial-gradient(ellipse 84% 74% at 88% 32%, rgba(168,90,50,0.18), transparent 60%),
+      radial-gradient(ellipse 92% 72% at 50% 100%, rgba(94,58,94,0.18), transparent 60%);
+    background-attachment:fixed;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:0.45;mix-blend-mode:multiply;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* NAV (shared) */
+  nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 32px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18px;letter-spacing:-0.012em;font-variation-settings:"opsz" 36}
+  .nav-links{display:flex;gap:28px;font-size:13px;color:var(--ink-soft)}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-links a.active{font-weight:500}
+  .nav-cta{font-size:12px;border:1px solid var(--ink);padding:8px 14px;border-radius:2px;font-weight:500;transition:all .2s;background:var(--ink);color:var(--bg)}
+
+  main{max-width:1180px;margin:0 auto;padding:0 32px 40px}
+
+  /* PAGE HEADER */
+  .pagehead{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+  .pagehead .kicker{font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:22px}
+  .pagehead h1{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(44px,6vw,80px);line-height:0.96;letter-spacing:-0.022em;font-variation-settings:"opsz" 72}
+  .pagehead .lede{margin-top:24px;max-width:660px;font-size:18px;line-height:1.6;color:var(--ink-soft);font-family:'Newsreader',Georgia,serif;font-weight:300}
+
+  /* PATHS */
+  .paths{padding:48px 0 8px;display:flex;flex-direction:column;gap:22px}
+  .path{border:1px solid var(--line);border-radius:2px;background:var(--bg-card);padding:34px 36px;display:grid;grid-template-columns:54px 1fr;gap:28px}
+  .path .pn{font-family:'Newsreader',Georgia,serif;font-size:30px;font-weight:400;color:var(--accent);line-height:1;font-variation-settings:"opsz" 48}
+  .path h2{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:28px;letter-spacing:-0.018em;line-height:1.05;margin-bottom:6px}
+  .path .sub{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px}
+  .path p{font-size:15.5px;line-height:1.65;color:var(--ink);max-width:640px;margin-bottom:18px}
+  .path p .credit{color:var(--ink-soft)}
+  .path .include{list-style:none;padding:0;margin:0 0 24px;max-width:640px}
+  .path .include li{position:relative;padding:0 0 0 18px;font-size:14px;line-height:1.55;color:var(--ink-soft);margin-bottom:7px}
+  .path .include li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+  .path .include .lab{color:var(--ink);font-weight:500}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;border:1px solid var(--ink);padding:11px 20px;border-radius:2px;transition:all .2s;background:var(--ink);color:var(--bg)}
+  .btn:hover{background:transparent;color:var(--ink)}
+
+  /* tint each path's number/accent by its spirit color */
+  .path.p1 .pn{color:var(--g)} .path.p1 .include li::before{background:var(--g)}
+  .path.p2 .pn{color:var(--u)} .path.p2 .include li::before{background:var(--u)}
+  .path.p3 .pn{color:var(--c)} .path.p3 .include li::before{background:var(--c)}
+
+  /* eligibility callout under the header */
+  .eligibility{margin-top:28px;max-width:680px;font-size:15px;line-height:1.65;color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--bg-card);border-radius:0 2px 2px 0;padding:18px 22px}
+  .eligibility strong{font-weight:600}
+
+  /* per-path "how it works" process note */
+  .path .process{font-size:14px;line-height:1.6;color:var(--ink-soft);background:rgba(42,62,110,0.05);border-left:2px solid var(--line);padding:12px 16px;margin:0 0 18px;border-radius:0 2px 2px 0;max-width:640px}
+  .path .process strong{color:var(--ink);font-weight:500}
+
+  /* closing note */
+  .note{padding:40px 0 8px;max-width:660px;color:var(--ink-soft);font-size:14px;line-height:1.65}
+  .note a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
+  .note a:hover{border-color:var(--accent)}
+
+  /* FOOTER (shared) */
+  footer{background:var(--ink);color:var(--bg);padding:80px 32px 32px;margin-top:40px}
+  .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(232,230,222,.14)}
+  footer h3{font-family:'Newsreader',Georgia,serif;font-size:42px;line-height:1.05;letter-spacing:-0.022em;margin-bottom:20px;font-weight:400;font-variation-settings:"opsz" 72}
+  footer h3 em{font-style:normal;color:inherit;font-weight:400}
+  footer p{color:rgba(232,230,222,.62);font-size:14px;line-height:1.6;max-width:380px}
+  footer .col h4{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:rgba(232,230,222,.5);margin-bottom:16px}
+  footer .col a{display:block;font-size:14px;padding:4px 0;color:rgba(232,230,222,.85);cursor:pointer}
+  footer .col a:hover{color:var(--accent-bright)}
+  footer .col a[aria-disabled="true"]{cursor:not-allowed;opacity:.6}
+  .footer-bottom{max-width:1180px;margin:32px auto 0;display:flex;justify-content:space-between;font-size:12px;font-weight:500;color:rgba(232,230,222,.5);letter-spacing:.08em;text-transform:uppercase}
+
+  @media(max-width:760px){
+    .path{grid-template-columns:1fr;gap:10px}
+    .footer-inner{grid-template-columns:1fr}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Visual Methods</a>
+  <div class="nav-links">
+    <a href="index.html#archive">Archive</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events &amp; Publications</a>
+  </div>
+  <a href="submit.html" class="nav-cta">Submit a method →</a>
+</nav>
+
+<main>
+
+  <header class="pagehead">
+    <div class="kicker">Contribute</div>
+    <h1>Add to the archive.</h1>
+    <p class="lede">Visual Methods grows through its community. There are three ways to contribute, depending on what you have. Pick the one that fits, and send it over for review.</p>
+    <p class="eligibility">You do not have to be the inventor of a method. If you have <strong>seen a visual method used somewhere</strong> and think it belongs in the archive, you can introduce it to us just the same. Whoever brings a method or a variation in is credited in the <strong>editor list</strong> on that method's page.</p>
+  </header>
+
+  <section class="paths">
+
+    <!-- PATH 1 -->
+    <article class="path p1">
+      <div class="pn">01</div>
+      <div class="body">
+        <h2>Submit a new method</h2>
+        <div class="sub">A method the archive does not cover yet</div>
+        <p>Use this when you have a visual method that is not already in the archive, ideally one grounded in published research. We review the submission, and once it is accepted, the method is written up as its own entry. <span class="credit">You are credited as a contributor on the About page, and your name is added to the editor list on the method's own page.</span></p>
+        <p class="process"><strong>How it works:</strong> you start by filling out a short questionnaire with the basic information about the method. If we agree it is genuinely new to the archive, we send you a text editor where you can describe the steps in detail and embed any images that work as case examples or step illustrations.</p>
+        <ul class="include">
+          <li><span class="lab">The method</span>: a working name and a short description of what it does and the steps involved.</li>
+          <li><span class="lab">The source</span>: the published paper / tech report / poster or study the method comes from, if there is one.</li>
+          <li><span class="lab">Visual material</span>: any figures, photographs, or diagrams you can share, with their attribution.</li>
+          <li><span class="lab">You</span>: your name and affiliation, as you would like them credited.</li>
+        </ul>
+        <a class="btn" href="mailto:wangzezhong2016@gmail.com?subject=Visual%20Methods%3A%20New%20method%20submission&amp;body=Method%20name%3A%0ASource%20paper%3A%0AShort%20description%20%2F%20steps%3A%0AVisual%20material%20(links)%3A%0AYour%20name%20and%20affiliation%3A%0A">Start a new-method submission →</a>
+      </div>
+    </article>
+
+    <!-- PATH 2 -->
+    <article class="path p2" id="variation">
+      <div class="pn">02</div>
+      <div class="body">
+        <h2>Submit a variation</h2>
+        <div class="sub">A new use of a method already in the archive</div>
+        <p>Use this when a method similar to yours is already cataloged, but you have used it in a different way: a new setting, a new material, a new adaptation. We add your variation to the existing method's page so readers can see how it has been reused. <span class="credit">Your name is added to that method's editor list.</span></p>
+        <p class="process"><strong>How it works:</strong> you start by filling out a short questionnaire with the basic information about the variation. If we agree it is genuinely a new variation, we send you a text editor where you can describe the steps in detail and embed any images that work as case examples or step illustrations.</p>
+        <ul class="include">
+          <li><span class="lab">The method</span>: which cataloged method your variation builds on.</li>
+          <li><span class="lab">What changes</span>: how your version differs, and what prompted the adaptation.</li>
+          <li><span class="lab">Context</span>: where and how you used it, and a paper or write-up if one exists.</li>
+          <li><span class="lab">You</span>: your name and affiliation, as you would like them credited.</li>
+        </ul>
+        <a class="btn" href="mailto:wangzezhong2016@gmail.com?subject=Visual%20Methods%3A%20Method%20variation%20submission&amp;body=Method%20it%20builds%20on%3A%0AWhat%20is%20different%3A%0AContext%20%2F%20paper%3A%0AYour%20name%20and%20affiliation%3A%0A">Submit way(s) to adapt an existing method from the archive →</a>
+      </div>
+    </article>
+
+    <!-- PATH 3 -->
+    <article class="path p3" id="reference">
+      <div class="pn">03</div>
+      <div class="body">
+        <h2>Submit a reference</h2>
+        <div class="sub">A published study that used a method already here</div>
+        <p>Use this when a peer-reviewed paper has used one of the methods in the archive. Send us the reference and we add it to that method's page, so each method gathers a living list of the published work that has put it into practice.</p>
+        <ul class="include">
+          <li><span class="lab">The method</span>: which cataloged method the paper used.</li>
+          <li><span class="lab">The citation</span>: authors, title, venue, and year of the published, peer-reviewed paper.</li>
+          <li><span class="lab">A link</span>: a DOI or stable URL to the paper.</li>
+        </ul>
+        <a class="btn" href="mailto:wangzezhong2016@gmail.com?subject=Visual%20Methods%3A%20Reference%20submission&amp;body=Method%20in%20the%20archive%3A%0AFull%20citation%3A%0ADOI%20or%20link%3A%0A">Submit other research using an existing method from the archive →</a>
+      </div>
+    </article>
+
+  </section>
+
+  <p class="note">Not sure which path fits? Send what you have to <a href="mailto:wangzezhong2016@gmail.com">the editors</a> and we will help place it. Every submission is reviewed before it joins the archive.</p>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3>An archive,<br><em>always growing.</em></h3>
+      <p>Visual Methods is maintained by a community of researchers, designers, and educators who believe the visual is not just a vehicle for findings but a way of thinking.</p>
+    </div>
+    <div class="col">
+      <h4>Project</h4>
+      <a href="about.html#project">About</a>
+      <a href="about.html#editors">Editors</a>
+      <a href="events.html#publications">Publications</a>
+      <a href="submit.html">Submit</a>
+    </div>
+    <div class="col">
+      <h4>Follow</h4>
+      <a href="#" aria-disabled="true">Newsletter</a>
+      <a href="#" aria-disabled="true">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Visual Methods 2026 · Open archive</span>
+  </div>
+</footer>
+
+</body>
+</html>

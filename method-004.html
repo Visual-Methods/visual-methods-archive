@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>N° 004 · Reverse wireframing · Visual Methods</title>
+<meta name="description" content="Reverse wireframing: a comparative visual analysis method that decomposes the graphical user interfaces of a set of tools into block-level wireframes, codes them, and assembles them into a mosaic to read layout patterns across the whole corpus.">
+<meta name="theme-color" content="#e8e6df">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reverse wireframing · N° 004 · Visual Methods">
+<meta property="og:description" content="A method in the Visual Methods archive: comparative visual analysis of interface layouts through reverse wireframing and mosaic comparison.">
+<meta property="og:url" content="https://visualmethods.github.io/method-004.html">
+<meta property="og:image" content="https://visualmethods.github.io/method-004/mosaic.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='16' cy='10' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%232e7290' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%232e7290' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='u' cx='10' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ac5832' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ac5832' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='22' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236e3c70' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%236e3c70' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='10' r='9' fill='url(%23g)'/%3E%3Ccircle cx='10' cy='21' r='9' fill='url(%23u)'/%3E%3Ccircle cx='22' cy='21' r='9' fill='url(%23c)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f1ef;
+    --bg-card:#faf9f6;
+    --ink:#15151a;
+    --ink-soft:#5e5c54;
+    --line:#c7c2b7;
+    --accent:#2a3e6e;
+    --accent-bright:#7e9ad0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    color:var(--ink);font-family:'Inter',-apple-system,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55;position:relative;min-height:100%;
+    --layer-g:none; --layer-u:none; --layer-c:none;
+    background-color:var(--bg);
+    background-image:var(--layer-g), var(--layer-u), var(--layer-c);
+    background-attachment:fixed;
+  }
+  body.has-g{ --layer-g: radial-gradient(ellipse 90% 78% at 15% 18%, rgba(42,90,110,0.20), transparent 60%); }
+  body.has-u{ --layer-u: radial-gradient(ellipse 84% 74% at 88% 32%, rgba(168,90,50,0.18), transparent 60%); }
+  body.has-c{ --layer-c: radial-gradient(ellipse 92% 72% at 50% 100%, rgba(94,58,94,0.18), transparent 60%); }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:0.45;mix-blend-mode:multiply;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 32px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18px;letter-spacing:-0.012em;font-variation-settings:"opsz" 36}
+  .logo .num{font-family:'Inter',sans-serif;font-weight:500;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px}
+  .nav-links{display:flex;gap:28px;font-size:13px;color:var(--ink-soft)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{font-size:12px;border:1px solid var(--ink);padding:8px 14px;border-radius:2px;font-weight:500;transition:all .2s}
+  .nav-cta:hover{background:var(--ink);color:var(--bg)}
+
+  /* HEADER */
+  .header{max-width:1400px;margin:0 auto;padding:40px 32px 56px;display:grid;grid-template-columns:1.5fr 1fr;gap:80px;border-bottom:1px solid var(--line);align-items:end}
+  .header-eyebrow{display:flex;align-items:baseline;gap:14px;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);grid-column:1 / -1;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .header-eyebrow .dash{opacity:.6;margin-right:4px}
+  .header-eyebrow .right{margin-left:auto}
+  .header-eyebrow .num{color:var(--ink);font-weight:500}
+
+  .pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px}
+  .pill{display:inline-flex;align-items:center;padding:5px 10px;border:1px solid var(--line);border-radius:2px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink);background:transparent}
+  .pill.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+  h1.title{font-family:'Newsreader',Georgia,serif;font-size:clamp(44px,6.0vw,88px);line-height:0.98;letter-spacing:-0.024em;font-weight:400;font-variation-settings:"opsz" 72;margin:0;color:var(--ink)}
+
+  .lede{font-family:'Newsreader',Georgia,serif;font-size:22px;line-height:1.4;color:var(--ink);max-width:520px;letter-spacing:-0.008em;font-variation-settings:"opsz" 36;margin-bottom:32px;font-weight:400}
+  /* Editor byline under the title */
+  .byline{display:flex;align-items:center;gap:12px;margin-top:22px}
+  .byline .by-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft)}
+  .byline .avatars{display:flex}
+  .byline .avatar{width:28px;height:28px;border-radius:50%;background:#efece2;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Newsreader',Georgia,serif;font-size:11px;font-weight:500;color:var(--ink-soft);margin-left:-8px;box-shadow:0 0 0 2px var(--bg);overflow:hidden}
+  .byline .avatar:first-child{margin-left:0}
+  .byline .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .meta-card{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;align-self:start}
+  .meta-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);gap:18px}
+  .meta-row:last-child{border:none}
+  .meta-row .k{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft);flex-shrink:0}
+  .meta-row .v{font-size:13px;font-weight:500;text-align:right;color:var(--ink)}
+
+  /* HERO IMAGE */
+  .hero-img{max-width:1400px;margin:36px auto;padding:0 32px}
+  .hero-img-inner{border-radius:2px;overflow:hidden;aspect-ratio:16/9;background:#efece2;border:1px solid var(--line);padding:24px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative;transition:border-color .2s ease}
+  .hero-img-inner:hover{border-color:var(--ink)}
+  .hero-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;mix-blend-mode:multiply;display:block}
+  .caption{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft);margin-top:12px;padding:0 2px;display:flex;justify-content:space-between;gap:24px}
+
+  /* BODY */
+  .body{max-width:1400px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:200px 1fr;gap:80px}
+  aside.toc{position:sticky;top:80px;align-self:start;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-soft);display:flex;flex-direction:column;gap:8px}
+  aside.toc h5{color:var(--ink);font-weight:500;margin-bottom:8px;letter-spacing:0.14em;font-size:10px}
+  aside.toc a{padding:3px 0;display:flex;align-items:baseline;gap:8px;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+  aside.toc a:hover{color:var(--ink)}
+  aside.toc .sec-num{color:var(--ink-soft);font-weight:500;opacity:.7}
+  aside.toc a:hover .sec-num{color:var(--ink);opacity:1}
+
+  article{max-width:760px}
+  article h2{font-family:'Newsreader',Georgia,serif;font-size:38px;line-height:1.08;letter-spacing:-0.022em;font-weight:400;margin:56px 0 18px;font-variation-settings:"opsz" 72;display:flex;align-items:baseline;gap:22px;color:var(--ink)}
+  article h2:first-child{margin-top:0}
+  article h2 .sec-num{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;flex-shrink:0}
+  article p{font-size:16px;line-height:1.7;color:var(--ink);margin-bottom:18px;max-width:640px}
+  article p strong{font-weight:600}
+  article p em{font-style:italic}
+  article .drop::first-letter{font-family:'Newsreader',Georgia,serif;font-size:80px;line-height:0.85;float:left;padding:6px 14px 0 0;color:var(--accent);font-style:italic;font-variation-settings:"opsz" 72;font-weight:400}
+
+  /* STEPS */
+  .steps{margin:28px 0 36px;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+  .step{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:56px 1fr;gap:32px;align-items:start}
+  .step-num{width:36px;height:36px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:500;font-size:14px;color:var(--ink);flex-shrink:0;font-variant-numeric:tabular-nums;margin-top:2px}
+  .step h4{font-family:'Newsreader',Georgia,serif;font-size:22px;font-weight:400;letter-spacing:-0.018em;margin-bottom:6px;font-variation-settings:"opsz" 36;color:var(--ink)}
+  .step p{font-size:15px;color:var(--ink-soft);max-width:560px;margin:0;line-height:1.6}
+  .step-img{aspect-ratio:4/3;overflow:hidden;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:8px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative;transition:border-color .2s ease, transform .2s ease}
+  .step-img:hover, .hero-img-inner:hover{border-color:var(--ink)}
+  .step-img:hover::after, .hero-img-inner:hover::after{opacity:1}
+  .step-img::after, .hero-img-inner::after{content:"⤢";position:absolute;top:10px;right:12px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;transition:opacity .2s ease;font-family:'Inter',sans-serif;line-height:1;pointer-events:none}
+  .step-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .step-fig{margin:18px 0 2px;max-width:460px}
+  .step-fig .step-img{aspect-ratio:auto;padding:12px}
+  .step-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+  .step-fig figcaption a{color:var(--accent);text-underline-offset:2px}
+
+  /* Lightbox */
+  .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(21,21,26,0.88);display:flex;align-items:center;justify-content:center;padding:48px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(4px)}
+  .lightbox.open{opacity:1;pointer-events:auto}
+  .lightbox-inner{max-width:min(1200px,95vw);max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:14px;transform:scale(0.97);transition:transform .25s ease}
+  .lightbox.open .lightbox-inner{transform:scale(1)}
+  .lightbox img{max-width:100%;max-height:80vh;width:auto;height:auto;object-fit:contain;background:#efece2;padding:18px;border:1px solid #c7c2b7;box-shadow:0 30px 90px rgba(0,0,0,0.4)}
+  .lightbox-caption{color:#e8e6df;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:0.01em;text-align:center;max-width:680px;line-height:1.5;font-weight:300}
+  .lightbox-close{position:absolute;top:20px;right:24px;width:36px;height:36px;border:1px solid rgba(232,230,223,0.4);border-radius:50%;background:transparent;color:#e8e6df;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s ease, border-color .2s ease}
+  .lightbox-close:hover{background:rgba(232,230,223,0.1);border-color:#e8e6df}
+  body.lightbox-open{overflow:hidden}
+  .img-credit{font-size:12px;color:var(--ink-soft);margin:14px 0 28px;line-height:1.5;font-style:normal;letter-spacing:0.005em;max-width:680px}
+  .img-credit a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:0.5px}
+  .img-credit a:hover{color:var(--accent)}
+
+  /* RELATED */
+  .related{max-width:1400px;margin:64px auto 80px;padding:0 32px}
+  .related-head{display:flex;justify-content:space-between;align-items:end;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:28px}
+  .related-head h3{font-family:'Newsreader',Georgia,serif;font-size:38px;font-weight:400;letter-spacing:-0.022em;font-variation-settings:"opsz" 72;line-height:1}
+  .related-head .meta{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft)}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  /* Cards match the homepage gallery exactly: cover image + serif title + category dots */
+  .related-grid .card{background:var(--bg-card);border-radius:2px;overflow:hidden;position:relative;cursor:pointer;transition:border-color .25s,background .25s;display:flex;flex-direction:column;border:1px solid var(--line)}
+  .related-grid .card:hover{border-color:var(--ink)}
+  .related-grid .card-img{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#efece2;isolation:isolate}
+  .related-grid .card-img > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .related-grid .card-img .card-img-filtered{filter:saturate(.78) sepia(.1) contrast(.96) brightness(1.02)}
+  .related-grid .card-img .card-img-original{z-index:4;filter:none;pointer-events:none;clip-path:inset(100% 0 0 0);transition:clip-path .58s cubic-bezier(.22,.61,.36,1);will-change:clip-path}
+  .related-grid .card:hover .card-img-original{clip-path:inset(0 0 0 0)}
+  .related-grid .card-img::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 18% 26%, rgba(46,114,144,.26), transparent 42%),radial-gradient(circle at 78% 22%, rgba(172,88,50,.18), transparent 48%),radial-gradient(circle at 62% 86%, rgba(110,60,112,.20), transparent 48%);mix-blend-mode:overlay;opacity:.44}
+  .related-grid .card-img::after{content:"";position:absolute;inset:-18%;z-index:3;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0.42 0 0 0 0.42  0 0.42 0 0 0.42  0 0 0.42 0 0.42  0 0 0 0.72 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");opacity:.38;mix-blend-mode:overlay}
+  .related-grid .card-body{padding:16px 18px 18px;background:var(--bg-card);flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
+  .related-grid .card-title{font-family:'Newsreader',Georgia,serif;font-size:24px;line-height:1.1;letter-spacing:-0.022em;font-weight:400;font-variation-settings:"opsz" 72;color:var(--ink)}
+  .related-grid .card-meta{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .related-grid .card-meta .cat{display:inline-flex;align-items:center;gap:6px}
+  .related-grid .card-meta .cdot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:var(--bg);padding:80px 32px 32px;margin-top:80px}
+  .footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;padding-bottom:48px;border-bottom:1px solid rgba(232,230,222,.14)}
+  footer h3{font-family:'Newsreader',Georgia,serif;font-size:54px;line-height:1.05;letter-spacing:-0.024em;font-weight:400;font-variation-settings:"opsz" 72;color:var(--bg)}
+  footer .next{text-align:right;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:rgba(232,230,222,.5)}
+  footer .next a{display:inline-block;color:var(--bg);font-family:'Newsreader',Georgia,serif;font-size:22px;letter-spacing:-0.014em;text-transform:none;margin-top:6px;font-variation-settings:"opsz" 36;font-weight:400;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .15s,color .15s}
+  footer .next a:hover{color:var(--accent-bright);border-bottom-color:var(--accent-bright)}
+  .footer-bottom{max-width:1400px;margin:24px auto 0;display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:rgba(232,230,222,.5);letter-spacing:.08em;text-transform:uppercase}
+
+  /* RESPONSIVE */
+  @media (max-width:960px){
+    .header,.body{grid-template-columns:1fr;gap:36px}
+    aside.toc{position:static}
+    .related-grid{grid-template-columns:1fr}
+    .footer-inner{grid-template-columns:1fr;gap:24px}
+    footer .next{text-align:left}
+    .step{grid-template-columns:56px 1fr;gap:24px}
+    .step-img{grid-column:1 / -1;aspect-ratio:16/9;max-width:480px;margin-top:6px}
+  }
+  @media (max-width:560px){
+    nav{padding:12px 18px}
+    .nav-links{display:none}
+    .header,.body,.related,.hero-img{padding-left:18px;padding-right:18px}
+    .step{grid-template-columns:1fr;gap:8px}
+    .step-img{grid-column:auto}
+    .meta-row{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
+    .meta-row .v{text-align:left}
+    article h2{gap:14px}
+  }
+  /* Cite-this-paper box (in §04) */
+  .cite-box{margin:24px 0 4px;padding:20px 22px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 2px 2px 0;background:var(--bg-card)}
+  .cite-box .cite-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .cite-box .cite-ref{font-size:14.5px;line-height:1.6;color:var(--ink);margin-bottom:14px;max-width:760px}
+  .cite-box .cite-ref em{font-style:italic}
+  .cite-box .cite-ref a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
+  .cite-box .cite-ref a:hover{border-color:var(--accent)}
+  .cite-box .cite-btn{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.02em;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:7px 14px;border-radius:2px;cursor:pointer;transition:all .2s}
+  .cite-box .cite-btn:hover{background:var(--ink);color:var(--bg)}
+  .cite-box .cite-btn.copied{background:var(--accent);border-color:var(--accent);color:#fff}
+  .cite-box .cite-fignote{font-size:11.5px;line-height:1.55;color:var(--ink-soft);margin-top:14px}
+  .cite-box .cite-fignote a{color:var(--accent)}
+  .cite-box .bibtex-src{display:none}
+  .section-submit{display:inline-flex;align-items:center;margin-top:16px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.02em;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:7px 14px;border-radius:2px;transition:all .2s}
+  .section-submit:hover{background:var(--ink);color:var(--bg)}
+</style>
+</head>
+<body class="has-u has-c">
+
+<nav>
+  <a href="index.html" class="logo">Visual Methods</a>
+  <div class="nav-links">
+    <a href="index.html#archive">Archive</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events &amp; Publications</a>
+  </div>
+  <a href="submit.html" class="nav-cta">Submit a method →</a>
+</nav>
+
+<!-- HEADER -->
+<section class="header">
+  <div class="header-eyebrow">
+    <span>Method <span class="num">N° 004</span> · Published 2024 · Cataloged 2026</span>
+    <span class="right">Family · Diagramming</span>
+  </div>
+
+  <div>
+    <h1 class="title">Reverse<br>wireframing.</h1>
+    <div class="byline">
+      <span class="by-label">Edited by</span>
+      <span class="avatars">
+        <span class="avatar" title="Sheelagh Carpendale" aria-label="Sheelagh Carpendale"><img src="about/sheelagh-carpendale.png" alt=""></span>
+        <span class="avatar" title="Samuel Huron" aria-label="Samuel Huron"><img src="about/samuel-huron.png" alt=""></span>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div class="meta-card">
+      <div class="meta-row"><span class="k">Form</span><span class="v">Diagramming</span></div>
+      <div class="meta-row"><span class="k">Purpose</span><span class="v">Understanding · Communicating</span></div>
+      <div class="meta-row"><span class="k">Material and tool</span><span class="v">Screenshots · An interface-design tool · Spreadsheet</span></div>
+      <div class="meta-row"><span class="k">Skill</span><span class="v">Graphic and web design literacy (Researchers)</span></div>
+      <div class="meta-row"><span class="k">Time</span><span class="v">Weeks per corpus · multi-coder</span></div>
+      <div class="meta-row"><span class="k">Setting</span><span class="v">Desk-based, collaborative coding sessions</span></div>
+      <div class="meta-row"><span class="k">Output</span><span class="v">Reverse wireframes + visual codebook + mosaic</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HERO IMAGE -->
+<section class="hero-img">
+  <div class="hero-img-inner">
+    <img src="method-004/mosaic.png" alt="A mosaic of abstract wireframes for twenty-five online debate platforms, each shown as a stack of colored blocks: yellow for the topic block, green for submit, blue for display, and gray for other components, with a dotted line marking the fold">
+  </div>
+  <div class="caption"><span>Fig. 1 · The mosaic of abstract wireframes for all 25 debate platforms analyzed, colored by interface block (Frappier, Bressa &amp; Huron, 2024)</span><span>↓ Read on</span></div>
+</section>
+
+<!-- BODY -->
+<section class="body">
+  <aside class="toc">
+    <h5>Contents</h5>
+    <a href="#what"><span class="sec-num">§ 01</span><span>What it is</span></a>
+    <a href="#why"><span class="sec-num">§ 02</span><span>Why use it</span></a>
+    <a href="#how"><span class="sec-num">§ 03</span><span>How to do it</span></a>
+    <a href="#example"><span class="sec-num">§ 04</span><span>In practice</span></a>
+    <a href="#variations"><span class="sec-num">§ 05</span><span>Variations</span></a>
+    <a href="#further"><span class="sec-num">§ 06</span><span>Research also applied this method</span></a>
+  </aside>
+
+  <article>
+    <h2 id="what"><span class="sec-num">§ 01</span><span>What it is.</span></h2>
+    <p class="drop"><strong>Reverse wireframing</strong> is a method for systematically analyzing the graphical user interfaces of a set of existing tools as visual artifacts. You collect screenshots, draw reverse wireframes on top of them to expose each layout's block hierarchy, code the blocks, abstract them into comparable diagrams, and assemble those into a mosaic so that patterns can be read across the whole set at once. In the source study the corpus was 25 online debate platforms.</p>
+
+    <h2 id="why"><span class="sec-num">§ 02</span><span>Why use it.</span></h2>
+    <p>A graphical user interface carries visible evidence of how a tool structures activity: its information hierarchy, its visual patterns, and the norms it quietly embeds. Studying interfaces as visual artifacts, rather than only their content or their usage, reveals how design frames a practice. A side-by-side visual comparison surfaces the shared conventions and the meaningful differences across a whole class of tools, which you cannot see by looking at any one of them in isolation.</p>
+
+    <h2 id="how"><span class="sec-num">§ 03</span><span>How to do it.</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Frame the question and scope the corpus.</h4>
+          <p>Start from your research questions and decide the class of interface you want to compare. This scoping is what defines the corpus: which tools belong in it and which do not. In the source study the scope was online debate platforms, found by screening civic-technology directories.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Collect the interfaces.</h4>
+          <p>Gather the set of tools that fit the scope, then capture a screenshot of the key page of each one, one per distinct interface. Fix the conditions so the set stays comparable: the source study used the desktop version of each platform's debate page.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-004/fig1-screenshots.png" style="mix-blend-mode:normal" alt="Screenshots of four analyzed debate platform interfaces: Purpoz, Allyus, DebateArt, and Kialo" loading="lazy"></div>
+            <figcaption>Collecting comparable screenshots from the scoped set of tools.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Classify the corpus.</h4>
+          <p>Read each tool's homepage and "about" text, extract those descriptions, and classify the tools by type and claimed purpose, so you understand what the set contains before analyzing its layouts.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Redraw a detailed reverse wireframe.</h4>
+          <p>On top of each screenshot, draw a wireframe that captures every structural element: blocks, buttons, titles, text areas, input fields, and diagrams. This exposes the hierarchy of interface blocks underneath the surface styling.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h4>Code the blocks.</h4>
+          <p>Divide each wireframe into blocks (coherent visual and interactive units), give each an identifier, and record them in a spreadsheet. Define the coding collaboratively on a few examples until coders agree, then code the whole corpus and review it together.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-004/fig5-blocks.png" style="mix-blend-mode:normal" alt="Examples of the three coded interface blocks on real interfaces: a Topic block, a Submit block, and a Display block" loading="lazy"></div>
+            <figcaption>Linking wireframe components to a shared coding grid.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div>
+          <h4>Diagram, abstracting to common blocks.</h4>
+          <p>Reduce each detailed wireframe to only the common main blocks identified in coding, assigning a consistent color to each block type. The result is a set of clean, comparable abstract wireframes.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-004/abstract-tile.png" alt="One interface reduced to an abstract wireframe of stacked colored blocks: a thin yellow topic, a green submit, and a blue display block" loading="lazy"></div>
+            <figcaption>Reducing detailed wireframes to comparable abstract block diagrams.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div>
+          <h4>Assemble a mosaic.</h4>
+          <p>Lay all the abstract wireframes together in one grid, so the entire corpus is visible and comparable at a glance. The mosaic is the artifact that makes cross-corpus patterns legible.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-004/fig6-mosaic-blocks.png" alt="A mosaic of all 25 abstract wireframes showing the main common blocks, with black stripes marking stance mechanisms" loading="lazy"></div>
+            <figcaption>Arranging every abstract wireframe into one comparable mosaic.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">8</div>
+        <div>
+          <h4>Analyze the mosaic.</h4>
+          <p>In collaborative sessions, read the mosaic against the original screenshots, which still hold the semantic detail. Compare block compositions and hierarchies to identify the design patterns, similarities, and differences across the set.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-004/fig7-hierarchies.png" alt="The three block hierarchies found across the interfaces, each a stack of Topic, Submit, and Display blocks in a different order" loading="lazy"></div>
+            <figcaption>Reading repeated block positions and differences across the full mosaic.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
+    <p>The source study assembled 25 online debate platforms from civic-technology directories. Three HCI researchers, two of them graphic and web designers, worked through these phases over several years, leaning on Gestalt principles and grid systems to read the layouts. The mosaic of abstract wireframes (shown in Fig. 1) is the method's signature output: a single view in which all 25 interfaces can be compared block by block.</p>
+    <p>Reading across that mosaic, the researchers found a strong similarity among the platforms and a shared emphasis on individual input, and used the differences that remained to discuss how layout frames the very practice of debate. The point of the method is exactly this: turning a scattered set of interfaces into one comparable visual field where structural patterns become arguable evidence.</p>
+
+    <div class="cite-box">
+      <div class="cite-label">Cite this paper</div>
+      <p class="cite-ref">Frappier, T., Bressa, N. &amp; Huron, S. (2024) &lsquo;Jumping to conclusions: a visual comparative analysis of online debate platform layouts&rsquo;. <em>Proceedings of the 2024 Nordic Conference on Human-Computer Interaction</em> (NordiCHI &rsquo;24). <a href="https://doi.org/10.1145/3679318.3685377" target="_blank" rel="noopener">doi.org/10.1145/3679318.3685377</a></p>
+      <button class="cite-btn" type="button">Copy BibTeX</button>
+      <pre class="bibtex-src">@inproceedings{Frappier_2024, series={NordiCHI 2024}, title={Jumping to Conclusions: A Visual Comparative Analysis of Online Debate Platform Layouts}, url={http://dx.doi.org/10.1145/3679318.3685377}, DOI={10.1145/3679318.3685377}, booktitle={Nordic Conference on Human-Computer Interaction}, publisher={ACM}, author={Frappier, Tallullah and Bressa, Nathalie and Huron, Samuel}, year={2024}, month=Oct, pages={1–15}, collection={NordiCHI 2024} }</pre>
+      <p class="cite-fignote">Screenshots, wireframes, and mosaics on this page are reused under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> license. Source and materials: <a href="https://hal.science/hal-04784834v1" target="_blank" rel="noopener">hal-04784834</a>, <a href="https://osf.io/ywbzp/" target="_blank" rel="noopener">osf.io/ywbzp</a>.</p>
+    </div>
+
+    <h2 id="variations"><span class="sec-num">§ 05</span><span>Ways to adapt it.</span></h2>
+    <p>Apply it to any class of tools, not just debate platforms. Compare mobile against desktop layouts, or capture whole interaction flows and states rather than a single landing page. Vary the abstraction level of the wireframes depending on whether the question is about fine structure or high-level layout, and choose the block palette to foreground the dimension you care most about.</p>
+    <a class="section-submit" href="submit.html#variation">Submit way(s) to adapt it →</a>
+
+    <h2 id="further"><span class="sec-num">§ 06</span><span>Other research using this method.</span></h2>
+    <p>To be added.</p>
+    <a class="section-submit" href="submit.html#reference">Submit other research using this method →</a>
+  </article>
+</section>
+
+<!-- RELATED -->
+<section class="related">
+  <div class="related-head">
+    <h3>Adjacent methods</h3>
+    <span class="meta">More in the archive</span>
+  </div>
+  <div class="related-grid">
+    <a class="card" href="method-005.html">
+      <div class="card-img">
+        <img class="card-img-filtered" src="method-005/cover.png" alt="A design space derived by coding a corpus of examples" loading="lazy">
+        <img class="card-img-original" src="method-005/cover.png" alt="" aria-hidden="true" decoding="async">
+      </div>
+      <div class="card-body">
+        <div class="card-title">Coding for design patterns</div>
+        <div class="card-meta">
+          <span class="cat"><span class="cdot" style="background:#ac5832"></span>Understanding</span>
+          <span class="cat"><span class="cdot" style="background:#6e3c70"></span>Communicating</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="method-003.html">
+      <div class="card-img">
+        <img class="card-img-filtered" src="method-003/personalDataPhy-cover.png" alt="A personal data physicalization: colored beads pinned to a map with handwritten place labels" loading="lazy">
+        <img class="card-img-original" src="method-003/personalDataPhy-cover.png" alt="" aria-hidden="true" decoding="async">
+      </div>
+      <div class="card-body">
+        <div class="card-title">Personal physicalization construction</div>
+        <div class="card-meta">
+          <span class="cat"><span class="cdot" style="background:#2e7290"></span>Gathering</span>
+          <span class="cat"><span class="cdot" style="background:#ac5832"></span>Understanding</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="method-006.html">
+      <div class="card-img">
+        <img class="card-img-filtered" src="method-006/cover.png" alt="Reader viewing-path traces drawn over a visual story" loading="lazy">
+        <img class="card-img-original" src="method-006/cover.png" alt="" aria-hidden="true" decoding="async">
+      </div>
+      <div class="card-body">
+        <div class="card-title">Reader-drawn viewing paths</div>
+        <div class="card-meta">
+          <span class="cat"><span class="cdot" style="background:#2e7290"></span>Gathering</span>
+          <span class="cat"><span class="cdot" style="background:#ac5832"></span>Understanding</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3>Next:<br>Coding for design patterns.</h3>
+    </div>
+    <div class="next">
+      N° 005 →
+      <a href="method-005.html">Continue the archive</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Visual Methods 2026 · Open archive</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+  <div class="lightbox-inner">
+    <img id="lightboxImg" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const box = document.getElementById('lightbox');
+  const boxImg = document.getElementById('lightboxImg');
+  const boxCap = document.getElementById('lightboxCaption');
+  const boxClose = document.getElementById('lightboxClose');
+  function open(src, alt){
+    boxImg.src = src;
+    boxImg.alt = alt || '';
+    boxCap.textContent = alt || '';
+    box.classList.add('open');
+    box.setAttribute('aria-hidden','false');
+    document.body.classList.add('lightbox-open');
+  }
+  function close(){
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden','true');
+    document.body.classList.remove('lightbox-open');
+    setTimeout(()=>{ if(!box.classList.contains('open')) boxImg.removeAttribute('src'); }, 260);
+  }
+  document.querySelectorAll('.hero-img-inner, .step-img').forEach(div => {
+    const img = div.querySelector('img');
+    if(!img) return;
+    div.setAttribute('role','button');
+    div.setAttribute('tabindex','0');
+    div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
+    div.addEventListener('click', () => open(img.src, img.alt));
+    div.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt); }
+    });
+  });
+  box.addEventListener('click', e => { if(e.target === box) close(); });
+  boxClose.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && box.classList.contains('open')) close();
+  });
+})();
+</script>
+
+<script>
+  document.querySelectorAll('.cite-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var src=btn.parentNode.querySelector('.bibtex-src'); if(!src) return;
+      navigator.clipboard.writeText(src.textContent.trim()).then(function(){
+        var old=btn.textContent; btn.textContent='Copied'; btn.classList.add('copied');
+        setTimeout(function(){btn.textContent=old; btn.classList.remove('copied');},1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>
