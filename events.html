@@ -76,11 +76,15 @@
   .pub .authors{font-size:13px;color:var(--ink);margin-bottom:4px}
   .pub .venue{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
   .pub .desc{font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:620px;margin-bottom:14px}
-  .pub .links{display:flex;gap:16px;font-size:12px;font-weight:500}
+  .pub .links{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:12px;font-weight:500}
   .pub .links a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
   .pub .links a:hover{border-color:var(--accent)}
   .pub .links a[aria-disabled="true"]{color:var(--ink-soft);cursor:not-allowed}
   .pub .links a[aria-disabled="true"]:hover{border-color:transparent}
+  .pub .links .cite-btn{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--accent);background:none;border:none;border-bottom:1px solid transparent;padding:0;cursor:pointer;transition:border-color .2s;line-height:inherit}
+  .pub .links .cite-btn:hover{border-bottom-color:var(--accent)}
+  .pub .links .cite-btn.copied{color:var(--ink-soft)}
+  .pub .links .bibtex-src{display:none}
 
   /* EVENTS */
   .ev-sub{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);margin:26px 0 16px}
@@ -186,7 +190,13 @@
       desc:'A workshop that brought the community together to share and develop methods for analyzing visual data: sketches, photographs, diagrams, and images of physical artifacts in HCI and information visualization. The conversations there helped seed this archive.',
       links:[
         {label:'PDF', href:'pdfs/ISS_Visual_Methods.pdf'}
-      ]
+      ],
+      bibtex:`@inproceedings{Wang2024Summary,
+  author = {Wang, Zezhong and Huron, Samuel and Sturdee, Miriam and Carpendale, Sheelagh},
+  title = {Summary of the Workshop on Visual Methods and Analyzing Visual Data in Human Computer Interaction},
+  year = {2024},
+  booktitle = {Companion Proceedings of the 2024 Conference on Interactive Surfaces and Spaces}
+}`
     }
   ];
 
@@ -197,8 +207,9 @@
   function renderPubs(){
     document.getElementById('pubsMount').innerHTML = PUBLICATIONS.map(p=>{
       const venue = p.venue ? `<div class="venue">${p.venue}</div>` : '';
-      const links = (p.links&&p.links.length)
-        ? `<div class="links">${p.links.map(l=>`<a href="${l.href}">${l.label} →</a>`).join('')}</div>` : '';
+      const linkparts = (p.links||[]).map(l=>`<a href="${l.href}">${l.label}</a>`).join('');
+      const bibBtn = p.bibtex ? `<button class="cite-btn" type="button">Copy BibTeX</button><pre class="bibtex-src">${p.bibtex}</pre>` : '';
+      const links = (linkparts||bibBtn) ? `<div class="links">${linkparts}${bibBtn}</div>` : '';
       return `<article class="pub">
         <div class="side"><span class="ptype">${p.type}</span><span class="yr">${p.year}</span></div>
         <div class="body">
@@ -235,6 +246,16 @@
 
   renderPubs();
   renderUpcoming();
+
+  // Copy BibTeX (delegated, works for dynamically rendered buttons)
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('.cite-btn'); if(!btn) return;
+    const pre = btn.parentNode.querySelector('.bibtex-src'); if(!pre) return;
+    navigator.clipboard.writeText(pre.textContent.trim()).then(function(){
+      const old = btn.textContent; btn.textContent = 'Copied'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 1600);
+    });
+  });
 </script>
 </body>
 </html>

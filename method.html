@@ -75,12 +75,17 @@
 
   .lede{font-family:'Newsreader',Georgia,serif;font-size:22px;line-height:1.4;color:var(--ink);max-width:520px;letter-spacing:-0.008em;font-variation-settings:"opsz" 36;margin-bottom:32px;font-weight:400}
   /* Editor byline under the title */
-  .byline{display:flex;align-items:center;gap:12px;margin-top:22px}
+  .byline{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+  .byline-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .byline .authors{font-family:'Inter',sans-serif;font-size:12.5px;color:var(--ink);line-height:1.45}
   .byline .by-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft)}
   .byline .avatars{display:flex}
-  .byline .avatar{width:28px;height:28px;border-radius:50%;background:#efece2;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Newsreader',Georgia,serif;font-size:11px;font-weight:500;color:var(--ink-soft);margin-left:-8px;box-shadow:0 0 0 2px var(--bg);overflow:hidden}
+  .byline .avatar{width:28px;height:28px;border-radius:50%;background:#efece2;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Newsreader',Georgia,serif;font-size:11px;font-weight:500;color:var(--ink-soft);margin-left:-8px;box-shadow:0 0 0 2px var(--bg);overflow:visible;position:relative}
   .byline .avatar:first-child{margin-left:0}
-  .byline .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .byline .avatar img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+  .byline .avatar::after{content:attr(aria-label);position:absolute;bottom:calc(100% + 9px);left:50%;transform:translateX(-50%) translateY(4px);background:var(--ink);color:var(--bg);font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0;text-transform:none;white-space:nowrap;padding:5px 9px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;z-index:5}
+  .byline .avatar:hover{z-index:6}
+  .byline .avatar:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
   .meta-card{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;padding:22px 24px;display:flex;flex-direction:column;align-self:start}
   .meta-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);gap:18px}
   .meta-row:last-child{border:none}
@@ -241,18 +246,25 @@
 <!-- HEADER -->
 <section class="header">
   <div class="header-eyebrow">
-    <span>Method <span class="num">N° 001</span> · Published 2015 · Cataloged 2026</span>
-    <span class="right">Family · Sketching</span>
+    <span>Published 2015 · Cataloged 2026</span>
+    <span class="right">Method <span class="num">N° 001</span></span>
   </div>
 
   <div>
     <h1 class="title">Data<br>sketching.</h1>
     <div class="byline">
-      <span class="by-label">Edited by</span>
-      <span class="avatars">
-        <span class="avatar" title="Sheelagh Carpendale" aria-label="Sheelagh Carpendale"><img src="about/sheelagh-carpendale.png" alt=""></span>
-        <span class="avatar" title="Samuel Huron" aria-label="Samuel Huron"><img src="about/samuel-huron.png" alt=""></span>
+      <div class="byline-row">
+        <span class="by-label">Research by</span>
+        <span class="authors">Jagoda Walny, Samuel Huron, Sheelagh Carpendale</span>
+      </div>
+      <div class="byline-row">
+        <span class="by-label">Submitted to this Visual Methods website by</span>
+        <span class="avatars">
+        <span class="avatar" aria-label="Zezhong Wang"><img src="about/zezhong-wang.jpg" alt="" style="object-position:center 38%"></span>
+        <span class="avatar" aria-label="Sheelagh Carpendale"><img src="about/sheelagh-carpendale.png" alt=""></span>
+        <span class="avatar" aria-label="Samuel Huron"><img src="about/samuel-huron.png" alt=""></span>
       </span>
+      </div>
     </div>
   </div>
   <div>

@@ -93,6 +93,9 @@
      On narrower viewports (≤960px) the grid stacks, and the responsive block
      below caps the Venn back to a reasonable mobile size. */
   .venn-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:580px;position:relative;margin:0 auto}
+  /* Hover tooltip for the three Venn category labels */
+  .venn-tip{position:absolute;z-index:20;background:var(--ink);color:var(--bg);font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.01em;text-transform:none;padding:6px 10px;border-radius:3px;pointer-events:none;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .15s;left:0;top:0}
+  .venn-tip.show{opacity:1}
   svg.venn{width:100%;height:auto;display:block;position:relative}
   /* Venn clickable circles + the in-SVG "and other" group share one visual treatment */
   svg.venn .vc,
@@ -549,6 +552,7 @@
           <defs id="vclipdefs"></defs>
           <g id="intersect" pointer-events="none"></g>
         </svg>
+        <div class="venn-tip" id="vennTip" aria-hidden="true"></div>
       </div>
     </div>
 
@@ -738,6 +742,27 @@
   }
 
   // ── Boot order: data → DOM → wire up interactivity ───────────
+  // ── Hover explanations for the three Venn category labels ──────
+  (function(){
+    const TIPS = { g:'Eliciting and collecting visual data', u:'Analyzing and interpreting visual data', c:'Presenting visual data to others' };
+    const tip = document.getElementById('vennTip');
+    const wrap = document.querySelector('.venn-wrap');
+    if(tip && wrap){
+      document.querySelectorAll('svg.venn text.vlabel[data-cat]').forEach(function(el){
+        const cat = el.getAttribute('data-cat'); if(!TIPS[cat]) return;
+        el.style.pointerEvents = 'auto'; el.style.cursor = 'help';
+        el.addEventListener('mouseenter', function(){
+          tip.textContent = TIPS[cat];
+          const wr = wrap.getBoundingClientRect(), r = el.getBoundingClientRect();
+          tip.style.left = (r.left - wr.left + r.width/2) + 'px';
+          tip.style.top  = (r.top - wr.top - 8) + 'px';
+          tip.classList.add('show');
+        });
+        el.addEventListener('mouseleave', function(){ tip.classList.remove('show'); });
+      });
+    }
+  })();
+
   renderGallery();
   updateStats();
   sizeVennByCount();
