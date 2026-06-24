@@ -88,7 +88,6 @@
     font-variation-settings:"opsz" 20;
     display:flex;align-items:baseline;gap:12px;
   }
-  .forms-list li::before{content:"·";color:var(--ink-soft);opacity:0.55;flex-shrink:0}
   .forms-list li.and-more{opacity:0.55}
   /* Desktop (≥960px, two-column hero): bigger Venn to balance with the title.
      On narrower viewports (≤960px) the grid stacks, and the responsive block
@@ -167,11 +166,19 @@
   .sort .opt{padding:0 0 3px;cursor:pointer;color:var(--ink-soft);background:transparent;border:none;border-bottom:1px solid transparent;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;text-transform:inherit}
   .sort .opt:hover{color:var(--ink)}
   .sort .opt.active{color:var(--ink);border-bottom:1px solid var(--ink)}
-  .view{display:flex;gap:12px;align-items:baseline;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
+  .view{display:flex;gap:12px;align-items:center;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase}
   .view .lbl{color:var(--ink-soft);opacity:.7}
-  .view .vopt{padding:0 0 3px;cursor:pointer;color:var(--ink-soft);background:transparent;border:none;border-bottom:1px solid transparent;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;text-transform:inherit;display:inline-flex;align-items:center;gap:6px}
+  .view .vopt{width:28px;height:24px;padding:0;cursor:pointer;color:var(--ink-soft);background:transparent;border:none;border-bottom:1px solid transparent;display:inline-flex;align-items:center;justify-content:center}
   .view .vopt:hover{color:var(--ink)}
   .view .vopt.active{color:var(--ink);border-bottom:1px solid var(--ink)}
+  .view .vopt:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+  .view-icon{color:inherit}
+  .grid-icon{display:grid;gap:2px;align-content:center;justify-content:center}
+  .grid-icon.cols-3{grid-template-columns:repeat(3,4px)}
+  .grid-icon.cols-4{grid-template-columns:repeat(4,3px)}
+  .grid-icon span{width:100%;aspect-ratio:1;background:currentColor;opacity:.78}
+  .list-icon{display:flex;flex-direction:column;gap:3px;width:18px}
+  .list-icon span{height:2px;background:currentColor;opacity:.78}
 
   .controls{display:flex;align-items:baseline;gap:26px;flex-wrap:wrap;justify-self:end}
   .filter-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);background:transparent;border:none;border-bottom:1px solid transparent;cursor:pointer;padding:0 0 3px}
@@ -187,6 +194,10 @@
   .fchip.active{background:var(--ink);border-color:var(--ink);color:var(--bg)}
   @media(max-width:760px){.facet{grid-template-columns:1fr;gap:6px}}
   .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .bento.dense{grid-template-columns:repeat(4,1fr);gap:16px}
+  .bento.dense .card-body{padding:14px 14px 16px}
+  .bento.dense .card-title{font-size:21px}
+  .bento.dense .card-meta{gap:9px}
   .card{background:var(--bg-card);border-radius:2px;overflow:hidden;position:relative;cursor:pointer;transition:border-color .25s,background .25s;display:flex;flex-direction:column;border:1px solid var(--line)}
   .card.hidden{display:none}
   .card:hover{border-color:var(--ink)}
@@ -219,7 +230,7 @@
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0.42 0 0 0 0.42  0 0.42 0 0 0.42  0 0 0.42 0 0.42  0 0 0 0.72 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     opacity:.38;mix-blend-mode:overlay;
   }
-  /* List view — compact index rows; toggled via the Grid/List control */
+  /* List view — compact index rows; toggled via the view controls */
   .bento.list{display:block}
   .bento.list .card{display:grid;grid-template-columns:56px 1fr;gap:18px;align-items:center;border:none;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:13px 4px;overflow:visible}
   .bento.list .card:hover{background:var(--bg-card)}
@@ -270,7 +281,7 @@
     .venn-status{justify-self:start}
     .hero-eyebrow .right{margin-left:0;width:100%}
     .venn-wrap{max-width:520px}  /* when stacked under the title, smaller is fine */
-    .bento{grid-template-columns:repeat(2,1fr)}
+    .bento,.bento.dense{grid-template-columns:repeat(2,1fr)}
     .footer-inner{grid-template-columns:1fr 1fr;gap:40px}
     .section-head{grid-template-columns:1fr;gap:14px}
   }
@@ -283,7 +294,7 @@
     .hero{padding:28px 18px 36px}
     .hero-eyebrow{margin-bottom:36px;font-size:10px}
     .grid-section{padding-left:18px;padding-right:18px}
-    .bento{grid-template-columns:1fr}
+    .bento,.bento.dense{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -566,15 +577,30 @@
     <div class="controls">
       <div class="sort">
         <span class="lbl">Sort</span>
-        <button class="opt active" data-sort="newest">Newest</button>
-        <button class="opt" data-sort="oldest">Oldest</button>
+        <button class="opt active" data-sort="newest">Newly added</button>
+        <button class="opt" data-sort="oldest">Earliest added</button>
         <button class="opt" data-sort="az">A — Z</button>
       </div>
       <button class="filter-btn" id="filterToggle" aria-expanded="false" aria-controls="labelBar">Filter</button>
       <div class="view" role="group" aria-label="View mode">
         <span class="lbl">View</span>
-        <button class="vopt active" data-view="grid" aria-label="Grid view">Grid</button>
-        <button class="vopt" data-view="list" aria-label="List view">List</button>
+        <button class="vopt active" data-view="grid" aria-label="Three-column grid view" title="Three-column grid view">
+          <span class="view-icon grid-icon cols-3" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+        <button class="vopt" data-view="dense" aria-label="Four-column dense grid view" title="Four-column dense grid view">
+          <span class="view-icon grid-icon cols-4" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </span>
+        </button>
+        <button class="vopt" data-view="list" aria-label="List view" title="List view">
+          <span class="view-icon list-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -910,11 +936,13 @@
     filterToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
-  // ── Grid / List view toggle ──────────────────────────────────
+  // ── Grid / Dense grid / List view toggle ─────────────────────
   const galleryEl = document.getElementById('gallery');
   const viewBtns = document.querySelectorAll('.view .vopt');
   function setView(v){
+    if (!['grid', 'dense', 'list'].includes(v)) v = 'grid';
     galleryEl.classList.toggle('list', v === 'list');
+    galleryEl.classList.toggle('dense', v === 'dense');
     viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === v));
     try { localStorage.setItem('vm-view', v); } catch(e){}
   }
