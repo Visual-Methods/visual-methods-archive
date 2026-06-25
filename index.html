@@ -802,12 +802,24 @@
   // ── Region-based selection: a single click selects exactly the set of
   // circles that contain the clicked point. Clicking a lens (overlap) selects
   // that intersection (AND); clicking a circle's solo area selects just that
-  // circle; clicking outside all circles clears the selection. ──────────────
+  // circle; clicking the same region again clears it. Clicking outside all
+  // circles clears the selection. ───────────────────────────────────────────
   const catsAtPoint = (loc) => ['g','u','c'].filter(cat => {
     const g = circleGeom(cat);
     const dx = loc.x - g.cx, dy = loc.y - g.cy;
     return dx*dx + dy*dy <= g.r*g.r;
   });
+  function selectedVennCats() {
+    return Object.keys(state).filter(k => state[k]);
+  }
+  function sameSelection(next) {
+    const current = selectedVennCats();
+    return current.length === next.length && next.every(cat => state[cat]);
+  }
+  function setVennSelection(next) {
+    clearVennState();
+    next.forEach(cat => { if (cat in state) state[cat] = true; });
+  }
   vsvg.addEventListener('click', (e) => {
     const ctm = vsvg.getScreenCTM();
     if (!ctm) return;
@@ -815,17 +827,20 @@
     pt.x = e.clientX; pt.y = e.clientY;
     const loc = pt.matrixTransform(ctm.inverse());
     const inside = catsAtPoint(loc);
+    let next = null;
     if (inside.length) {
-      state.g = inside.includes('g');
-      state.u = inside.includes('u');
-      state.c = inside.includes('c');
-      state.o = false;
+      next = inside;
     } else if (e.target.closest && e.target.closest('.vc-other')) {
-      state.g = state.u = state.c = false; state.o = true;
+      next = ['o'];
     } else {
       resetVenn();
       return;
     }
+    if (sameSelection(next)) {
+      resetVenn();
+      return;
+    }
+    setVennSelection(next);
     update();
   });
   function updateIntersection(sel) {
