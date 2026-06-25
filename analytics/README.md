@@ -45,7 +45,7 @@ Open the local URL Wrangler prints, usually:
 http://localhost:8787
 ```
 
-Use **Seed demo data** to verify the dashboard before connecting real Cloudflare Web Analytics credentials.
+The dashboard is intended to show real Cloudflare Web Analytics data from D1. It no longer exposes a demo-data seed action, so local previews should be run against the remote D1 database when you want to inspect live traffic.
 
 ## Real Cloudflare Web Analytics collection
 

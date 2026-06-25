@@ -45,9 +45,6 @@ export default {
       const type = url.searchParams.get("type") || "realtime";
       return json(await runCollector(type, env));
     }
-    if (url.pathname === "/api/seed-demo" && request.method === "POST") {
-      return json(await seedDemo(env));
-    }
 
     return new Response("Not found", { status: 404 });
   },
@@ -76,7 +73,6 @@ async function runCollector(type, env) {
     if (type === "realtime") return await collectRealtime(env);
     if (type === "daily") return await collectDaily(env);
     if (type === "monthly") return await collectMonthly(env);
-    if (type === "demo") return await seedDemo(env);
     throw new Error(`Unknown collector type: ${type}`);
   } catch (err) {
     return await recordRun(env, {
@@ -418,71 +414,6 @@ async function recordRun(env, run) {
   return payload;
 }
 
-async function seedDemo(env) {
-  const now = new Date();
-  const finalizedAt = now.toISOString();
-  const todayStart = startOfUtcDay(now);
-  const paths = METHOD_PATHS.map((path, index) => ({
-    value: path,
-    visits: 30 + index * 7,
-    page_views: 48 + index * 11,
-    sample_interval: 1
-  }));
-  await replaceRealtimeRows(env, "today", todayStart, now, paths);
-  await replaceRealtimeRows(env, "last24h", new Date(now.getTime() - 86400000), now, paths.map((row, index) => ({
-    ...row,
-    visits: row.visits + 8 + index,
-    page_views: row.page_views + 14 + index
-  })));
-
-  for (let i = 14; i >= 1; i--) {
-    const day = addDays(todayStart, -i);
-    const date = isoDate(day);
-    const dayRows = paths.map((row, index) => ({
-      ...row,
-      visits: row.visits + ((14 - i) * 2) + index,
-      page_views: row.page_views + ((14 - i) * 3) + index
-    }));
-    const summary = summarizeRows(dayRows);
-    await env.ANALYTICS_DB.prepare(
-      `INSERT OR REPLACE INTO traffic_daily_summary
-        (date, visits, page_views, sample_interval, source, finalized_at)
-       VALUES (?, ?, ?, ?, ?, ?)`
-    ).bind(date, summary.visits, summary.page_views, 1, "demo", finalizedAt).run();
-    await replaceDailyPathRows(env, date, dayRows, finalizedAt);
-  }
-
-  const month = isoMonth(todayStart);
-  await env.ANALYTICS_DB.prepare(
-    `INSERT OR REPLACE INTO traffic_monthly_summary
-      (month, visits, page_views, source, finalized_at)
-     SELECT ?, SUM(visits), SUM(page_views), ?, ?
-       FROM traffic_daily_summary`
-  ).bind(month, "demo", finalizedAt).run();
-  await env.ANALYTICS_DB.prepare("DELETE FROM traffic_monthly_path WHERE month = ?").bind(month).run();
-  await env.ANALYTICS_DB.prepare(
-    `INSERT INTO traffic_monthly_path
-      (month, path, visits, page_views, source, finalized_at)
-     SELECT ?, path, SUM(visits), SUM(page_views), ?, ?
-       FROM traffic_daily_path
-      GROUP BY path`
-  ).bind(month, "demo", finalizedAt).run();
-
-  await replaceMonthlyDimensionRows(env, month, "country", [
-    { value: "United States", visits: 180, page_views: 260, sample_interval: 1 },
-    { value: "Canada", visits: 92, page_views: 130, sample_interval: 1 },
-    { value: "China", visits: 74, page_views: 101, sample_interval: 1 },
-    { value: "France", visits: 41, page_views: 62, sample_interval: 1 }
-  ], finalizedAt);
-
-  return await recordRun(env, {
-    run_type: "demo",
-    status: "ok",
-    rows_written: 14 * paths.length + paths.length * 2,
-    message: "Seeded local demo analytics data"
-  });
-}
-
 function dashboardAllowed(request, env) {
   const url = new URL(request.url);
   const isLocal = ["localhost", "127.0.0.1", "::1"].includes(url.hostname);
@@ -598,14 +529,13 @@ const DASHBOARD_HTML = `<!doctype html>
 </head>
 <body>
   <header>
-    <div><h1>Visual Methods Analytics</h1><div class="sub">Local dashboard for Cloudflare D1 snapshots. It is private by default and intended to run with wrangler dev.</div></div>
+    <div><h1>Visual Methods Analytics</h1><div class="sub">Private dashboard for real Cloudflare Web Analytics snapshots stored in D1.</div></div>
     <div class="small" id="host"></div>
   </header>
   <main>
     <div class="toolbar">
       <button id="refresh">Refresh</button>
       <button id="collectRealtime">Run realtime collector</button>
-      <button id="seedDemo">Seed demo data</button>
       <select id="pathPeriod"><option value="realtime">Today snapshot</option><option value="monthly">Monthly paths</option></select>
     </div>
     <section class="grid">
@@ -628,7 +558,6 @@ const DASHBOARD_HTML = `<!doctype html>
     document.getElementById('refresh').onclick = load;
     document.getElementById('pathPeriod').onchange = loadPaths;
     document.getElementById('collectRealtime').onclick = async () => { await post('/api/collect?type=realtime'); await load(); };
-    document.getElementById('seedDemo').onclick = async () => { await post('/api/seed-demo'); await load(); };
     async function get(url){ const r = await fetch(url); if(!r.ok) throw new Error(await r.text()); return r.json(); }
     async function post(url){ const r = await fetch(url, {method:'POST'}); if(!r.ok) alert(await r.text()); return r.json(); }
     function text(id, value){ document.getElementById(id).textContent = fmt.format(value || 0); }
