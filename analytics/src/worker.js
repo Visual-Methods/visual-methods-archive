@@ -217,10 +217,11 @@ async function fetchDimensionRows(env, dimension, start, end) {
           rumPageloadEventsAdaptiveGroups(
             limit: 1000
             filter: { siteTag: $siteTag, datetime_geq: $start, datetime_lt: $end }
-            orderBy: [sum_pageViews_DESC]
+            orderBy: [count_DESC]
           ) {
             dimensions { ${field} }
-            sum { visits pageViews }
+            count
+            sum { visits }
             avg { sampleInterval }
           }
         }
@@ -255,7 +256,7 @@ async function fetchDimensionRows(env, dimension, start, end) {
     .map(group => ({
       value: normalizeDimensionValue(group.dimensions?.[field], dimension),
       visits: toInt(group.sum?.visits),
-      page_views: toInt(group.sum?.pageViews),
+      page_views: toInt(group.count),
       sample_interval: toNumber(group.avg?.sampleInterval)
     }))
     .filter(row => row.value && (row.visits > 0 || row.page_views > 0));
