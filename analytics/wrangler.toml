@@ -18,6 +18,7 @@ SITE_HOST = "visualmethods.pages.dev"
 SITE_NAME = "The Visual Methods"
 DASHBOARD_ENABLED = "false"
 ANALYTICS_SOURCE = "cloudflare-web-analytics"
+CF_ACCOUNT_ID = "4f91ca2c7e3dda891b1c6da63383b075"
 
 [[d1_databases]]
 binding = "ANALYTICS_DB"

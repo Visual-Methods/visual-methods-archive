@@ -64,6 +64,12 @@ CF_ACCOUNT_ID=4f91ca2c7e3dda891b1c6da63383b075
 
 `CF_WEB_ANALYTICS_SITE_TAG` is the site tag from the Cloudflare Web Analytics snippet for `visualmethods.pages.dev`.
 
+Current site tag:
+
+```txt
+0ff381e051174262961cd74c37eae3ee
+```
+
 The token should have Cloudflare Analytics read access. If the GraphQL dataset name or fields change, failed collector runs are stored in `collector_runs` and visible in the dashboard.
 
 ## Deploy cron Worker later
