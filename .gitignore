@@ -1,6 +1,8 @@
 .DS_Store
 *.log
 node_modules/
+.wrangler/
+analytics/.wrangler/
+analytics/.dev.vars
 *-preview.png
 *probe*.png
-
