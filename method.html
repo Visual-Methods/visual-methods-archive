@@ -229,18 +229,46 @@
   .cite-box .bibtex-src{display:none}
   .section-submit{display:inline-flex;align-items:center;margin-top:16px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.02em;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:7px 14px;border-radius:2px;transition:all .2s}
   .section-submit:hover{background:var(--ink);color:var(--bg)}
+  /* ── UX pass: mobile nav, focus, motion, contrast (added) ── */
+  .nav-toggle{display:none;align-items:center;justify-content:center;width:40px;height:40px;border:none;background:none;color:var(--ink);cursor:pointer;border-radius:4px}
+  .only-mobile{display:none}
+  .nav-links a.active{color:var(--ink);font-weight:500}
+  .footer-bottom{color:rgba(232,230,222,.62)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .nav-cta:focus-visible,.btn:focus-visible{outline-offset:3px}
+  footer a:focus-visible{outline-color:var(--accent-bright)}
+  .byline .avatar{cursor:default}
+  .byline .avatar:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .byline .avatar:focus::after,.byline .avatar:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (hover:none){ .card-img .card-img-original{clip-path:inset(0 0 0 0)!important} }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  }
+  @media (max-width:640px){
+    .nav-toggle{display:inline-flex}
+    .nav-cta{display:none}
+    .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(21,21,26,.08);padding:6px 0;display:none}
+    nav.open .nav-links{display:flex}
+    .nav-links a{padding:13px 24px;font-size:15px;letter-spacing:0;text-transform:none}
+    .only-mobile{display:block;border-top:1px solid var(--line);color:var(--accent);font-weight:500}
+    .fchip{padding:9px 15px}
+  }
 </style>
 </head>
 <body class="has-g has-u">
 
 <nav>
   <a href="index.html" class="logo">Visual Methods</a>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="index.html#archive">Archive</a>
     <a href="about.html">About</a>
     <a href="events.html">Events &amp; Publications</a>
+    <a href="submit.html" class="only-mobile">Submit a method</a>
   </div>
   <a href="submit.html" class="nav-cta">Submit a method →</a>
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
 </nav>
 
 <!-- HEADER -->
@@ -538,6 +566,25 @@
       });
     });
   });
+</script>
+<script>
+(function(){
+  var t=document.getElementById('navToggle');
+  if(t){
+    var nav=t.closest('nav');
+    t.addEventListener('click',function(){
+      var open=nav.classList.toggle('open');
+      t.setAttribute('aria-expanded',open?'true':'false');
+    });
+    nav.querySelectorAll('.nav-links a').forEach(function(a){
+      a.addEventListener('click',function(){nav.classList.remove('open');t.setAttribute('aria-expanded','false');});
+    });
+  }
+  document.querySelectorAll('.byline .avatar').forEach(function(av){
+    if(!av.hasAttribute('tabindex')) av.setAttribute('tabindex','0');
+    if(!av.getAttribute('role')) av.setAttribute('role','img');
+  });
+})();
 </script>
 </body>
 </html>
