@@ -138,12 +138,12 @@
     paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;stroke-linecap:round;
   }
 
-  .hero-note{display:flex;flex-direction:column;align-items:flex-end;justify-self:end;gap:8px;max-width:520px}
+  .hero-note{display:flex;flex-direction:column;align-items:flex-end;justify-self:end;gap:8px;max-width:520px;grid-column:2}
   .venn-note{font-size:12px;line-height:1.55;color:var(--ink-soft);text-align:right;max-width:440px;margin:0}
 
   /* foot strip — filter status, no hairline */
   .hero-foot{margin-top:18px;padding-top:0;border-top:0;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-  .hero-lede{font-size:14px;line-height:1.55;color:var(--ink);max-width:520px;margin:0}
+  .hero-lede{font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:17px;line-height:1.5;letter-spacing:-0.004em;color:var(--ink);max-width:560px;margin:0;font-variation-settings:"opsz" 28}
   .hero-lede.mobile{display:none}
 
   .venn-status{margin:0;display:inline-flex;gap:14px;align-items:baseline;padding:0;background:transparent;border:none;justify-self:end}
@@ -211,7 +211,7 @@
     position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   }
   .card-img .card-img-filtered{
-    filter:saturate(.78) sepia(.1) contrast(.96) brightness(1.02);
+    filter:url(#vmPalette) saturate(.92) contrast(.98);
   }
   .card-img .card-img-original{
     z-index:4;filter:none;pointer-events:none;
@@ -279,7 +279,7 @@
     .hero-foot{grid-template-columns:1fr;gap:18px}
     .hero-lede.mobile{display:block}
     .hero-foot>.hero-lede{display:none}
-    .hero-note{align-items:flex-start}
+    .hero-note{align-items:flex-start;grid-column:auto}
     .venn-note{text-align:left}
     .venn-status{justify-self:start}
     .hero-eyebrow .right{margin-left:0;width:100%}
@@ -326,6 +326,25 @@
 </style>
 </head>
 <body>
+<!-- Gallery cover tint: maps photo luminance onto the Venn palette (teal → plum → terracotta → cream),
+     blended at 70% so images stay photographic but read as one cohesive palette. Removed on hover. -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <filter id="vmPalette" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0" result="lum"/>
+    <feComponentTransfer in="lum" result="mapped">
+      <feFuncR type="table" tableValues="0.133 0.361 0.663 0.847 0.949"/>
+      <feFuncG type="table" tableValues="0.255 0.212 0.353 0.741 0.925"/>
+      <feFuncB type="table" tableValues="0.306 0.376 0.204 0.612 0.878"/>
+    </feComponentTransfer>
+    <feComponentTransfer in="mapped" result="mappedFade">
+      <feFuncA type="linear" slope="0.2"/>
+    </feComponentTransfer>
+    <feMerge>
+      <feMergeNode in="SourceGraphic"/>
+      <feMergeNode in="mappedFade"/>
+    </feMerge>
+  </filter>
+</svg>
 
 <nav>
   <a href="#" class="logo">Visual Methods</a>
@@ -362,15 +381,7 @@
           <h1 class="title">The Visual<br>Methods</h1>
           <p class="hero-subtitle">For qualitative empirical research</p>
         </div>
-        <p class="hero-lede mobile">This is an open and community maintained archive that keeps growing as people share and crowd-source visual methods.</p>
-        <ul class="forms-list" aria-label="Visual forms in the archive">
-          <li>Sketches</li>
-          <li>Photos</li>
-          <li>Diagrams</li>
-          <li>Visualizations</li>
-          <li>Physical artifacts</li>
-          <li class="and-more">And more</li>
-        </ul>
+        <p class="hero-lede">In Human-Computer Interaction (HCI) research, more and more of what we study and collect is visual in nature: sketches, photographs, diagrams, interfaces, spatial interactions, and physical artifacts. Visual methods are how researchers gather, understand, and communicate with this kind of data. This open archive collects them, and keeps growing as people share and collect new ones.</p>
       </div>
 
       <div class="venn-wrap">
@@ -570,7 +581,7 @@
             <path d="M 538 100 A 290 290 0 0 1 568 240"/>
             <!-- Lower fragment of the outer circle (label sits on this) -->
             <path d="M 410 558 A 290 290 0 0 1 192 558"/>
-            <text class="vlabel" x="301" y="558" text-anchor="middle" dominant-baseline="middle">and beyond</text>
+            <text class="vlabel" data-cat="o" x="301" y="558" text-anchor="middle" dominant-baseline="middle">and beyond</text>
             <!-- invisible hit area covering bottom arc + label -->
             <rect x="180" y="525" width="245" height="55" fill="transparent" pointer-events="all"/>
             <rect x="510" y="80" width="80" height="180" fill="transparent" pointer-events="all"/>
@@ -586,7 +597,6 @@
 
     <!-- bottom band: filter status -->
     <div class="hero-foot">
-      <p class="hero-lede">This is an open and community maintained archive that keeps growing as people share and crowd-source visual methods.</p>
       <div class="hero-note">
         <div class="venn-status">
           <span class="pick" id="pickLabel">All methods</span>
@@ -652,15 +662,14 @@
   <div class="footer-inner">
     <div>
       <h3>An archive,<br><em>always growing.</em></h3>
-      <p>An open, community-maintained archive of methods.</p>
+      <p>The Visual Methods archive is built by a community of researchers, designers, and educators. The website is designed and maintained by <a href="https://zezhongwang.com/" target="_blank" rel="noopener" style="color:rgba(232,230,222,.9);border-bottom:1px solid rgba(232,230,222,.4)">Zezhong Wang</a>.</p>
     </div>
-    <!-- Footer links are placeholders until destinations exist. Set the real href and remove aria-disabled when ready. -->
     <div class="col">
       <h4>Project</h4>
       <a href="about.html#project">About</a>
       <a href="about.html#editors">Editors</a>
-      <a href="about.html#contributors">Submit</a>
-      <a href="#" aria-disabled="true">Cite us</a>
+      <a href="submit.html">Submit</a>
+      <a href="events.html#publications">Cite us</a>
     </div>
     <div class="col">
       <h4>Follow</h4>
@@ -772,29 +781,37 @@
   // ── Boot order: data → DOM → wire up interactivity ───────────
   // ── Hover explanations for the three Venn category labels ──────
   (function(){
-    const TIPS = { g:'Eliciting and collecting visual data', u:'Analyzing and interpreting visual data', c:'Presenting visual data to others' };
+    const TIPS = { g:'Eliciting and collecting visual data', u:'Analyzing and interpreting visual data', c:'Presenting visual data to others', o:'Other and emerging purposes, beyond these three.' };
     const tip = document.getElementById('vennTip');
     const wrap = document.querySelector('.venn-wrap');
     if(tip && wrap){
+      function showFor(anchorEl, text){
+        tip.textContent = text;
+        const wr = wrap.getBoundingClientRect(), r = anchorEl.getBoundingClientRect();
+        tip.style.left = (r.left - wr.left + r.width/2) + 'px';
+        tip.style.top  = (r.top - wr.top - 8) + 'px';
+        tip.classList.add('show');
+      }
+      function hide(){ tip.classList.remove('show'); }
       document.querySelectorAll('svg.venn text.vlabel[data-cat]').forEach(function(el){
         const cat = el.getAttribute('data-cat'); if(!TIPS[cat]) return;
         el.style.pointerEvents = 'auto'; el.style.cursor = 'help';
         el.setAttribute('tabindex', '0');
         el.setAttribute('role', 'img');
         el.setAttribute('aria-label', el.textContent + ': ' + TIPS[cat]);
-        function show(){
-          tip.textContent = TIPS[cat];
-          const wr = wrap.getBoundingClientRect(), r = el.getBoundingClientRect();
-          tip.style.left = (r.left - wr.left + r.width/2) + 'px';
-          tip.style.top  = (r.top - wr.top - 8) + 'px';
-          tip.classList.add('show');
-        }
-        function hide(){ tip.classList.remove('show'); }
-        el.addEventListener('mouseenter', show);
+        el.addEventListener('mouseenter', function(){ showFor(el, TIPS[cat]); });
         el.addEventListener('mouseleave', hide);
-        el.addEventListener('focus', show);
+        el.addEventListener('focus', function(){ showFor(el, TIPS[cat]); });
         el.addEventListener('blur', hide);
       });
+      // The "and beyond" label is covered by transparent hit-rects, so bind
+      // the tooltip to the whole .vc-other group (its hit area) instead.
+      const otherG = document.querySelector('svg.venn .vc-other');
+      const otherLabel = document.querySelector('svg.venn text.vlabel[data-cat="o"]');
+      if(otherG && otherLabel && TIPS.o){
+        otherG.addEventListener('mouseenter', function(){ showFor(otherLabel, TIPS.o); });
+        otherG.addEventListener('mouseleave', hide);
+      }
     }
   })();
 
