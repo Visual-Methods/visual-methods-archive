@@ -125,6 +125,22 @@
   .step-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;mix-blend-mode:multiply}
   .step-fig{margin:18px 0 2px;max-width:460px}
   .step-fig .step-img{aspect-ratio:auto;padding:12px}
+  /* Fictional dataset page thumbnails (step 1) */
+  .dataset-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:6px}
+  .ds-thumb{aspect-ratio:3/4;overflow:hidden;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:6px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative;transition:border-color .2s ease}
+  .ds-thumb:hover{border-color:var(--ink)}
+  .ds-thumb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .ds-thumb::after{content:"⤢";position:absolute;top:7px;right:8px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;transition:opacity .2s ease;font-family:'Inter',sans-serif;line-height:1;pointer-events:none}
+  .ds-thumb:hover::after{opacity:1}
+  .step-fig figcaption a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
+  .step-fig figcaption a:hover{border-color:var(--accent)}
+  @media(max-width:760px){ .dataset-grid{grid-template-columns:repeat(3,1fr)} }
+  @media(max-width:460px){ .dataset-grid{grid-template-columns:repeat(2,1fr)} }
+  /* Study-results gallery (§04 In practice) */
+  .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 8px}
+  .results-grid .ds-thumb{aspect-ratio:4/3;padding:5px}
+  @media(max-width:760px){ .results-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:460px){ .results-grid{grid-template-columns:1fr} }
   .step-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
   .step-fig figcaption a{color:var(--accent);text-underline-offset:2px}
 
@@ -325,6 +341,20 @@
             <div class="step-img"><img src="method-003/step1.png" alt="A researcher facilitates an introductory workshop while two participants build a small bead-and-plasticine data physicalization at a shared table" loading="lazy"></div>
             <figcaption>Participants learn the mapping logic through a hands-on construction warm-up.</figcaption>
           </figure>
+          <figure class="step-fig">
+            <div class="dataset-grid">
+              <div class="ds-thumb"><img src="method-003/personal-physicalization-construction-step1DataSet.png" alt="The fictional dataset used in the warm-up workshop, page 1 of 5" loading="lazy"></div>
+              <div class="ds-thumb"><img src="method-003/personal-physicalization-construction-step1DataSet2.png" alt="The fictional dataset used in the warm-up workshop, page 2 of 5" loading="lazy"></div>
+              <div class="ds-thumb"><img src="method-003/personal-physicalization-construction-step1DataSet3.png" alt="The fictional dataset used in the warm-up workshop, page 3 of 5" loading="lazy"></div>
+              <div class="ds-thumb"><img src="method-003/personal-physicalization-construction-step1DataSet4.png" alt="The fictional dataset used in the warm-up workshop, page 4 of 5" loading="lazy"></div>
+              <div class="ds-thumb"><img src="method-003/personal-physicalization-construction-step1DataSet5.png" alt="The fictional dataset used in the warm-up workshop, page 5 of 5" loading="lazy"></div>
+            </div>
+            <figcaption>The fictional dataset handed to participants in the warm-up (5 pages). From the original study by Thudt, Hinrichs, Huron &amp; Carpendale (2018), <a href="https://doi.org/10.1145/3173574.3173728" target="_blank" rel="noopener">doi.org/10.1145/3173574.3173728</a>.</figcaption>
+          </figure>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-003/personal-physicalization-construction-step1Process.png" alt="Photographs of the introductory group workshop: participants physicalize the fictional dataset in small groups, revealing it line by line and comparing results around a shared table" loading="lazy"></div>
+            <figcaption>The group exercise in the introductory workshop: participants physicalize the dataset line by line, mirroring the ongoing process they later carry out at home.</figcaption>
+          </figure>
         </div>
       </div>
       <div class="step">
@@ -335,6 +365,10 @@
           <figure class="step-fig">
             <div class="step-img"><img src="method-003/step2.png" alt="A researcher and participant sit across a small table with an open notebook and a kit box of beads, pins, plasticine, tape, and foam board" loading="lazy"></div>
             <figcaption>The pre-interview turns a topic into a feasible kit-based construction plan.</figcaption>
+          </figure>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-003/personal-physicalization-construction-step2-construction-kit.png" alt="The physical construction kit handed to participants: beads in eight colours and three sizes, plasticine, pins, tape, thread, labels, a measuring tape, and a foam-core board, shown boxed and laid out" loading="lazy"></div>
+            <figcaption>The construction kit each participant took home: beads, plasticine, pins, tape, thread, labels, a measuring tape, and a foam-core board.</figcaption>
           </figure>
         </div>
       </div>
@@ -398,6 +432,21 @@
     <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
     <p>The source study followed nine participants for 14 to 28 days as they physicalized topics like workouts, hip pain, and mood from beads, plasticine, and tape in their own homes (shown in Fig. 1). The analysis described a two-phase process: a <strong>design phase</strong>, where participants chose a topic and goals, summarized the data, decided a physical mapping, and worked out how to fit construction into daily routine; and a repeated <strong>data-construction phase</strong>, where each new data point was logged, turned into prepared tokens, and integrated into the growing piece.</p>
     <p>The key finding was that data capture, construction, and self-reflection were deeply intertwined rather than separate steps, which extends earlier models of visualization creation and data-driven self-reflection. None of this would have been observable in a lab: the photographic record was what let the researchers study a weeks-long, at-home process they could never have watched directly.</p>
+
+    <figure class="step-fig">
+      <div class="results-grid">
+        <div class="ds-thumb"><img src="method-003/supplemental-10.png" alt="Study results: Participant 1's personal physicalization of workouts" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-11.png" alt="Study results: Participant 2's personal physicalization" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-12.png" alt="Study results: Participant 3's personal physicalization" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-13.png" alt="Study results: Participant 4's personal physicalization" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-14.png" alt="Study results: Participant 5's personal physicalization" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-15.png" alt="Study results: Participant 6's personal physicalization" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-16.png" alt="Study results: Participant 7's personal physicalization" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-17.png" alt="Study results: Participant 8's personal physicalization" loading="lazy"></div>
+        <div class="ds-thumb"><img src="method-003/supplemental-18.png" alt="Study results: Participant 9's personal physicalization" loading="lazy"></div>
+      </div>
+      <figcaption>Every participant's finished physicalization, from the study results (nine participants). Pages from the supplemental material of Thudt, Hinrichs, Huron &amp; Carpendale (2018), <a href="https://doi.org/10.1145/3173574.3173728" target="_blank" rel="noopener">doi.org/10.1145/3173574.3173728</a>.</figcaption>
+    </figure>
 
     <div class="cite-box">
       <div class="cite-label">Cite this paper</div>
@@ -509,7 +558,7 @@
     document.body.classList.remove('lightbox-open');
     setTimeout(()=>{ if(!box.classList.contains('open')) boxImg.removeAttribute('src'); }, 260);
   }
-  document.querySelectorAll('.hero-img-inner, .step-img').forEach(div => {
+  document.querySelectorAll('.hero-img-inner, .step-img, .ds-thumb').forEach(div => {
     const img = div.querySelector('img');
     if(!img) return;
     div.setAttribute('role','button');
