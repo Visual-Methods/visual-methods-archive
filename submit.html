@@ -506,7 +506,7 @@
       for(const f of list){
         if(picked.length >= MAX_FILES){ setErr('e_files', 'You can attach up to ' + MAX_FILES + ' files. Extra files were not added.'); break; }
         if(!okType(f)){ setErr('e_files', 'Only images and PDFs are allowed.'); continue; }
-        if(f.size > MAX_SIZE){ setErr('e_files', '"' + f.name + '" is larger than 8 MB. Try compressing it, or paste a link instead.'); continue; }
+        if(f.size > MAX_SIZE){ setErr('e_files', '"' + f.name + '" is larger than 8 MB. Try compressing it, paste a link instead, or contact us through email.'); continue; }
         if(picked.some(p => p.name===f.name && p.size===f.size)) continue;
         picked.push(f);
       }

@@ -16,8 +16,14 @@
 
 const MAX_FILES = 6;
 const MAX_SIZE = 8 * 1024 * 1024; // 8 MB
+const MAX_REQUEST_SIZE = 55 * 1024 * 1024; // 55 MB
 
 export async function onRequestPost({ request, env }) {
+  const contentLength = Number(request.headers.get("content-length") || "0");
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_SIZE) {
+    return json({ error: "The submission is larger than 55 MB. Try compressing files, paste links instead, or contact us through email." }, 413);
+  }
+
   let form;
   try { form = await request.formData(); } catch { return json({ error: "Invalid submission." }, 400); }
 
@@ -64,7 +70,7 @@ export async function onRequestPost({ request, env }) {
     }
     for (const f of files) {
       if (!f.size) continue;
-      if (f.size > MAX_SIZE) return json({ error: `"${f.name}" is larger than 8 MB.` }, 400);
+      if (f.size > MAX_SIZE) return json({ error: `"${f.name}" is larger than 8 MB. Try compressing it, paste a link instead, or contact us through email.` }, 400);
       const okType = /^image\//.test(f.type) || f.type === "application/pdf" || /\.pdf$/i.test(f.name);
       if (!okType) return json({ error: "Only images and PDFs are allowed." }, 400);
       const key = `submissions/${id}/${safeName(f.name)}`;
