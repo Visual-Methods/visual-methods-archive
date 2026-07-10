@@ -65,8 +65,17 @@ export async function onRequestPost({ request, env }) {
   // });
 
   if (res.ok) return json({ ok: true });
-  // 400/409 usually means "already subscribed" — treat as success so we never
-  // reveal whether an address is on the list.
+
+  const buttondownError = await readButtondownError(res);
+  console.log("Buttondown subscriber create failed", {
+    status: res.status,
+    emailHash: await sha256(email),
+    error: buttondownError,
+  });
+
+  // 400/409 usually means "already subscribed" or a protected collision. Keep
+  // the public response generic so we do not reveal whether an address is on
+  // the list, but log the Buttondown detail above for debugging.
   if (res.status === 400 || res.status === 409) return json({ ok: true });
   return json({ error: "Could not subscribe right now. Please try again later." }, 502);
 }
@@ -95,4 +104,21 @@ function json(obj, status = 200) {
     status,
     headers: { "Content-Type": "application/json" },
   });
+}
+
+async function readButtondownError(res) {
+  const text = await res.text().catch(() => "");
+  if (!text) return "";
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text.slice(0, 1000);
+  }
+}
+
+async function sha256(value) {
+  const bytes = new TextEncoder().encode(value);
+  const hash = await crypto.subtle.digest("SHA-256", bytes);
+  return [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
