@@ -4,11 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Newsletter · The Visual Methods</title>
-<meta name="description" content="Subscribe to the Visual Methods newsletter. Occasional emails, only when there is a new publication or event. Unsubscribe anytime.">
+<meta name="description" content="Subscribe to Visual Methods updates for new methods, publications, and events. Unsubscribe anytime.">
 <meta name="theme-color" content="#e8e6df">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Newsletter · The Visual Methods">
-<meta property="og:description" content="Occasional emails, only when there is a new publication or event.">
+<meta property="og:description" content="Subscribe to Visual Methods updates for new methods, publications, and events.">
 <meta property="og:url" content="https://visualmethods.github.io/subscribe.html">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='16' cy='10' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%232e7290' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%232e7290' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='u' cx='10' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ac5832' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ac5832' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='c' cx='22' cy='21' r='9' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%236e3c70' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%236e3c70' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='10' r='9' fill='url(%23g)'/%3E%3Ccircle cx='10' cy='21' r='9' fill='url(%23u)'/%3E%3Ccircle cx='22' cy='21' r='9' fill='url(%23c)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,6 +67,18 @@
   .field input[aria-invalid="true"]{border-color:var(--danger)}
   .field input[aria-invalid="true"]:focus{box-shadow:0 0 0 3px rgba(168,50,50,.14)}
   .field-error{color:var(--danger);font-size:12.5px;line-height:1.4;margin-top:6px;min-height:1px}
+  .topic-group{margin:22px 0 20px;border:0;padding:0;min-width:0}
+  .topic-group legend{display:block;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+  .topic-options{display:grid;gap:10px}
+  .topic-option{display:grid;grid-template-columns:18px 1fr;gap:11px;align-items:start;padding:13px 14px;background:var(--bg);border:1px solid var(--line);border-radius:2px;cursor:pointer;transition:border-color .18s,background .18s}
+  .topic-option:hover{border-color:rgba(21,21,26,.42)}
+  .topic-option:has(input:checked){border-color:var(--accent);background:rgba(42,62,110,.06)}
+  .topic-option input{appearance:none;width:18px;height:18px;margin:2px 0 0;border:1.5px solid var(--ink-soft);border-radius:2px;background:transparent;display:grid;place-items:center;cursor:pointer;transition:background .18s,border-color .18s}
+  .topic-option input::after{content:"";width:9px;height:5px;border-left:2px solid var(--bg-card);border-bottom:2px solid var(--bg-card);transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+  .topic-option input:checked{background:var(--accent);border-color:var(--accent)}
+  .topic-option input:checked::after{opacity:1}
+  .topic-option input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .topic-option span{font-size:14px;line-height:1.45;color:var(--ink)}
   .reassure{font-size:13.5px;line-height:1.62;color:var(--ink-soft);margin:2px 0 22px}
   .reassure strong{color:var(--ink);font-weight:500}
   .subscribe-btn{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;letter-spacing:0.01em;border:1px solid var(--ink);background:var(--ink);color:var(--bg);height:46px;border-radius:2px;cursor:pointer;transition:all .2s}
@@ -139,7 +151,7 @@
   <header class="pagehead">
     <div class="kicker">Newsletter</div>
     <h1>Stay in the loop.</h1>
-    <p class="lede">Keep updated on the latest publications and events.</p>
+    <p class="lede">Choose which Visual Methods updates you want to receive.</p>
   </header>
 
   <section class="subscribe-wrap">
@@ -155,13 +167,28 @@
         <div class="field-error" id="emailError" role="alert" aria-live="assertive"></div>
       </div>
 
+      <fieldset class="topic-group" aria-describedby="topicError">
+        <legend>Notify me</legend>
+        <div class="topic-options">
+          <label class="topic-option">
+            <input type="checkbox" name="topics" value="new-methods" checked>
+            <span>Notify me when a new method is added.</span>
+          </label>
+          <label class="topic-option">
+            <input type="checkbox" name="topics" value="publications-events" checked>
+            <span>Notify me when a new publication or event is available.</span>
+          </label>
+        </div>
+        <div class="field-error" id="topicError" role="alert" aria-live="assertive"></div>
+      </fieldset>
+
       <!-- honeypot: real people leave this empty -->
       <div class="hp" aria-hidden="true">
         <label for="company">Company</label>
         <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
       </div>
 
-      <p class="reassure">We'll email you when there is a new publication or event. You can <strong>unsubscribe anytime</strong>, with one click from any email.</p>
+      <p class="reassure">We'll email you only for the updates you choose. You can <strong>unsubscribe anytime</strong>, with one click from any email.</p>
 
       <!-- Cloudflare Turnstile renders here only when a site key is configured -->
       <div id="cfTurnstile"></div>
@@ -223,7 +250,7 @@
 
   // ── Subscription form ──────────────────────────────────────────
   // Point this at your Cloudflare Worker route once it is deployed.
-  // The Worker should accept POST JSON {name, email} and return 2xx on success.
+  // The Worker accepts POST JSON {name, email, topics} and returns 2xx on success.
   const ENDPOINT = "/api/subscribe";
 
   // Cloudflare Turnstile. Paste your SITE key here to switch it on (it is public).
@@ -255,6 +282,7 @@
     const emailInput = document.getElementById('emailInput');
     const nameInput = document.getElementById('nameInput');
     const emailError = document.getElementById('emailError');
+    const topicError = document.getElementById('topicError');
     const formError = document.getElementById('formError');
     const hp = document.getElementById('company');
     const btn = document.getElementById('subscribeBtn');
@@ -263,7 +291,7 @@
     const validEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
     function clearErrors(){
-      emailError.textContent=''; formError.textContent='';
+      emailError.textContent=''; topicError.textContent=''; formError.textContent='';
       const te=document.getElementById('turnstileError'); if(te) te.textContent='';
       emailInput.setAttribute('aria-invalid','false');
     }
@@ -291,8 +319,14 @@
       if(hp.value){ form.style.display='none'; success.classList.add('show'); return; }
       const email = emailInput.value.trim();
       const name = nameInput.value.trim();
+      const topics = Array.from(form.querySelectorAll('input[name="topics"]:checked')).map(function(input){ return input.value; });
       if(!email){ emailInput.setAttribute('aria-invalid','true'); emailError.textContent='Email is required.'; emailInput.focus(); return; }
       if(!validEmail(email)){ emailInput.setAttribute('aria-invalid','true'); emailError.textContent='Please enter a valid email address.'; emailInput.focus(); return; }
+      if(!topics.length){
+        topicError.textContent='Please choose at least one update type.';
+        form.querySelector('input[name="topics"]').focus();
+        return;
+      }
       if(TURNSTILE_SITEKEY && !tsToken){
         document.getElementById('turnstileError').textContent='Please complete the verification check.';
         return;
@@ -303,7 +337,7 @@
         const res = await fetch(ENDPOINT, {
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ name, email, turnstile: tsToken })
+          body: JSON.stringify({ name, email, topics, turnstile: tsToken })
         });
         if(res.ok){
           form.style.display='none';

@@ -8,6 +8,16 @@ no separate deploy). Configure them in **Pages project → Settings**.
 Env var (encrypted):
 - `BUTTONDOWN_API_KEY` — Buttondown → Settings → API.
 
+The form lets visitors choose one or both update topics. The function stores
+those preferences as Buttondown tags:
+- `new-methods`
+- `publications-events`
+
+All website subscribers also keep the `website` tag.
+The Buttondown request uses collision behavior `add`, so an existing subscriber
+can submit the form again to add newly selected topic tags without overwriting
+other subscriber data.
+
 **Double opt-in:** there is no toggle to turn on. Buttondown applies double opt-in
 by default and it cannot be disabled globally; new subscribers get a confirmation
 email and stay `unactivated` until they click it. The only way to bypass it is to
