@@ -1,6 +1,6 @@
 // Cloudflare Pages Function — POST /api/subscribe
 // Deploys automatically with the site (Cloudflare Pages). Same origin as the
-// page, so no CORS needed. The website form posts {name, email, topics} here; this
+// page, so no CORS needed. The website form posts {email} here; this
 // forwards to Buttondown (default) or MailerLite, which owns the list, sends the
 // double opt-in confirmation, and manages one-click unsubscribe.
 //
@@ -13,10 +13,6 @@ export async function onRequestPost({ request, env }) {
   try { body = await request.json(); } catch { return json({ error: "Invalid request." }, 400); }
 
   const email = String(body.email || "").trim().toLowerCase();
-  const name  = String(body.name  || "").trim();
-  const allowedTopics = new Set(["new-methods", "publications-events"]);
-  const requestedTopics = Array.isArray(body.topics) ? body.topics : ["publications-events"];
-  const topics = [...new Set(requestedTopics.map((topic) => String(topic)).filter((topic) => allowedTopics.has(topic)))];
 
   // Honeypot: real users leave `company` empty. Pretend success, send nothing.
   if (body.company) return json({ ok: true });
@@ -24,9 +20,6 @@ export async function onRequestPost({ request, env }) {
   // Server-side email validation
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json({ error: "Please enter a valid email address." }, 400);
-  }
-  if (!topics.length) {
-    return json({ error: "Please choose at least one update type." }, 400);
   }
 
   // Cloudflare Turnstile — enforced only once TURNSTILE_SECRET is set.
@@ -52,15 +45,9 @@ export async function onRequestPost({ request, env }) {
     headers: {
       "Authorization": `Token ${env.BUTTONDOWN_API_KEY}`,
       "Content-Type": "application/json",
-      "X-Buttondown-Collision-Behavior": "add",
     },
     body: JSON.stringify({
       email_address: email,
-      metadata: {
-        ...(name ? { name } : {}),
-        subscription_topics: topics.join(", "),
-      },
-      tags: ["website", ...topics],
       ip_address: ip || undefined,
     }),
   });
