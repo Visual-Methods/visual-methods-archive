@@ -73,6 +73,12 @@ export async function onRequestPost({ request, env }) {
     error: buttondownError,
   });
 
+  if (buttondownError?.code === "subscriber_suppressed") {
+    return json({
+      error: "We couldn't send a confirmation link for this address. Please use another email or contact the editors.",
+    }, 400);
+  }
+
   // 400/409 usually means "already subscribed" or a protected collision. Keep
   // the public response generic so we do not reveal whether an address is on
   // the list, but log the Buttondown detail above for debugging.
