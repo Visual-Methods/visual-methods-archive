@@ -79,10 +79,15 @@ export async function onRequestPost({ request, env }) {
     }, 400);
   }
 
-  // 400/409 usually means "already subscribed" or a protected collision. Keep
-  // the public response generic so we do not reveal whether an address is on
-  // the list, but log the Buttondown detail above for debugging.
-  if (res.status === 400 || res.status === 409) return json({ ok: true });
+  // 400/409 usually means "already subscribed", "already pending", or another
+  // protected collision. Do not show the success state, because Buttondown did
+  // not accept a new subscriber and may not send a fresh confirmation email.
+  // Keep the public message generic so we do not precisely reveal list status.
+  if (res.status === 400 || res.status === 409) {
+    return json({
+      error: "This address may already be subscribed or waiting for confirmation. If you need help, contact the editors.",
+    }, 400);
+  }
   return json({ error: "Could not subscribe right now. Please try again later." }, 502);
 }
 
