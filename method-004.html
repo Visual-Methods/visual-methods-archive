@@ -293,7 +293,7 @@
   <div class="hero-img-inner">
     <img src="method-004/mosaic.png" alt="A mosaic of abstract wireframes for twenty-five online debate platforms, each shown as a stack of colored blocks: yellow for the topic block, green for submit, blue for display, and gray for other components, with a dotted line marking the fold">
   </div>
-  <div class="caption"><span>Fig. 1 · The mosaic of abstract wireframes for all 25 debate platforms analyzed, colored by interface block (Frappier, Bressa &amp; Huron, 2024)</span><span>↓ Read on</span></div>
+  <div class="caption"><span>The mosaic of abstract wireframes for all 25 debate platforms analyzed, colored by interface block (Frappier, Bressa &amp; Huron, 2024)</span><span>↓ Read on</span></div>
 </section>
 
 <!-- BODY -->
@@ -396,7 +396,7 @@
     </div>
 
     <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
-    <p>The source study assembled 25 online debate platforms from civic-technology directories. Three HCI researchers, two of them graphic and web designers, worked through these phases over several years, leaning on Gestalt principles and grid systems to read the layouts. The mosaic of abstract wireframes (shown in Fig. 1) is the method's signature output: a single view in which all 25 interfaces can be compared block by block.</p>
+    <p>The source study assembled 25 online debate platforms from civic-technology directories. Three HCI researchers, two of them graphic and web designers, worked through these phases over several years, leaning on Gestalt principles and grid systems to read the layouts. The mosaic of abstract wireframes is the method's signature output: a single view in which all 25 interfaces can be compared block by block.</p>
     <p>Reading across that mosaic, the researchers found a strong similarity among the platforms and a shared emphasis on individual input, and used the differences that remained to discuss how layout frames the very practice of debate. The point of the method is exactly this: turning a scattered set of interfaces into one comparable visual field where structural patterns become arguable evidence.</p>
 
     <div class="cite-box">
@@ -496,10 +496,10 @@
   const boxImg = document.getElementById('lightboxImg');
   const boxCap = document.getElementById('lightboxCaption');
   const boxClose = document.getElementById('lightboxClose');
-  function open(src, alt){
+  function open(src, alt, caption){
     boxImg.src = src;
     boxImg.alt = alt || '';
-    boxCap.textContent = alt || '';
+    boxCap.textContent = caption || alt || '';
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
@@ -513,12 +513,15 @@
   document.querySelectorAll('.hero-img-inner, .step-img').forEach(div => {
     const img = div.querySelector('img');
     if(!img) return;
+    const step = div.classList.contains('step-img') ? div.closest('.step') : null;
+    const stepDescription = step ? step.querySelector('p') : null;
+    const caption = stepDescription ? stepDescription.textContent.trim() : (img.alt || '');
     div.setAttribute('role','button');
     div.setAttribute('tabindex','0');
     div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
-    div.addEventListener('click', () => open(img.src, img.alt));
+    div.addEventListener('click', () => open(img.src, img.alt, caption));
     div.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt); }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption); }
     });
   });
   box.addEventListener('click', e => { if(e.target === box) close(); });

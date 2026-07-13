@@ -137,13 +137,28 @@
   .step-fig figcaption a:hover{border-color:var(--accent)}
   @media(max-width:760px){ .dataset-grid{grid-template-columns:repeat(3,1fr)} }
   @media(max-width:460px){ .dataset-grid{grid-template-columns:repeat(2,1fr)} }
-  /* Study-results gallery (§04 In practice) */
-  .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 8px}
-  .results-grid .ds-thumb{aspect-ratio:4/3;padding:5px}
-  @media(max-width:760px){ .results-grid{grid-template-columns:repeat(2,1fr)} }
-  @media(max-width:460px){ .results-grid{grid-template-columns:1fr} }
   .step-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
   .step-fig figcaption a{color:var(--accent);text-underline-offset:2px}
+
+  /* IN-PRACTICE CASE IMAGES */
+  .practice-case{margin:28px 0 36px;max-width:760px}
+  .practice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .practice-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .practice-grid.single{grid-template-columns:1fr}
+  .practice-item{min-width:0}
+  .practice-label{display:block;margin-bottom:7px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .practice-img{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:6px;cursor:zoom-in;transition:border-color .2s ease}
+  .practice-grid .practice-img{aspect-ratio:3509/2484}
+  .practice-grid.single .practice-img{aspect-ratio:auto;padding:8px}
+  .practice-grid.single .practice-img img{height:auto}
+  .practice-img:hover{border-color:var(--ink)}
+  .practice-img img{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .practice-img::after{content:"⤢";position:absolute;top:8px;right:9px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:14px;line-height:1;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;pointer-events:none;transition:opacity .2s ease}
+  .practice-img:hover::after{opacity:1}
+  .practice-summary{margin-top:16px}
+  .practice-summary .practice-img{aspect-ratio:auto;padding:8px}
+  .practice-caption{margin-top:12px;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:var(--ink-soft)}
+  .practice-caption a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:.5px}
 
   /* Lightbox */
   .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(21,21,26,0.88);display:flex;align-items:center;justify-content:center;padding:48px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(4px)}
@@ -209,6 +224,8 @@
     .meta-row{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
     .meta-row .v{text-align:left}
     article h2{gap:14px}
+    .practice-grid,.practice-grid.two{grid-template-columns:1fr;gap:16px}
+    .practice-summary{margin-top:20px}
   }
   /* Cite-this-paper box (in §04) */
   .cite-box{margin:24px 0 4px;padding:20px 22px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 2px 2px 0;background:var(--bg-card)}
@@ -309,7 +326,7 @@
   <div class="hero-img-inner">
     <img src="method-003/physicalizations.png" alt="A grid of nine personal data physicalizations participants built at home from beads, plasticine, and tape, photographed in their domestic settings: a workout board, a bead necklace, beaded branches, and more">
   </div>
-  <div class="caption"><span>Fig. 1 · The nine personal physicalizations participants built at home, photographed in context (Thudt, Hinrichs, Huron &amp; Carpendale, 2018)</span><span>↓ Read on</span></div>
+  <div class="caption"><span>The nine personal physicalizations participants built at home, photographed in context (Thudt, Hinrichs, Huron &amp; Carpendale, 2018)</span><span>↓ Read on</span></div>
 </section>
 
 <!-- BODY -->
@@ -431,22 +448,22 @@
     </div>
 
     <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
-    <p>The source study followed nine participants for 14 to 28 days as they physicalized topics like workouts, hip pain, and mood from beads, plasticine, and tape in their own homes (shown in Fig. 1). The analysis described a two-phase process: a <strong>design phase</strong>, where participants chose a topic and goals, summarized the data, decided a physical mapping, and worked out how to fit construction into daily routine; and a repeated <strong>data-construction phase</strong>, where each new data point was logged, turned into prepared tokens, and integrated into the growing piece.</p>
+    <p>The source study followed nine participants for 14 to 28 days as they physicalized topics like workouts, hip pain, and mood from beads, plasticine, and tape in their own homes. The analysis described a two-phase process: a <strong>design phase</strong>, where participants chose a topic and goals, summarized the data, decided a physical mapping, and worked out how to fit construction into daily routine; and a repeated <strong>data-construction phase</strong>, where each new data point was logged, turned into prepared tokens, and integrated into the growing piece.</p>
     <p>The key finding was that data capture, construction, and self-reflection were deeply intertwined rather than separate steps, which extends earlier models of visualization creation and data-driven self-reflection. None of this would have been observable in a lab: the photographic record was what let the researchers study a weeks-long, at-home process they could never have watched directly.</p>
 
-    <figure class="step-fig">
-      <div class="results-grid">
-        <div class="ds-thumb"><img src="method-003/supplemental-10.png" alt="Study results: Participant 1's personal physicalization of workouts" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-11.png" alt="Study results: Participant 2's personal physicalization" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-12.png" alt="Study results: Participant 3's personal physicalization" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-13.png" alt="Study results: Participant 4's personal physicalization" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-14.png" alt="Study results: Participant 5's personal physicalization" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-15.png" alt="Study results: Participant 6's personal physicalization" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-16.png" alt="Study results: Participant 7's personal physicalization" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-17.png" alt="Study results: Participant 8's personal physicalization" loading="lazy"></div>
-        <div class="ds-thumb"><img src="method-003/supplemental-18.png" alt="Study results: Participant 9's personal physicalization" loading="lazy"></div>
+    <figure class="practice-case">
+      <div class="practice-grid">
+        <div class="practice-item"><span class="practice-label">Participant 1</span><div class="practice-img"><img src="method-003/supplemental-10.png" alt="Study results: Participant 1's personal physicalization of workouts" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 2</span><div class="practice-img"><img src="method-003/supplemental-11.png" alt="Study results: Participant 2's personal physicalization" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 3</span><div class="practice-img"><img src="method-003/supplemental-12.png" alt="Study results: Participant 3's personal physicalization" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 4</span><div class="practice-img"><img src="method-003/supplemental-13.png" alt="Study results: Participant 4's personal physicalization" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 5</span><div class="practice-img"><img src="method-003/supplemental-14.png" alt="Study results: Participant 5's personal physicalization" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 6</span><div class="practice-img"><img src="method-003/supplemental-15.png" alt="Study results: Participant 6's personal physicalization" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 7</span><div class="practice-img"><img src="method-003/supplemental-16.png" alt="Study results: Participant 7's personal physicalization" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 8</span><div class="practice-img"><img src="method-003/supplemental-17.png" alt="Study results: Participant 8's personal physicalization" loading="lazy"></div></div>
+        <div class="practice-item"><span class="practice-label">Participant 9</span><div class="practice-img"><img src="method-003/supplemental-18.png" alt="Study results: Participant 9's personal physicalization" loading="lazy"></div></div>
       </div>
-      <figcaption>Every participant's finished physicalization, from the study results (nine participants). Pages from the supplemental material of Thudt, Hinrichs, Huron &amp; Carpendale (2018), <a href="https://doi.org/10.1145/3173574.3173728" target="_blank" rel="noopener">doi.org/10.1145/3173574.3173728</a>.</figcaption>
+      <figcaption class="practice-caption">Every participant's finished physicalization, from the study results (nine participants). Pages from the supplemental material of Thudt, Hinrichs, Huron &amp; Carpendale (2018), <a href="https://doi.org/10.1145/3173574.3173728" target="_blank" rel="noopener">doi.org/10.1145/3173574.3173728</a>.</figcaption>
     </figure>
 
     <div class="cite-box">
@@ -545,10 +562,10 @@
   const boxImg = document.getElementById('lightboxImg');
   const boxCap = document.getElementById('lightboxCaption');
   const boxClose = document.getElementById('lightboxClose');
-  function open(src, alt){
+  function open(src, alt, caption){
     boxImg.src = src;
     boxImg.alt = alt || '';
-    boxCap.textContent = alt || '';
+    boxCap.textContent = caption || alt || '';
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
@@ -559,15 +576,18 @@
     document.body.classList.remove('lightbox-open');
     setTimeout(()=>{ if(!box.classList.contains('open')) boxImg.removeAttribute('src'); }, 260);
   }
-  document.querySelectorAll('.hero-img-inner, .step-img, .ds-thumb').forEach(div => {
+  document.querySelectorAll('.hero-img-inner, .step-img, .ds-thumb, .practice-img').forEach(div => {
     const img = div.querySelector('img');
     if(!img) return;
+    const step = div.classList.contains('step-img') ? div.closest('.step') : null;
+    const stepDescription = step ? step.querySelector('p') : null;
+    const caption = stepDescription ? stepDescription.textContent.trim() : (img.alt || '');
     div.setAttribute('role','button');
     div.setAttribute('tabindex','0');
     div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
-    div.addEventListener('click', () => open(img.src, img.alt));
+    div.addEventListener('click', () => open(img.src, img.alt, caption));
     div.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt); }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption); }
     });
   });
   box.addEventListener('click', e => { if(e.target === box) close(); });

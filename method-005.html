@@ -126,10 +126,26 @@
   .step-fig{margin:18px 0 2px;max-width:460px}
   .step-fig .step-img{aspect-ratio:auto;padding:12px}
   .step-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
-  .practice-fig{margin:24px 0 28px;width:min(980px,calc(100vw - 64px));max-width:none}
-  .practice-fig .step-img{aspect-ratio:auto;padding:14px}
-  .practice-fig img{width:100%;height:auto;max-width:100%;max-height:none;object-fit:contain}
-  .practice-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:9px;line-height:1.55;max-width:760px}
+
+  /* IN-PRACTICE CASE IMAGES */
+  .practice-case{margin:28px 0 36px;max-width:760px}
+  .practice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .practice-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .practice-grid.single{grid-template-columns:1fr}
+  .practice-item{min-width:0}
+  .practice-label{display:block;margin-bottom:7px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .practice-img{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:6px;cursor:zoom-in;transition:border-color .2s ease}
+  .practice-grid .practice-img{aspect-ratio:3509/2484}
+  .practice-grid.single .practice-img{aspect-ratio:auto;padding:8px}
+  .practice-grid.single .practice-img img{height:auto}
+  .practice-img:hover{border-color:var(--ink)}
+  .practice-img img{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .practice-img::after{content:"⤢";position:absolute;top:8px;right:9px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:14px;line-height:1;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;pointer-events:none;transition:opacity .2s ease}
+  .practice-img:hover::after{opacity:1}
+  .practice-summary{margin-top:16px}
+  .practice-summary .practice-img{aspect-ratio:auto;padding:8px}
+  .practice-caption{margin-top:12px;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:var(--ink-soft)}
+  .practice-caption a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:.5px}
 
   /* Lightbox */
   .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(21,21,26,0.88);display:flex;align-items:center;justify-content:center;padding:48px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(4px)}
@@ -192,10 +208,11 @@
     .header,.body,.related,.hero-img{padding-left:18px;padding-right:18px}
     .step{grid-template-columns:1fr;gap:8px}
     .step-img{grid-column:auto}
-    .practice-fig{width:calc(100vw - 36px)}
     .meta-row{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
     .meta-row .v{text-align:left}
     article h2{gap:14px}
+    .practice-grid,.practice-grid.two{grid-template-columns:1fr;gap:16px}
+    .practice-summary{margin-top:20px}
   }
   /* Cite-this-paper box (in §04) */
   .cite-box{margin:24px 0 4px;padding:20px 22px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 2px 2px 0;background:var(--bg-card)}
@@ -294,7 +311,7 @@
   <div class="hero-img-inner">
     <img src="method-005/cover.png" alt="The design space derived from coding a corpus of interactive comics, organizing interaction operations by trigger, effect, and authoring goal">
   </div>
-  <div class="caption"><span>Fig. 1 · The design space of interaction operations, derived by coding a corpus of interactive comics (Wang et al., 2021)</span><span>↓ Read on</span></div>
+  <div class="caption"><span>The design space of interaction operations, derived by coding a corpus of interactive comics (Wang et al., 2021)</span><span>↓ Read on</span></div>
 </section>
 
 <!-- BODY -->
@@ -382,19 +399,34 @@
 
     <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
     <p>The Interactive Data Comics study began from six goals of interactivity for data-driven storytelling, then collected a corpus of interactive comics found in the wild. Two of the authors examined the collection and converged on a codebook; one author then coded the whole corpus, categorizing interactions into higher-level operations and relating each to the six goals. Every interaction was described by its trigger and effects, and by whether it changed panel content or the structure of the comic.</p>
-    <figure class="practice-fig">
-      <div class="step-img"><img src="method-005/interactive-comics-coding-results.png" alt="Results matrix of manual coding for interactive comics, showing triggers, panel content effects, panel layout effects, and communication goals across corpus examples" loading="lazy"></div>
-      <figcaption>Results of the manual coding of interactive comics from our corpus (see list at the end of the paper). Interactions are defined by a trigger, results in visual effects that can affect panel content, and/or panel layout, to achieve a particular communication goal.</figcaption>
+    <figure class="practice-case">
+      <div class="practice-grid single">
+        <div class="practice-item">
+          <span class="practice-label">Coding results</span>
+          <div class="practice-img"><img src="method-005/interactive-comics-coding-results.png" alt="Results matrix of manual coding for interactive comics, showing triggers, panel content effects, panel layout effects, and communication goals across corpus examples" loading="lazy"></div>
+        </div>
+      </div>
+      <figcaption class="practice-caption">Results of the manual coding of interactive comics from our corpus (see list at the end of the paper). Interactions are defined by a trigger, results in visual effects that can affect panel content, and/or panel layout, to achieve a particular communication goal.</figcaption>
     </figure>
     <p>The resulting design space was not an end in itself: it directly informed a lightweight scripting language for authoring interactive comics and a gallery of worked examples. That is the characteristic payoff of the method, a structured map of a medium becomes the foundation for the tools and artifacts built next.</p>
-    <p>The figures below show how concrete interactive-comic examples were abstracted into reusable design patterns. Specific interface elements, visual effects, and reader actions are translated into abstract symbols, which can then be compared across examples and assembled into the broader design space.</p>
-    <figure class="practice-fig">
-      <div class="step-img"><img src="method-005/design-pattern-input-data.png" alt="Annotated interactive comic example showing how input data, pictograms, and alternative branches are abstracted into applied UI elements and operations" loading="lazy"></div>
-      <figcaption>Example design patterns abstracted from an interactive comic. Concrete reader actions and visual changes are coded as abstract symbols, such as UI elements, pictogram operations, and branching layout operations.</figcaption>
+    <p>The examples below show how concrete interactive-comic examples were abstracted into reusable design patterns. Specific interface elements, visual effects, and reader actions are translated into abstract symbols, which can then be compared across examples and assembled into the broader design space.</p>
+    <figure class="practice-case">
+      <div class="practice-grid single">
+        <div class="practice-item">
+          <span class="practice-label">Input-data pattern</span>
+          <div class="practice-img"><img src="method-005/design-pattern-input-data.png" alt="Annotated interactive comic example showing how input data, pictograms, and alternative branches are abstracted into applied UI elements and operations" loading="lazy"></div>
+        </div>
+      </div>
+      <figcaption class="practice-caption">Example design patterns abstracted from an interactive comic. Concrete reader actions and visual changes are coded as abstract symbols, such as UI elements, pictogram operations, and branching layout operations.</figcaption>
     </figure>
-    <figure class="practice-fig">
-      <div class="step-img"><img src="method-005/design-pattern-design-space.png" alt="Annotated design space examples showing alternative granularity, drill-down details, and highlighting elements as reusable interaction operations" loading="lazy"></div>
-      <figcaption>Examples from the resulting design space. The annotated cases show how different patterns, such as alternative granularity, drill-down, and highlighting, are represented through abstract operations that can be reused across interactive comics.</figcaption>
+    <figure class="practice-case">
+      <div class="practice-grid single">
+        <div class="practice-item">
+          <span class="practice-label">Design-space patterns</span>
+          <div class="practice-img"><img src="method-005/design-pattern-design-space.png" alt="Annotated design space examples showing alternative granularity, drill-down details, and highlighting elements as reusable interaction operations" loading="lazy"></div>
+        </div>
+      </div>
+      <figcaption class="practice-caption">Examples from the resulting design space. The annotated cases show how different patterns, such as alternative granularity, drill-down, and highlighting, are represented through abstract operations that can be reused across interactive comics.</figcaption>
     </figure>
 
     <div class="cite-box">
@@ -493,10 +525,10 @@
   const boxImg = document.getElementById('lightboxImg');
   const boxCap = document.getElementById('lightboxCaption');
   const boxClose = document.getElementById('lightboxClose');
-  function open(src, alt){
+  function open(src, alt, caption){
     boxImg.src = src;
     boxImg.alt = alt || '';
-    boxCap.textContent = alt || '';
+    boxCap.textContent = caption || alt || '';
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
@@ -507,15 +539,18 @@
     document.body.classList.remove('lightbox-open');
     setTimeout(()=>{ if(!box.classList.contains('open')) boxImg.removeAttribute('src'); }, 260);
   }
-  document.querySelectorAll('.hero-img-inner, .step-img').forEach(div => {
+  document.querySelectorAll('.hero-img-inner, .step-img, .practice-img').forEach(div => {
     const img = div.querySelector('img');
     if(!img) return;
+    const step = div.classList.contains('step-img') ? div.closest('.step') : null;
+    const stepDescription = step ? step.querySelector('p') : null;
+    const caption = stepDescription ? stepDescription.textContent.trim() : (img.alt || '');
     div.setAttribute('role','button');
     div.setAttribute('tabindex','0');
     div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
-    div.addEventListener('click', () => open(img.src, img.alt));
+    div.addEventListener('click', () => open(img.src, img.alt, caption));
     div.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt); }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption); }
     });
   });
   box.addEventListener('click', e => { if(e.target === box) close(); });

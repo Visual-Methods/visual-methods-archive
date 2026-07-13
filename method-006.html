@@ -118,6 +118,33 @@
   .step-num{width:36px;height:36px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:500;font-size:14px;color:var(--ink);flex-shrink:0;font-variant-numeric:tabular-nums;margin-top:2px}
   .step h4{font-family:'Newsreader',Georgia,serif;font-size:22px;font-weight:400;letter-spacing:-0.018em;margin-bottom:6px;font-variation-settings:"opsz" 36;color:var(--ink)}
   .step p{font-size:15px;color:var(--ink-soft);max-width:560px;margin:0;line-height:1.6}
+  .step-img{aspect-ratio:4/3;overflow:hidden;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:8px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative;transition:border-color .2s ease, transform .2s ease}
+  .step-img:hover, .hero-img-inner:hover{border-color:var(--ink)}
+  .step-img:hover::after, .hero-img-inner:hover::after{opacity:1}
+  .step-img::after, .hero-img-inner::after{content:"⤢";position:absolute;top:10px;right:12px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;transition:opacity .2s ease;font-family:'Inter',sans-serif;line-height:1;pointer-events:none}
+  .step-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .step-fig{margin:18px 0 2px;max-width:460px}
+  .step-fig .step-img{aspect-ratio:auto;padding:12px}
+
+  /* IN-PRACTICE CASE IMAGES */
+  .practice-case{margin:28px 0 36px;max-width:760px}
+  .practice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .practice-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .practice-grid.single{grid-template-columns:1fr}
+  .practice-item{min-width:0}
+  .practice-label{display:block;margin-bottom:7px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .practice-img{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:6px;cursor:zoom-in;transition:border-color .2s ease}
+  .practice-grid .practice-img{aspect-ratio:3509/2484}
+  .practice-grid.single .practice-img{aspect-ratio:auto;padding:8px}
+  .practice-grid.single .practice-img img{height:auto}
+  .practice-img:hover{border-color:var(--ink)}
+  .practice-img img{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .practice-img::after{content:"⤢";position:absolute;top:8px;right:9px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:14px;line-height:1;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;pointer-events:none;transition:opacity .2s ease}
+  .practice-img:hover::after{opacity:1}
+  .practice-summary{margin-top:16px}
+  .practice-summary .practice-img{aspect-ratio:5918/1338;padding:8px}
+  .practice-caption{margin-top:12px;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:var(--ink-soft)}
+  .practice-caption a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:.5px}
 
   /* Lightbox */
   .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(21,21,26,0.88);display:flex;align-items:center;justify-content:center;padding:48px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(4px)}
@@ -172,15 +199,19 @@
     .footer-inner{grid-template-columns:1fr;gap:24px}
     footer .next{text-align:left}
     .step{grid-template-columns:56px 1fr;gap:24px}
+    .step-img{grid-column:1 / -1;aspect-ratio:16/9;max-width:480px;margin-top:6px}
   }
   @media (max-width:560px){
     nav{padding:12px 18px}
     .nav-links{display:none}
     .header,.body,.related,.hero-img{padding-left:18px;padding-right:18px}
     .step{grid-template-columns:1fr;gap:8px}
+    .step-img{grid-column:auto}
     .meta-row{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
     .meta-row .v{text-align:left}
     article h2{gap:14px}
+    .practice-grid,.practice-grid.two{grid-template-columns:1fr;gap:16px}
+    .practice-summary{margin-top:20px}
   }
   /* Cite-this-paper box (in §04) */
   .cite-box{margin:24px 0 4px;padding:20px 22px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 2px 2px 0;background:var(--bg-card)}
@@ -279,7 +310,7 @@
   <div class="hero-img-inner">
     <img src="method-006/cover.png" alt="Readers' viewing-path traces drawn over the same visual story, compared across formats">
   </div>
-  <div class="caption"><span>Fig. 1 · Reader-drawn viewing-path traces over the same story, compared across formats (Wang et al., 2019)</span><span>↓ Read on</span></div>
+  <div class="caption"><span>Reader-drawn viewing-path traces over the same story, compared across formats (Wang et al., 2019)</span><span>↓ Read on</span></div>
 </section>
 
 <!-- BODY -->
@@ -308,6 +339,9 @@
         <div>
           <h4>Prepare the material.</h4>
           <p>Produce or obtain the visual document you want to study, printed at a size where a reader can comfortably mark on it.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-006/step1.png" alt="A researcher lays down a printed visual story sheet with a text column and an abstract alliance map" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
@@ -315,6 +349,9 @@
         <div>
           <h4>Have participants read naturally.</h4>
           <p>Ask each reader to read comfortably and without rushing. Optionally record the reading on video (framed so the participant's face is not captured) to support reconstructing the path later.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-006/step2.png" alt="A participant reads the same printed visual story with a text column and abstract alliance map" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
@@ -322,34 +359,36 @@
         <div>
           <h4>Capture the viewing path.</h4>
           <p>Right after reading, have the participant draw onto the material the path and order in which they read it, as a continuous trace. Where reading was recorded, the trace can instead be reconstructed from the video.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-006/step3.png" alt="A participant draws a red continuous viewing-path trace across the printed alliance-map visual story" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div>
-          <h4>Collect a trace from each reader.</h4>
-          <p>Keep one trace per reader, labeled consistently, so the whole set can be compared on equal terms.</p>
+          <h4>Collect, overlay, and compare the traces.</h4>
+          <p>Keep one trace per reader, labeled consistently, so the whole set can be compared on equal terms. Then lay the traces together and look for shared versus divergent routes across readers. Quantify the agreement, for instance the fraction of readers whose traces are comparable, to make the pattern concrete.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-006/step4.png" alt="Six equal-size copies of the same alliance-map story sheet are arranged in two rows with different red viewing paths" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
-        <div>
-          <h4>Overlay and compare the traces.</h4>
-          <p>Lay the traces together and look for shared versus divergent routes across readers. Quantify the agreement, for instance the fraction of readers whose traces are comparable, to make the pattern concrete.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">6</div>
         <div>
           <h4>Relate the traces to the layout.</h4>
           <p>Interpret how the document's layout produced its viewing order, reading the traces against its structure to explain what guided the reader.</p>
         </div>
       </div>
       <div class="step">
-        <div class="step-num">7</div>
+        <div class="step-num">6</div>
         <div>
           <h4>Triangulate with other measures.</h4>
           <p>Read the traces alongside reading time, recall, preference, and interview data. The path explains behavior that the outcome measures only hint at.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-006/step7.png" alt="The alliance-map story sheet with a red viewing path is linked to a stopwatch, checklist, and interview bubble" loading="lazy"></div>
+          </figure>
         </div>
       </div>
     </div>
@@ -357,6 +396,28 @@
     <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
     <p>The data-comics study had participants draw their reading paths onto the printed stories across three formats: comic, infographic, and illustrated text. Overlaying the traces showed that comics produced the most consistent viewing order, with comparable traces for all readers, against roughly three quarters for infographics and two thirds for illustrated text. The reading sequence was largely guided by layout: with no strong layout cues, readers in the infographic condition followed no shared order.</p>
     <p>Read together with the study's understanding, recall, and preference measures, the traces helped explain <em>why</em> comics aided comprehension: a layout that produces a shared, predictable path leaves readers less to negotiate and more attention for the content. The viewing path, in other words, was the behavioral evidence behind the outcome scores.</p>
+
+    <figure class="practice-case">
+      <div class="practice-grid">
+        <div class="practice-item">
+          <span class="practice-label">Infographic</span>
+          <div class="practice-img"><img src="method-006/in-practice-infographic.png" alt="A reader-drawn reading sequence marked in red on the infographic version of the data story" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-label">Illustrated text</span>
+          <div class="practice-img"><img src="method-006/in-practice-illustrated-text.png" alt="A reader-drawn reading sequence marked in red on the illustrated-text version of the data story" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-label">Data comic</span>
+          <div class="practice-img"><img src="method-006/in-practice-data-comic.png" alt="A reader-drawn reading sequence marked by hand on the data-comic version of the data story" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+      <div class="practice-item practice-summary">
+        <span class="practice-label">Typical reading paths</span>
+        <div class="practice-img"><img src="method-006/in-practice-typical-paths.jpg" alt="Three typical reading paths drawn by researchers after analyzing participants' hand-drawn traces" loading="lazy" decoding="async"></div>
+      </div>
+      <figcaption class="practice-caption">Reader-drawn reading sequences of the same data story. Top: reading orders drawn by hand directly on the printed material in three formats: infographic, illustrated text, and data comic. Bottom: three typical reading paths drawn by the researchers after analyzing individual participants' hand-drawn traces.</figcaption>
+    </figure>
 
     <div class="cite-box">
       <div class="cite-label">Cite this paper</div>
@@ -454,10 +515,10 @@
   const boxImg = document.getElementById('lightboxImg');
   const boxCap = document.getElementById('lightboxCaption');
   const boxClose = document.getElementById('lightboxClose');
-  function open(src, alt){
+  function open(src, alt, caption){
     boxImg.src = src;
     boxImg.alt = alt || '';
-    boxCap.textContent = alt || '';
+    boxCap.textContent = caption || alt || '';
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
@@ -468,15 +529,18 @@
     document.body.classList.remove('lightbox-open');
     setTimeout(()=>{ if(!box.classList.contains('open')) boxImg.removeAttribute('src'); }, 260);
   }
-  document.querySelectorAll('.hero-img-inner').forEach(div => {
+  document.querySelectorAll('.hero-img-inner, .step-img, .practice-img').forEach(div => {
     const img = div.querySelector('img');
     if(!img) return;
+    const step = div.classList.contains('step-img') ? div.closest('.step') : null;
+    const stepDescription = step ? step.querySelector('p') : null;
+    const caption = stepDescription ? stepDescription.textContent.trim() : (img.alt || '');
     div.setAttribute('role','button');
     div.setAttribute('tabindex','0');
     div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
-    div.addEventListener('click', () => open(img.src, img.alt));
+    div.addEventListener('click', () => open(img.src, img.alt, caption));
     div.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt); }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption); }
     });
   });
   box.addEventListener('click', e => { if(e.target === box) close(); });

@@ -2,3 +2,4 @@
 .wrangler
 .DS_Store
 worker
+method-*/step-image-prompts.md
