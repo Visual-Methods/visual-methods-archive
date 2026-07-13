@@ -118,6 +118,18 @@
   .step-num{width:36px;height:36px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:500;font-size:14px;color:var(--ink);flex-shrink:0;font-variant-numeric:tabular-nums;margin-top:2px}
   .step h4{font-family:'Newsreader',Georgia,serif;font-size:22px;font-weight:400;letter-spacing:-0.018em;margin-bottom:6px;font-variation-settings:"opsz" 36;color:var(--ink)}
   .step p{font-size:15px;color:var(--ink-soft);max-width:560px;margin:0;line-height:1.6}
+  .step-img{aspect-ratio:4/3;overflow:hidden;background:#efece2;border:1px solid var(--line);border-radius:2px;padding:8px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;position:relative;transition:border-color .2s ease, transform .2s ease}
+  .step-img:hover, .hero-img-inner:hover{border-color:var(--ink)}
+  .step-img:hover::after, .hero-img-inner:hover::after{opacity:1}
+  .step-img::after, .hero-img-inner::after{content:"⤢";position:absolute;top:10px;right:12px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);background:rgba(250,249,246,0.9);border:1px solid var(--line);border-radius:50%;opacity:0;transition:opacity .2s ease;font-family:'Inter',sans-serif;line-height:1;pointer-events:none}
+  .step-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;mix-blend-mode:multiply}
+  .step-fig{margin:18px 0 2px;max-width:460px}
+  .step-fig .step-img{aspect-ratio:auto;padding:12px}
+  .step-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+  .practice-fig{margin:24px 0 28px;width:min(980px,calc(100vw - 64px));max-width:none}
+  .practice-fig .step-img{aspect-ratio:auto;padding:14px}
+  .practice-fig img{width:100%;height:auto;max-width:100%;max-height:none;object-fit:contain}
+  .practice-fig figcaption{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:9px;line-height:1.55;max-width:760px}
 
   /* Lightbox */
   .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(21,21,26,0.88);display:flex;align-items:center;justify-content:center;padding:48px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(4px)}
@@ -172,12 +184,15 @@
     .footer-inner{grid-template-columns:1fr;gap:24px}
     footer .next{text-align:left}
     .step{grid-template-columns:56px 1fr;gap:24px}
+    .step-img{grid-column:1 / -1;aspect-ratio:16/9;max-width:480px;margin-top:6px}
   }
   @media (max-width:560px){
     nav{padding:12px 18px}
     .nav-links{display:none}
     .header,.body,.related,.hero-img{padding-left:18px;padding-right:18px}
     .step{grid-template-columns:1fr;gap:8px}
+    .step-img{grid-column:auto}
+    .practice-fig{width:calc(100vw - 36px)}
     .meta-row{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
     .meta-row .v{text-align:left}
     article h2{gap:14px}
@@ -265,10 +280,10 @@
     <div class="meta-card">
       <div class="meta-row"><span class="k">Form</span><span class="v">Diagramming</span></div>
       <div class="meta-row"><span class="k">Purpose</span><span class="v">Understanding · Communicating</span></div>
-      <div class="meta-row"><span class="k">Material and tool</span><span class="v">A corpus of examples · A codebook · A coding table</span></div>
+      <div class="meta-row"><span class="k">Material and tool</span><span class="v">A corpus of examples</span></div>
       <div class="meta-row"><span class="k">Skill</span><span class="v">Qualitative coding literacy (Researchers)</span></div>
-      <div class="meta-row"><span class="k">Time</span><span class="v">Weeks per corpus · multi-coder</span></div>
-      <div class="meta-row"><span class="k">Setting</span><span class="v">Desk-based, collaborative coding sessions</span></div>
+      <div class="meta-row"><span class="k">Time</span><span class="v">From days to weeks, depends on number of coders</span></div>
+      <div class="meta-row"><span class="k">Setting</span><span class="v">Could be on digital devices, desk-based or collaborative coding sessions</span></div>
       <div class="meta-row"><span class="k">Output</span><span class="v">Coded corpus + a structured design space</span></div>
     </div>
   </div>
@@ -296,10 +311,10 @@
 
   <article>
     <h2 id="what"><span class="sec-num">§ 01</span><span>What it is.</span></h2>
-    <p class="drop"><strong>Coding for design patterns</strong> is a method for mapping what a medium or technique makes possible, by collecting a corpus of existing examples, developing a codebook, and coding each example into a structured set of dimensions or operations. Rather than a single artifact, the output is a map of the space of possibilities. In the source study the corpus was a collection of interactive comics, coded into interaction operations and organized by trigger, effect, and authoring goal.</p>
+    <p class="drop"><strong>Coding for design patterns</strong> is a method for mapping what a medium or technique makes possible, by collecting a corpus of existing examples, developing a codebook, and coding each example into a structured set of dimensions or operations. Rather than a single artifact, the output is a map of the space of possibilities.</p>
 
     <h2 id="why"><span class="sec-num">§ 02</span><span>Why use it.</span></h2>
-    <p>When you set out to design a new tool or medium, you first need to understand the space of what is already possible. Deriving that space empirically from existing examples, rather than inventing it from scratch, grounds your decisions in real practice and makes the gaps and opportunities visible. Coding turns a scattered collection of examples into a structured, comparable map that others can build on.</p>
+    <p>When you set out to design a new tool or medium, mapping the space of what is already possible helps you see where the real opportunities are. Deriving that space empirically from existing examples, rather than inventing it from scratch, grounds your decisions in real practice and makes the gaps and opportunities visible. Coding turns a scattered collection of examples into a structured, comparable map that others can build on.</p>
 
     <h2 id="how"><span class="sec-num">§ 03</span><span>How to do it.</span></h2>
     <div class="steps">
@@ -307,28 +322,40 @@
         <div class="step-num">1</div>
         <div>
           <h4>Frame the goals.</h4>
-          <p>Establish the high-level goals or questions the design space should answer. These give the coding a purpose and a backbone to organize against. The source study set six goals of interactivity for data-driven storytelling (G1 to G6).</p>
+          <p>Establish the high-level goals or questions the design space should answer. These give the coding a purpose and a backbone to organize against.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-005/step1.png" alt="A researcher frames three goals in a thinking cloud above a sparse desk, labeled Goal 1, Goal 2, and Goal 3" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div>
           <h4>Collect a corpus of examples.</h4>
-          <p>Gather a set of existing examples of the medium you are studying, broad enough to cover its range. The source study collected a corpus of traditional interactive comics found online.</p>
+          <p>Gather a set of existing examples of the medium you are studying, broad enough to cover its range.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-005/step2.png" alt="A three-panel corpus collection scene showing physical cards, printed magazine and book examples, and digital webpages in a folder" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div>
           <h4>Develop a codebook together.</h4>
-          <p>Have more than one coder examine the collection and converge on a shared codebook: the categories, definitions, and examples that will be applied consistently across the corpus.</p>
+          <p>Build the codebook by examining the collection and converging on a shared set of categories, definitions, and examples that will be applied consistently across the corpus.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-005/step3.png" alt="Three researchers develop a shared codebook by comparing example cards, category cards, and a structured coding notebook" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div>
           <h4>Code the corpus.</h4>
-          <p>Apply the codebook across every example, categorizing its features into higher-level operations or dimensions (for instance, add or remove an element, reorder a panel). One coder can carry the full pass once the codebook is agreed.</p>
+          <p>Apply the codebook across every example, categorizing its features into higher-level operations or dimensions (for instance, add or remove an element, reorder a panel).</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-005/step4.png" alt="A two-panel coding scene showing tagged physical example cards beside a digital whiteboard where images are dragged into groups" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
@@ -336,27 +363,39 @@
         <div>
           <h4>Decompose each unit.</h4>
           <p>Describe each coded unit by its constituent parts so the dimensions are precise. In the source study each interaction was described by its <strong>trigger</strong> (how it is activated) and its <strong>effects</strong> (what changes), and by whether it touched panel content or comic structure.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-005/step5.png" alt="One interactive example is decomposed with annotations for Interaction and Feedback and Visual components" loading="lazy"></div>
+          </figure>
         </div>
       </div>
       <div class="step">
         <div class="step-num">6</div>
         <div>
-          <h4>Relate the codes back to the goals.</h4>
-          <p>Map the coded operations onto the goals from step 1 to see which goal each one serves and where coverage is thin. This is what turns a list of codes into an argument about the space.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">7</div>
-        <div>
-          <h4>Assemble the design space.</h4>
-          <p>Organize the operations and dimensions into a structured table or diagram. That table is the design space: a compact, comparable view of the medium that can inform tools, guidelines, and new examples.</p>
+          <h4>Relate the codes and assemble the design space.</h4>
+          <p>Map the coded operations onto the goals from step 1, then organize the operations and dimensions into a structured table or diagram. That table is the design space: a compact, comparable view of the medium that can inform tools, guidelines, and new examples.</p>
+          <figure class="step-fig">
+            <div class="step-img"><img src="method-005/step7.png" alt="Researchers assemble a final design-space matrix from coded operation cards, with rows, columns, icons, and grouped areas" loading="lazy"></div>
+          </figure>
         </div>
       </div>
     </div>
 
     <h2 id="example"><span class="sec-num">§ 04</span><span>In practice.</span></h2>
     <p>The Interactive Data Comics study began from six goals of interactivity for data-driven storytelling, then collected a corpus of interactive comics found in the wild. Two of the authors examined the collection and converged on a codebook; one author then coded the whole corpus, categorizing interactions into higher-level operations and relating each to the six goals. Every interaction was described by its trigger and effects, and by whether it changed panel content or the structure of the comic.</p>
+    <figure class="practice-fig">
+      <div class="step-img"><img src="method-005/interactive-comics-coding-results.png" alt="Results matrix of manual coding for interactive comics, showing triggers, panel content effects, panel layout effects, and communication goals across corpus examples" loading="lazy"></div>
+      <figcaption>Results of the manual coding of interactive comics from our corpus (see list at the end of the paper). Interactions are defined by a trigger, results in visual effects that can affect panel content, and/or panel layout, to achieve a particular communication goal.</figcaption>
+    </figure>
     <p>The resulting design space was not an end in itself: it directly informed a lightweight scripting language for authoring interactive comics and a gallery of worked examples. That is the characteristic payoff of the method, a structured map of a medium becomes the foundation for the tools and artifacts built next.</p>
+    <p>The figures below show how concrete interactive-comic examples were abstracted into reusable design patterns. Specific interface elements, visual effects, and reader actions are translated into abstract symbols, which can then be compared across examples and assembled into the broader design space.</p>
+    <figure class="practice-fig">
+      <div class="step-img"><img src="method-005/design-pattern-input-data.png" alt="Annotated interactive comic example showing how input data, pictograms, and alternative branches are abstracted into applied UI elements and operations" loading="lazy"></div>
+      <figcaption>Example design patterns abstracted from an interactive comic. Concrete reader actions and visual changes are coded as abstract symbols, such as UI elements, pictogram operations, and branching layout operations.</figcaption>
+    </figure>
+    <figure class="practice-fig">
+      <div class="step-img"><img src="method-005/design-pattern-design-space.png" alt="Annotated design space examples showing alternative granularity, drill-down details, and highlighting elements as reusable interaction operations" loading="lazy"></div>
+      <figcaption>Examples from the resulting design space. The annotated cases show how different patterns, such as alternative granularity, drill-down, and highlighting, are represented through abstract operations that can be reused across interactive comics.</figcaption>
+    </figure>
 
     <div class="cite-box">
       <div class="cite-label">Cite this paper</div>
@@ -468,7 +507,7 @@
     document.body.classList.remove('lightbox-open');
     setTimeout(()=>{ if(!box.classList.contains('open')) boxImg.removeAttribute('src'); }, 260);
   }
-  document.querySelectorAll('.hero-img-inner').forEach(div => {
+  document.querySelectorAll('.hero-img-inner, .step-img').forEach(div => {
     const img = div.querySelector('img');
     if(!img) return;
     div.setAttribute('role','button');
