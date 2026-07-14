@@ -94,7 +94,6 @@
      On narrower viewports (≤960px) the grid stacks, and the responsive block
      below caps the Venn back to a reasonable mobile size. */
   .venn-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:580px;position:relative;margin:0 auto}
-  /* Hover tooltip for the three Venn category labels */
   .venn-tip{position:absolute;z-index:20;background:var(--ink);color:var(--bg);font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.01em;text-transform:none;padding:6px 10px;border-radius:3px;pointer-events:none;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .15s;left:0;top:0}
   .venn-tip.show{opacity:1}
   svg.venn{width:100%;height:auto;display:block;position:relative}
@@ -108,6 +107,7 @@
     transition:opacity .25s,stroke-width .25s,stroke-dasharray .35s;
   }
   svg.venn .vc:hover,
+  svg.venn .vc.label-hover,
   svg.venn .vc-other:hover path{opacity:0.7}
   svg.venn .vc.active,
   svg.venn .vc-other.active path{opacity:0.95;stroke-dasharray:0 0;stroke-width:1.5}
@@ -138,6 +138,8 @@
     fill:var(--ink-soft);pointer-events:none;
     paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;stroke-linecap:round;
   }
+  svg.venn .vlabel[data-cat],
+  svg.venn .vcount[data-cat]{pointer-events:auto;cursor:pointer}
 
   .hero-note{display:flex;flex-direction:column;align-items:flex-end;justify-self:end;gap:8px;max-width:520px;grid-column:2}
   .venn-note{font-size:12px;line-height:1.55;color:var(--ink-soft);text-align:right;max-width:440px;margin:0}
@@ -780,42 +782,6 @@
   }
 
   // ── Boot order: data → DOM → wire up interactivity ───────────
-  // ── Hover explanations for the three Venn category labels ──────
-  (function(){
-    const TIPS = { g:'Eliciting and collecting visual data', u:'Analyzing and interpreting visual data', c:'Presenting visual data to others', o:'Other and emerging purposes, beyond these three.' };
-    const tip = document.getElementById('vennTip');
-    const wrap = document.querySelector('.venn-wrap');
-    if(tip && wrap){
-      function showFor(anchorEl, text){
-        tip.textContent = text;
-        const wr = wrap.getBoundingClientRect(), r = anchorEl.getBoundingClientRect();
-        tip.style.left = (r.left - wr.left + r.width/2) + 'px';
-        tip.style.top  = (r.top - wr.top - 8) + 'px';
-        tip.classList.add('show');
-      }
-      function hide(){ tip.classList.remove('show'); }
-      document.querySelectorAll('svg.venn text.vlabel[data-cat]').forEach(function(el){
-        const cat = el.getAttribute('data-cat'); if(!TIPS[cat]) return;
-        el.style.pointerEvents = 'auto'; el.style.cursor = 'help';
-        el.setAttribute('tabindex', '0');
-        el.setAttribute('role', 'img');
-        el.setAttribute('aria-label', el.textContent + ': ' + TIPS[cat]);
-        el.addEventListener('mouseenter', function(){ showFor(el, TIPS[cat]); });
-        el.addEventListener('mouseleave', hide);
-        el.addEventListener('focus', function(){ showFor(el, TIPS[cat]); });
-        el.addEventListener('blur', hide);
-      });
-      // The "and beyond" label is covered by transparent hit-rects, so bind
-      // the tooltip to the whole .vc-other group (its hit area) instead.
-      const otherG = document.querySelector('svg.venn .vc-other');
-      const otherLabel = document.querySelector('svg.venn text.vlabel[data-cat="o"]');
-      if(otherG && otherLabel && TIPS.o){
-        otherG.addEventListener('mouseenter', function(){ showFor(otherLabel, TIPS.o); });
-        otherG.addEventListener('mouseleave', hide);
-      }
-    }
-  })();
-
   renderGallery();
   updateStats();
   sizeVennByCount();
@@ -826,6 +792,47 @@
   const countN = document.getElementById('countN');
   const emptyState = document.getElementById('emptyState');
   const resetBtn = document.getElementById('resetBtn');
+  const vennTip = document.getElementById('vennTip');
+  const vennWrap = document.querySelector('.venn-wrap');
+  const vennTips = {
+    g:'Eliciting and collecting visual data',
+    u:'Analyzing and interpreting visual data',
+    c:'Presenting visual data to others',
+    o:'Other and emerging purposes, beyond these three.'
+  };
+
+  function showVennTip(anchor, text) {
+    const wrapRect = vennWrap.getBoundingClientRect();
+    const anchorRect = anchor.getBoundingClientRect();
+    vennTip.textContent = text;
+    vennTip.style.left = (anchorRect.left - wrapRect.left + anchorRect.width / 2) + 'px';
+    vennTip.style.top = (anchorRect.top - wrapRect.top - 8) + 'px';
+    vennTip.classList.add('show');
+  }
+
+  function hideVennTip() {
+    vennTip.classList.remove('show');
+  }
+
+  // Category labels behave like the "and beyond" hit area: pointer cursor,
+  // matching outline feedback, direct selection, and a short explanation.
+  document.querySelectorAll('svg.venn text.vlabel[data-cat], svg.venn text.vcount[data-cat]').forEach(label => {
+    if (label.dataset.cat === 'o') return;
+    const circle = document.querySelector(`svg.venn .vc[data-cat="${label.dataset.cat}"]`);
+    label.addEventListener('mouseenter', () => {
+      if (circle) circle.classList.add('label-hover');
+      showVennTip(label, vennTips[label.dataset.cat]);
+    });
+    label.addEventListener('mouseleave', () => {
+      if (circle) circle.classList.remove('label-hover');
+      hideVennTip();
+    });
+  });
+
+  const otherGroup = document.querySelector('svg.venn .vc-other');
+  const otherLabel = document.querySelector('svg.venn text.vlabel[data-cat="o"]');
+  otherGroup.addEventListener('mouseenter', () => showVennTip(otherLabel, vennTips.o));
+  otherGroup.addEventListener('mouseleave', hideVennTip);
 
   resetBtn.addEventListener('click', () => resetVenn());
 
@@ -874,20 +881,24 @@
     next.forEach(cat => { if (cat in state) state[cat] = true; });
   }
   vsvg.addEventListener('click', (e) => {
-    const ctm = vsvg.getScreenCTM();
-    if (!ctm) return;
-    const pt = vsvg.createSVGPoint();
-    pt.x = e.clientX; pt.y = e.clientY;
-    const loc = pt.matrixTransform(ctm.inverse());
-    const inside = catsAtPoint(loc);
     let next = null;
-    if (inside.length) {
-      next = inside;
+    const clickedLabel = e.target.closest && e.target.closest('text.vlabel[data-cat], text.vcount[data-cat]');
+    if (clickedLabel) {
+      next = [clickedLabel.dataset.cat];
     } else if (e.target.closest && e.target.closest('.vc-other')) {
       next = ['o'];
     } else {
-      resetVenn();
-      return;
+      const ctm = vsvg.getScreenCTM();
+      if (!ctm) return;
+      const pt = vsvg.createSVGPoint();
+      pt.x = e.clientX; pt.y = e.clientY;
+      const loc = pt.matrixTransform(ctm.inverse());
+      const inside = catsAtPoint(loc);
+      if (inside.length) next = inside;
+      else {
+        resetVenn();
+        return;
+      }
     }
     if (sameSelection(next)) {
       resetVenn();
