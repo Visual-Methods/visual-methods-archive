@@ -20,6 +20,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+  @property --flow-g-x{syntax:'<percentage>';inherits:false;initial-value:15%}
+  @property --flow-g-y{syntax:'<percentage>';inherits:false;initial-value:18%}
+  @property --flow-c-x{syntax:'<percentage>';inherits:false;initial-value:88%}
+  @property --flow-c-y{syntax:'<percentage>';inherits:false;initial-value:32%}
+  @property --flow-p-x{syntax:'<percentage>';inherits:false;initial-value:50%}
+  @property --flow-p-y{syntax:'<percentage>';inherits:false;initial-value:100%}
   :root{
     --bg:#f2f1ef;
     --bg-card:#faf9f6;
@@ -28,19 +34,21 @@
     --line:#c7c2b7;
     --accent:#2a3e6e;
     --accent-bright:#7e9ad0;
+    --ink-grain-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' seed='11' stitchTiles='stitch' result='n'/><feColorMatrix in='n' type='luminanceToAlpha' result='a'/><feComponentTransfer in='a'><feFuncA type='table' tableValues='0.72 0.86 0.95 1'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{background:var(--bg)}
   body{
     color:var(--ink);font-family:'Inter',-apple-system,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.5;position:relative;min-height:100%;
+    --flow-g-x:15%;--flow-g-y:18%;--flow-c-x:88%;--flow-c-y:32%;--flow-p-x:50%;--flow-p-y:100%;
     /* base color + 3 soft radial gradients echoing the Venn palette */
     background-color:var(--bg);
     /* Same gradient definitions as method.html — keeps the base gray identical across pages.
        Difference between pages is only which color LAYERS are active. */
     background-image:
-      radial-gradient(ellipse 90% 78% at 15% 18%, rgba(42,90,110,0.20), transparent 60%),   /* teal — Gathering */
-      radial-gradient(ellipse 84% 74% at 88% 32%, rgba(168,90,50,0.18), transparent 60%),   /* terracotta — Understanding */
-      radial-gradient(ellipse 92% 72% at 50% 100%, rgba(94,58,94,0.18), transparent 60%);   /* plum — Communicating */
+      radial-gradient(ellipse 82% 72% at var(--flow-g-x) var(--flow-g-y), rgba(42,90,110,0.20), transparent 60%),
+      radial-gradient(ellipse 78% 68% at var(--flow-c-x) var(--flow-c-y), rgba(130,84,130,0.16), transparent 60%),
+      radial-gradient(ellipse 84% 68% at var(--flow-p-x) var(--flow-p-y), rgba(94,58,94,0.18), transparent 60%);
     background-attachment:fixed;
   }
   /* page-wide paper grain overlay */
@@ -51,6 +59,22 @@
   }
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%;height:auto}
+
+  /* Slightly porous ink: large editorial type reveals the paper and page
+     gradient beneath it, while small navigation and control text stays crisp. */
+  .logo,
+  h1.title,
+  .hero-subtitle,
+  .hero-lede,
+  .section-head h2,
+  .card-title{
+    -webkit-mask-image:var(--ink-grain-mask);
+    mask-image:var(--ink-grain-mask);
+    -webkit-mask-size:180px 180px;
+    mask-size:180px 180px;
+    -webkit-mask-repeat:repeat;
+    mask-repeat:repeat;
+  }
 
   /* NAV */
   nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 32px;display:flex;justify-content:space-between;align-items:center}
@@ -78,7 +102,7 @@
   .hero-main{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
   .hero-left{display:flex;flex-direction:column;gap:34px}
   .title-block{display:flex;flex-direction:column;gap:14px}
-  h1.title{font-family:'Newsreader',Georgia,serif;font-size:clamp(54px,7.6vw,112px);line-height:0.92;letter-spacing:-0.022em;font-weight:400;font-variation-settings:"opsz" 72;margin:0;color:var(--ink)}
+  h1.title{font-family:'Newsreader',Georgia,serif;font-size:clamp(54px,7.6vw,112px);line-height:0.92;letter-spacing:-0.022em;font-weight:400;font-variation-settings:"opsz" 72;margin:-0.12em 0 -0.06em;padding:0.12em 0 0.06em;color:var(--ink)}
   .hero-subtitle{font-family:'Newsreader',Georgia,serif;font-size:clamp(24px,2.35vw,34px);font-weight:400;letter-spacing:0;line-height:1.08;color:var(--ink-soft);max-width:560px;font-variation-settings:"opsz" 72}
 
   /* Vertical list of visual forms — a small Newsreader index under the title. */
@@ -97,6 +121,51 @@
   .venn-tip{position:absolute;z-index:20;background:var(--ink);color:var(--bg);font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.01em;text-transform:none;padding:6px 10px;border-radius:3px;pointer-events:none;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .15s;left:0;top:0}
   .venn-tip.show{opacity:1}
   svg.venn{width:100%;height:auto;display:block;position:relative}
+  svg.venn .venn-blob{transform-box:view-box}
+  svg.venn .venn-blob[data-cat="g"]{transform-origin:340px 200px}
+  svg.venn .venn-blob[data-cat="u"]{transform-origin:195px 285px}
+  svg.venn .venn-blob[data-cat="c"]{transform-origin:370px 360px}
+  svg.venn .vc{transform-box:fill-box;transform-origin:center}
+  svg.venn .vlabel,
+  svg.venn .vcount{transform-box:fill-box;transform-origin:center}
+
+  /* Page-load sequence: blobs expand largest-first, then labels and the
+     containing "and beyond" arcs arrive after the three circles settle. */
+  svg.venn.venn-intro{pointer-events:none}
+  svg.venn.venn-intro .venn-blob,
+  svg.venn.venn-intro .vc{opacity:0;transform:scale(.001)}
+  svg.venn.venn-intro .vlabel,
+  svg.venn.venn-intro .vcount{opacity:0;transform:translateY(5px)}
+  svg.venn.venn-intro .vc-other path{opacity:0;stroke-dashoffset:24}
+  svg.venn.venn-intro.venn-animate .venn-blob{
+    animation:vennBlobIn .9s cubic-bezier(.16,1,.3,1) var(--venn-intro-delay,0ms) both;
+  }
+  svg.venn.venn-intro.venn-animate .vc{
+    animation:vennOutlineIn .9s cubic-bezier(.16,1,.3,1) var(--venn-intro-delay,0ms) both;
+  }
+  svg.venn.venn-intro.venn-animate .vlabel,
+  svg.venn.venn-intro.venn-animate .vcount{
+    animation:vennTextIn .52s ease-out var(--venn-label-delay,1900ms) both;
+  }
+  svg.venn.venn-intro.venn-animate .vc-other path{
+    animation:vennArcIn .68s cubic-bezier(.22,.61,.36,1) var(--venn-label-delay,1900ms) both;
+  }
+  @keyframes vennBlobIn{
+    from{opacity:0;transform:scale(.001)}
+    to{opacity:1;transform:scale(1)}
+  }
+  @keyframes vennOutlineIn{
+    from{opacity:0;transform:scale(.001)}
+    to{opacity:.42;transform:scale(1)}
+  }
+  @keyframes vennTextIn{
+    from{opacity:0;transform:translateY(5px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes vennArcIn{
+    from{opacity:0;stroke-dashoffset:24}
+    to{opacity:.42;stroke-dashoffset:0}
+  }
   /* Venn clickable circles + the in-SVG "and other" group share one visual treatment */
   svg.venn .vc,
   svg.venn .vc-other{cursor:pointer}
@@ -316,6 +385,12 @@
   @media (hover:none){ .card-img .card-img-original{clip-path:inset(0 0 0 0)!important} }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    svg.venn.venn-intro{pointer-events:auto}
+    svg.venn.venn-intro .venn-blob{opacity:1!important;transform:none!important;animation:none!important}
+    svg.venn.venn-intro .vc{opacity:.42!important;transform:none!important;animation:none!important}
+    svg.venn.venn-intro .vlabel,
+    svg.venn.venn-intro .vcount{opacity:1!important;transform:none!important;animation:none!important}
+    svg.venn.venn-intro .vc-other path{opacity:.42!important;stroke-dashoffset:0!important;animation:none!important}
   }
   @media (max-width:640px){
     .nav-toggle{display:inline-flex}
@@ -388,7 +463,7 @@
       </div>
 
       <div class="venn-wrap">
-        <svg class="venn" viewBox="0 0 580 580" xmlns="http://www.w3.org/2000/svg">
+        <svg class="venn venn-intro" viewBox="0 0 580 580" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <!-- Colored grain filter — generates fractal noise, compresses
                  it to mid-gray (so it modulates LIGHTNESS rather than
@@ -544,23 +619,29 @@
                  applied via the venn-grain filter (overlay blend — keeps
                  each blob's hue family, just adds spray-paint texture). -->
             <!-- Gathering -->
-            <circle class="vc-fill" data-cat="g" cx="340" cy="200" r="152" fill="url(#grad-g-base)"/>
-            <circle cx="372" cy="174" r="118" fill="url(#grad-g-deep-halo)"/>
-            <circle cx="372" cy="174" r="76"  fill="url(#grad-g-deep-core)"/>
-            <circle cx="304" cy="232" r="85"  fill="url(#grad-g-mid)"/>
-            <circle cx="352" cy="248" r="56"  fill="url(#grad-g-light)"/>
+            <g class="venn-blob" data-cat="g">
+              <circle class="vc-fill" data-cat="g" cx="340" cy="200" r="152" fill="url(#grad-g-base)"/>
+              <circle cx="372" cy="174" r="118" fill="url(#grad-g-deep-halo)"/>
+              <circle cx="372" cy="174" r="76"  fill="url(#grad-g-deep-core)"/>
+              <circle cx="304" cy="232" r="85"  fill="url(#grad-g-mid)"/>
+              <circle cx="352" cy="248" r="56"  fill="url(#grad-g-light)"/>
+            </g>
             <!-- Understanding -->
-            <circle class="vc-fill" data-cat="u" cx="195" cy="285" r="168" fill="url(#grad-u-base)"/>
-            <circle cx="165" cy="316" r="118" fill="url(#grad-u-deep-halo)"/>
-            <circle cx="165" cy="316" r="76"  fill="url(#grad-u-deep-core)"/>
-            <circle cx="230" cy="254" r="85"  fill="url(#grad-u-mid)"/>
-            <circle cx="187" cy="244" r="56"  fill="url(#grad-u-light)"/>
+            <g class="venn-blob" data-cat="u">
+              <circle class="vc-fill" data-cat="u" cx="195" cy="285" r="168" fill="url(#grad-u-base)"/>
+              <circle cx="165" cy="316" r="118" fill="url(#grad-u-deep-halo)"/>
+              <circle cx="165" cy="316" r="76"  fill="url(#grad-u-deep-core)"/>
+              <circle cx="230" cy="254" r="85"  fill="url(#grad-u-mid)"/>
+              <circle cx="187" cy="244" r="56"  fill="url(#grad-u-light)"/>
+            </g>
             <!-- Communicating -->
-            <circle class="vc-fill" data-cat="c" cx="370" cy="360" r="152" fill="url(#grad-c-base)"/>
-            <circle cx="400" cy="390" r="118" fill="url(#grad-c-deep-halo)"/>
-            <circle cx="400" cy="390" r="76"  fill="url(#grad-c-deep-core)"/>
-            <circle cx="336" cy="330" r="85"  fill="url(#grad-c-mid)"/>
-            <circle cx="386" cy="336" r="56"  fill="url(#grad-c-light)"/>
+            <g class="venn-blob" data-cat="c">
+              <circle class="vc-fill" data-cat="c" cx="370" cy="360" r="152" fill="url(#grad-c-base)"/>
+              <circle cx="400" cy="390" r="118" fill="url(#grad-c-deep-halo)"/>
+              <circle cx="400" cy="390" r="76"  fill="url(#grad-c-deep-core)"/>
+              <circle cx="336" cy="330" r="85"  fill="url(#grad-c-mid)"/>
+              <circle cx="386" cy="336" r="56"  fill="url(#grad-c-light)"/>
+            </g>
 
           </g>
 
@@ -779,12 +860,119 @@
         countEl.setAttribute('y', y + 15);
       }
     });
+
+    const firstDelay = 100;
+    const stagger = 470;
+    const circleDuration = 900;
+    const order = Object.entries(radii).sort((a, b) => b[1] - a[1]).map(([cat]) => cat);
+    order.forEach((cat, index) => {
+      const delay = firstDelay + index * stagger;
+      document.querySelector(`svg.venn .venn-blob[data-cat="${cat}"]`)
+        ?.style.setProperty('--venn-intro-delay', `${delay}ms`);
+      document.querySelector(`svg.venn .vc[data-cat="${cat}"]`)
+        ?.style.setProperty('--venn-intro-delay', `${delay}ms`);
+    });
+
+    const svg = document.querySelector('svg.venn');
+    const labelDelay = firstDelay + (order.length - 1) * stagger + circleDuration + 40;
+    svg.style.setProperty('--venn-label-delay', `${labelDelay}ms`);
+    svg.dataset.introTotal = String(labelDelay + 760);
+  }
+
+  function startVennIntro() {
+    const svg = document.querySelector('svg.venn');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      svg.classList.remove('venn-intro');
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => svg.classList.add('venn-animate'));
+    });
+
+    window.setTimeout(() => {
+      svg.classList.remove('venn-intro', 'venn-animate');
+    }, Number(svg.dataset.introTotal) || 2800);
+  }
+
+  // Three independent color centers travel across the full viewport. Their
+  // velocity reflects at each edge, creating a continuous billiard-ball path
+  // instead of easing back and forth between a few CSS keyframes.
+  function startPageGradientFlow() {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const points = [
+      { key:'g', startX:12, startY:18, x:12, y:18, vx:10.5, vy:7.2 },
+      { key:'c', startX:86, startY:26, x:86, y:26, vx:-8.7, vy:10.3 },
+      { key:'p', startX:48, startY:88, x:48, y:88, vx:7.8, vy:-9.4 }
+    ];
+    let frameId = 0;
+    let lastTime = 0;
+
+    function render() {
+      points.forEach(({ key, x, y }) => {
+        document.body.style.setProperty(`--flow-${key}-x`, `${x.toFixed(3)}%`);
+        document.body.style.setProperty(`--flow-${key}-y`, `${y.toFixed(3)}%`);
+      });
+    }
+
+    function reflect(point, axis, velocityAxis) {
+      if (point[axis] < 0) {
+        point[axis] = -point[axis];
+        point[velocityAxis] = Math.abs(point[velocityAxis]);
+      } else if (point[axis] > 100) {
+        point[axis] = 200 - point[axis];
+        point[velocityAxis] = -Math.abs(point[velocityAxis]);
+      }
+    }
+
+    function tick(now) {
+      if (!lastTime) lastTime = now;
+      const seconds = Math.min((now - lastTime) / 1000, 0.064);
+      lastTime = now;
+      points.forEach(point => {
+        point.x += point.vx * seconds;
+        point.y += point.vy * seconds;
+        reflect(point, 'x', 'vx');
+        reflect(point, 'y', 'vy');
+      });
+      render();
+      frameId = window.requestAnimationFrame(tick);
+    }
+
+    function stop() {
+      window.cancelAnimationFrame(frameId);
+      frameId = 0;
+      lastTime = 0;
+    }
+
+    function reset() {
+      points.forEach(point => {
+        point.x = point.startX;
+        point.y = point.startY;
+      });
+      render();
+    }
+
+    function syncMotionPreference() {
+      stop();
+      if (motionPreference.matches) {
+        reset();
+      } else {
+        frameId = window.requestAnimationFrame(tick);
+      }
+    }
+
+    reset();
+    syncMotionPreference();
+    motionPreference.addEventListener?.('change', syncMotionPreference);
   }
 
   // ── Boot order: data → DOM → wire up interactivity ───────────
   renderGallery();
   updateStats();
   sizeVennByCount();
+  startPageGradientFlow();
+  startVennIntro();
 
   const circles = document.querySelectorAll('svg.venn .vc, svg.venn .vc-other');
   const cards = document.querySelectorAll('#gallery .card');
