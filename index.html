@@ -27,7 +27,7 @@
   @property --flow-p-x{syntax:'<percentage>';inherits:false;initial-value:50%}
   @property --flow-p-y{syntax:'<percentage>';inherits:false;initial-value:100%}
   :root{
-    --bg:#f2f1ef;
+    --bg:#f1f2f2;
     --bg-card:#faf9f6;
     --ink:#15151a;
     --ink-soft:#5e5c54;
@@ -46,9 +46,9 @@
     /* Same gradient definitions as method.html — keeps the base gray identical across pages.
        Difference between pages is only which color LAYERS are active. */
     background-image:
-      radial-gradient(ellipse 82% 72% at var(--flow-g-x) var(--flow-g-y), rgba(42,90,110,0.20), transparent 60%),
-      radial-gradient(ellipse 78% 68% at var(--flow-c-x) var(--flow-c-y), rgba(130,84,130,0.16), transparent 60%),
-      radial-gradient(ellipse 84% 68% at var(--flow-p-x) var(--flow-p-y), rgba(94,58,94,0.18), transparent 60%);
+      radial-gradient(ellipse 82% 72% at var(--flow-g-x) var(--flow-g-y), rgba(42,90,110,0.14), transparent 60%),
+      radial-gradient(ellipse 78% 68% at var(--flow-c-x) var(--flow-c-y), rgba(130,84,130,0.12), transparent 60%),
+      radial-gradient(ellipse 84% 68% at var(--flow-p-x) var(--flow-p-y), rgba(94,58,94,0.13), transparent 60%);
     background-attachment:fixed;
   }
   /* page-wide paper grain overlay */
