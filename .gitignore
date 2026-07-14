@@ -8,3 +8,6 @@ analytics/.dev.vars
 worker/
 *-preview.png
 *probe*.png
+
+# Image-generation prompt sources are archived outside this repository.
+*step-image-prompts*.md
