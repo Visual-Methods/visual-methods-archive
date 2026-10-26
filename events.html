@@ -92,7 +92,11 @@
   .events{display:grid;grid-template-columns:120px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .events .yr{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-soft)}
   .events h3{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:22px;line-height:1.15;margin-bottom:6px}
-  .events .desc{font-size:14px;line-height:1.6;color:var(--ink-soft)}
+  .events .desc{font-size:14px;line-height:1.6;color:var(--ink-soft);max-width:620px}
+  .events .venue{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;line-height:1.5}
+  .events .links{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;font-weight:500}
+  .events .links a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
+  .events .links a:hover{border-color:var(--accent)}
   .empty{border:1px dashed var(--line);border-radius:2px;background:rgba(250,249,246,.5);padding:34px 30px;max-width:680px}
   .empty p{font-size:15px;line-height:1.65;color:var(--ink-soft)}
 
@@ -211,6 +215,17 @@
      Fields: type, year, title, authors, venue (optional), desc, links[] */
   const PUBLICATIONS = [
     {
+      type:'Paper',
+      year:'2026',
+      title:'Toward Visual Methods: Reflections on How Visuals Enrich Empirical Research',
+      authors:'Zezhong Wang, Sheelagh Carpendale, Samuel Huron',
+      venue:'BELIV 2026 Workshop, IEEE VIS 2026',
+      desc:'Drawing on six case studies from our own research, the paper reflects on four values of visual methods (congruency, expressive reach, synopticity, and spatial evidence) and on practical strategies for analyzing visual data, and introduces this archive as an open call to share and collect visual methods.',
+      links:[
+        {label:'PDF', href:'pdfs/Toward_Visual_Methods_BELIV2026.pdf'}
+      ]
+    },
+    {
       type:'Workshop',
       year:'2024',
       title:'Workshop on Visual Methods &amp; Analyzing Visual Data in Human Computer Interaction',
@@ -231,7 +246,17 @@
 
   /* ── Events. Leave empty for "no upcoming events". ──
      Fields: date, title, place (optional), desc, links[] */
-  const UPCOMING_EVENTS = [];
+  const UPCOMING_EVENTS = [
+    {
+      date:'9 Nov 2026',
+      title:'Presenting <em>Toward Visual Methods</em> at BELIV 2026',
+      place:'BELIV Workshop, IEEE VIS 2026 · Remote session, presented from Paris · 15:00-15:15 Paris time (9:00-9:15 Boston)',
+      desc:'Zezhong Wang presents the paper behind this archive at BELIV, the IEEE VIS workshop on research methods in visualization.',
+      links:[
+        {label:'BELIV 2026 schedule', href:'https://beliv-workshop.github.io/schedule.html'}
+      ]
+    }
+  ];
 
   function renderPubs(){
     document.getElementById('pubsMount').innerHTML = PUBLICATIONS.map(p=>{
