@@ -9,8 +9,8 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reverse wireframing · N° 004 · Visual Methods">
 <meta property="og:description" content="A method in the Visual Methods archive: comparative visual analysis of interface layouts through reverse wireframing and mosaic comparison.">
-<meta property="og:url" content="https://visualmethods.github.io/method-004.html">
-<meta property="og:image" content="https://visualmethods.github.io/method-004/mosaic.png">
+<meta property="og:url" content="https://visualmethods.pages.dev/method-004.html">
+<meta property="og:image" content="https://visualmethods.pages.dev/method-004/mosaic.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -136,6 +136,8 @@
   .lightbox.open .lightbox-inner{transform:scale(1)}
   .lightbox img{max-width:100%;max-height:80vh;width:auto;height:auto;object-fit:contain;background:#efece2;padding:18px;border:1px solid #c7c2b7;box-shadow:0 30px 90px rgba(0,0,0,0.4)}
   .lightbox-caption{color:#e8e6df;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:0.01em;text-align:center;max-width:680px;line-height:1.5;font-weight:300}
+  .lightbox-credit{color:#b9b5aa;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.02em;text-align:center;max-width:680px;line-height:1.5;font-weight:400;margin-top:-6px}
+  .lightbox-credit a{color:#e8e6df;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:.5px}
   .lightbox-close{position:absolute;top:20px;right:24px;width:36px;height:36px;border:1px solid rgba(232,230,223,0.4);border-radius:50%;background:transparent;color:#e8e6df;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s ease, border-color .2s ease}
   .lightbox-close:hover{background:rgba(232,230,223,0.1);border-color:#e8e6df}
   body.lightbox-open{overflow:hidden}
@@ -291,7 +293,7 @@
 <!-- HERO IMAGE -->
 <section class="hero-img">
   <div class="hero-img-inner">
-    <img src="method-004/mosaic.png" alt="A mosaic of abstract wireframes for twenty-five online debate platforms, each shown as a stack of colored blocks: yellow for the topic block, green for submit, blue for display, and gray for other components, with a dotted line marking the fold">
+    <img data-credit="paper" src="method-004/mosaic.png" alt="A mosaic of abstract wireframes for twenty-five online debate platforms, each shown as a stack of colored blocks: yellow for the topic block, green for submit, blue for display, and gray for other components, with a dotted line marking the fold">
   </div>
   <div class="caption"><span>The mosaic of abstract wireframes for all 25 debate platforms analyzed, colored by interface block (Frappier, Bressa &amp; Huron, 2024)</span><span>↓ Read on</span></div>
 </section>
@@ -330,7 +332,7 @@
           <h4>Collect the interfaces.</h4>
           <p>Gather the set of tools that fit the scope, then capture a screenshot of the key page of each one, one per distinct interface. Fix the conditions so the set stays comparable: the source study used the desktop version of each platform's debate page.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-004/fig1-screenshots.png" style="mix-blend-mode:normal" alt="Screenshots of four analyzed debate platform interfaces: Purpoz, Allyus, DebateArt, and Kialo" loading="lazy"></div>
+            <div class="step-img"><img data-credit="paper" src="method-004/fig1-screenshots.png" style="mix-blend-mode:normal" alt="Screenshots of four analyzed debate platform interfaces: Purpoz, Allyus, DebateArt, and Kialo" loading="lazy"></div>
             <figcaption>Collecting comparable screenshots from the scoped set of tools.</figcaption>
           </figure>
         </div>
@@ -355,7 +357,7 @@
           <h4>Code the blocks.</h4>
           <p>Divide each wireframe into blocks (coherent visual and interactive units), give each an identifier, and record them in a spreadsheet. Define the coding collaboratively on a few examples until coders agree, then code the whole corpus and review it together.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-004/fig5-blocks.png" style="mix-blend-mode:normal" alt="Examples of the three coded interface blocks on real interfaces: a Topic block, a Submit block, and a Display block" loading="lazy"></div>
+            <div class="step-img"><img data-credit="paper" src="method-004/fig5-blocks.png" style="mix-blend-mode:normal" alt="Examples of the three coded interface blocks on real interfaces: a Topic block, a Submit block, and a Display block" loading="lazy"></div>
             <figcaption>Linking wireframe components to a shared coding grid.</figcaption>
           </figure>
         </div>
@@ -366,7 +368,7 @@
           <h4>Diagram, abstracting to common blocks.</h4>
           <p>Reduce each detailed wireframe to only the common main blocks identified in coding, assigning a consistent color to each block type. The result is a set of clean, comparable abstract wireframes.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-004/abstract-tile.png" alt="One interface reduced to an abstract wireframe of stacked colored blocks: a thin yellow topic, a green submit, and a blue display block" loading="lazy"></div>
+            <div class="step-img"><img data-credit="paper" src="method-004/abstract-tile.png" alt="One interface reduced to an abstract wireframe of stacked colored blocks: a thin yellow topic, a green submit, and a blue display block" loading="lazy"></div>
             <figcaption>Reducing detailed wireframes to comparable abstract block diagrams.</figcaption>
           </figure>
         </div>
@@ -377,7 +379,7 @@
           <h4>Assemble a mosaic.</h4>
           <p>Lay all the abstract wireframes together in one grid, so the entire corpus is visible and comparable at a glance. The mosaic is the artifact that makes cross-corpus patterns legible.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-004/fig6-mosaic-blocks.png" alt="A mosaic of all 25 abstract wireframes showing the main common blocks, with black stripes marking stance mechanisms" loading="lazy"></div>
+            <div class="step-img"><img data-credit="paper" src="method-004/fig6-mosaic-blocks.png" alt="A mosaic of all 25 abstract wireframes showing the main common blocks, with black stripes marking stance mechanisms" loading="lazy"></div>
             <figcaption>Arranging every abstract wireframe into one comparable mosaic.</figcaption>
           </figure>
         </div>
@@ -388,7 +390,7 @@
           <h4>Analyze the mosaic.</h4>
           <p>In collaborative sessions, read the mosaic against the original screenshots, which still hold the semantic detail. Compare block compositions and hierarchies to identify the design patterns, similarities, and differences across the set.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-004/fig7-hierarchies.png" alt="The three block hierarchies found across the interfaces, each a stack of Topic, Submit, and Display blocks in a different order" loading="lazy"></div>
+            <div class="step-img"><img data-credit="paper" src="method-004/fig7-hierarchies.png" alt="The three block hierarchies found across the interfaces, each a stack of Topic, Submit, and Display blocks in a different order" loading="lazy"></div>
             <figcaption>Reading repeated block positions and differences across the full mosaic.</figcaption>
           </figure>
         </div>
@@ -487,6 +489,7 @@
   <div class="lightbox-inner">
     <img id="lightboxImg" alt="">
     <div class="lightbox-caption" id="lightboxCaption"></div>
+    <div class="lightbox-credit" id="lightboxCredit" hidden></div>
   </div>
 </div>
 
@@ -495,11 +498,17 @@
   const box = document.getElementById('lightbox');
   const boxImg = document.getElementById('lightboxImg');
   const boxCap = document.getElementById('lightboxCaption');
+  const boxCredit = document.getElementById('lightboxCredit');
+  const CC = ' · Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener license">CC BY-NC-ND 4.0</a>';
+  const CREDITS = { ai: 'Image created by Zezhong Wang' + CC, image: 'Image created by Zezhong Wang' + CC, photo: 'Photo by Zezhong Wang' + CC,
+    paper: 'Figure from Frappier et al. (2024), NordiCHI &rsquo;24. <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC BY 4.0</a>' };
   const boxClose = document.getElementById('lightboxClose');
-  function open(src, alt, caption){
+  function open(src, alt, caption, credit){
     boxImg.src = src;
     boxImg.alt = alt || '';
     boxCap.textContent = caption || alt || '';
+    if(CREDITS[credit]){ boxCredit.innerHTML = CREDITS[credit]; boxCredit.hidden = false; }
+    else { boxCredit.innerHTML = ''; boxCredit.hidden = true; }
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
@@ -519,9 +528,9 @@
     div.setAttribute('role','button');
     div.setAttribute('tabindex','0');
     div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
-    div.addEventListener('click', () => open(img.src, img.alt, caption));
+    div.addEventListener('click', () => open(img.src, img.alt, caption, img.dataset.credit));
     div.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption); }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption, img.dataset.credit); }
     });
   });
   box.addEventListener('click', e => { if(e.target === box) close(); });

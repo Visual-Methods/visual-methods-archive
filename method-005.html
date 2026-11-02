@@ -9,8 +9,8 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Coding for design patterns · N° 005 · Visual Methods">
 <meta property="og:description" content="A method in the Visual Methods archive: deriving a design space empirically by coding a corpus of existing examples.">
-<meta property="og:url" content="https://visualmethods.github.io/method-005.html">
-<meta property="og:image" content="https://visualmethods.github.io/method-005/cover.png">
+<meta property="og:url" content="https://visualmethods.pages.dev/method-005.html">
+<meta property="og:image" content="https://visualmethods.pages.dev/method-005/cover.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -154,6 +154,8 @@
   .lightbox.open .lightbox-inner{transform:scale(1)}
   .lightbox img{max-width:100%;max-height:80vh;width:auto;height:auto;object-fit:contain;background:#efece2;padding:18px;border:1px solid #c7c2b7;box-shadow:0 30px 90px rgba(0,0,0,0.4)}
   .lightbox-caption{color:#e8e6df;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:0.01em;text-align:center;max-width:680px;line-height:1.5;font-weight:300}
+  .lightbox-credit{color:#b9b5aa;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.02em;text-align:center;max-width:680px;line-height:1.5;font-weight:400;margin-top:-6px}
+  .lightbox-credit a{color:#e8e6df;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:.5px}
   .lightbox-close{position:absolute;top:20px;right:24px;width:36px;height:36px;border:1px solid rgba(232,230,223,0.4);border-radius:50%;background:transparent;color:#e8e6df;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s ease, border-color .2s ease}
   .lightbox-close:hover{background:rgba(232,230,223,0.1);border-color:#e8e6df}
   body.lightbox-open{overflow:hidden}
@@ -309,7 +311,7 @@
 <!-- HERO IMAGE -->
 <section class="hero-img">
   <div class="hero-img-inner">
-    <img src="method-005/cover.png" alt="The design space derived from coding a corpus of interactive comics, organizing interaction operations by trigger, effect, and authoring goal">
+    <img data-credit="paper" src="method-005/cover.png" alt="The design space derived from coding a corpus of interactive comics, organizing interaction operations by trigger, effect, and authoring goal">
   </div>
   <div class="caption"><span>The design space of interaction operations, derived by coding a corpus of interactive comics (Wang et al., 2021)</span><span>↓ Read on</span></div>
 </section>
@@ -341,7 +343,7 @@
           <h4>Frame the goals.</h4>
           <p>Establish the high-level goals or questions the design space should answer. These give the coding a purpose and a backbone to organize against.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-005/step1.png" alt="A researcher considers the question, What is the design space or design pattern in this area?" loading="lazy"></div>
+            <div class="step-img"><img data-credit="ai" src="method-005/step1.png" alt="A researcher considers the question, What is the design space or design pattern in this area?" loading="lazy"></div>
           </figure>
         </div>
       </div>
@@ -351,7 +353,7 @@
           <h4>Collect a corpus of examples.</h4>
           <p>Gather a diverse corpus of examples from multiple media and formats: captured or printed photographs, books and magazines, websites, and other visual or multimodal sources. Aim for breadth across the medium's range, and record each example's source and inclusion rationale.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-005/step2.png" alt="Four source panels showing captured photos, images collected from books and magazines, material collected from the internet, and additional forms including sketches, AR and VR design, and physical artifacts" loading="lazy"></div>
+            <div class="step-img"><img data-credit="ai" src="method-005/step2.png" alt="Four source panels showing captured photos, images collected from books and magazines, material collected from the internet, and additional forms including sketches, AR and VR design, and physical artifacts" loading="lazy"></div>
           </figure>
         </div>
       </div>
@@ -361,7 +363,7 @@
           <h4>Develop a codebook together.</h4>
           <p>Build the codebook by examining the collection and converging on a shared set of categories, definitions, and examples that will be applied consistently across the corpus.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-005/step3.png" alt="Three researchers develop a shared codebook by comparing example cards, category cards, and a structured coding notebook" loading="lazy"></div>
+            <div class="step-img"><img data-credit="ai" src="method-005/step3.png" alt="Three researchers develop a shared codebook by comparing example cards, category cards, and a structured coding notebook" loading="lazy"></div>
           </figure>
         </div>
       </div>
@@ -371,7 +373,7 @@
           <h4>Code the corpus.</h4>
           <p>Apply the codebook across every example, categorizing its features into higher-level operations or dimensions (for instance, add or remove an element, reorder a panel).</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-005/step4.png" alt="A two-panel coding scene showing tagged physical example cards beside a digital whiteboard where images are dragged into groups" loading="lazy"></div>
+            <div class="step-img"><img data-credit="ai" src="method-005/step4.png" alt="A two-panel coding scene showing tagged physical example cards beside a digital whiteboard where images are dragged into groups" loading="lazy"></div>
           </figure>
         </div>
       </div>
@@ -381,7 +383,7 @@
           <h4>Decompose each unit.</h4>
           <p>Describe each coded unit by its constituent parts so the dimensions are precise. In the source study each interaction was described by its <strong>trigger</strong> (how it is activated) and its <strong>effects</strong> (what changes), and by whether it touched panel content or comic structure.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-005/step5.png" alt="One interactive example is decomposed with annotations for Interaction and Feedback and Visual components" loading="lazy"></div>
+            <div class="step-img"><img data-credit="ai" src="method-005/step5.png" alt="One interactive example is decomposed with annotations for Interaction and Feedback and Visual components" loading="lazy"></div>
           </figure>
         </div>
       </div>
@@ -391,7 +393,7 @@
           <h4>Relate the codes and assemble the design space.</h4>
           <p>Map the coded operations onto the goals from step 1, then organize the operations and dimensions into a structured table or diagram. That table is the design space: a compact, comparable view of the medium that can inform tools, guidelines, and new examples.</p>
           <figure class="step-fig">
-            <div class="step-img"><img src="method-005/step7.png" alt="Researchers assemble a final design-space matrix from coded operation cards, with rows, columns, icons, and grouped areas" loading="lazy"></div>
+            <div class="step-img"><img data-credit="ai" src="method-005/step7.png" alt="Researchers assemble a final design-space matrix from coded operation cards, with rows, columns, icons, and grouped areas" loading="lazy"></div>
           </figure>
         </div>
       </div>
@@ -403,7 +405,7 @@
       <div class="practice-grid single">
         <div class="practice-item">
           <span class="practice-label">Coding results</span>
-          <div class="practice-img"><img src="method-005/interactive-comics-coding-results.png" alt="Results matrix of manual coding for interactive comics, showing triggers, panel content effects, panel layout effects, and communication goals across corpus examples" loading="lazy"></div>
+          <div class="practice-img"><img data-credit="paper" src="method-005/interactive-comics-coding-results.png" alt="Results matrix of manual coding for interactive comics, showing triggers, panel content effects, panel layout effects, and communication goals across corpus examples" loading="lazy"></div>
         </div>
       </div>
       <figcaption class="practice-caption">Results of the manual coding of interactive comics from our corpus (see list at the end of the paper). Interactions are defined by a trigger, results in visual effects that can affect panel content, and/or panel layout, to achieve a particular communication goal.</figcaption>
@@ -414,7 +416,7 @@
       <div class="practice-grid single">
         <div class="practice-item">
           <span class="practice-label">Input-data pattern</span>
-          <div class="practice-img"><img src="method-005/design-pattern-input-data.png" alt="Annotated interactive comic example showing how input data, pictograms, and alternative branches are abstracted into applied UI elements and operations" loading="lazy"></div>
+          <div class="practice-img"><img data-credit="paper" src="method-005/design-pattern-input-data.png" alt="Annotated interactive comic example showing how input data, pictograms, and alternative branches are abstracted into applied UI elements and operations" loading="lazy"></div>
         </div>
       </div>
       <figcaption class="practice-caption">Example design patterns abstracted from an interactive comic. Concrete reader actions and visual changes are coded as abstract symbols, such as UI elements, pictogram operations, and branching layout operations.</figcaption>
@@ -423,7 +425,7 @@
       <div class="practice-grid single">
         <div class="practice-item">
           <span class="practice-label">Design-space patterns</span>
-          <div class="practice-img"><img src="method-005/design-pattern-design-space.png" alt="Annotated design space examples showing alternative granularity, drill-down details, and highlighting elements as reusable interaction operations" loading="lazy"></div>
+          <div class="practice-img"><img data-credit="paper" src="method-005/design-pattern-design-space.png" alt="Annotated design space examples showing alternative granularity, drill-down details, and highlighting elements as reusable interaction operations" loading="lazy"></div>
         </div>
       </div>
       <figcaption class="practice-caption">Examples from the resulting design space. The annotated cases show how different patterns, such as alternative granularity, drill-down, and highlighting, are represented through abstract operations that can be reused across interactive comics.</figcaption>
@@ -516,6 +518,7 @@
   <div class="lightbox-inner">
     <img id="lightboxImg" alt="">
     <div class="lightbox-caption" id="lightboxCaption"></div>
+    <div class="lightbox-credit" id="lightboxCredit" hidden></div>
   </div>
 </div>
 
@@ -524,11 +527,17 @@
   const box = document.getElementById('lightbox');
   const boxImg = document.getElementById('lightboxImg');
   const boxCap = document.getElementById('lightboxCaption');
+  const boxCredit = document.getElementById('lightboxCredit');
+  const CC = ' · Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener license">CC BY-NC-ND 4.0</a>';
+  const CREDITS = { ai: 'Image created by Zezhong Wang' + CC, image: 'Image created by Zezhong Wang' + CC, photo: 'Photo by Zezhong Wang' + CC,
+    paper: 'Figure from Wang et al. (2022), IEEE TVCG. Reproduced with permission.' };
   const boxClose = document.getElementById('lightboxClose');
-  function open(src, alt, caption){
+  function open(src, alt, caption, credit){
     boxImg.src = src;
     boxImg.alt = alt || '';
     boxCap.textContent = caption || alt || '';
+    if(CREDITS[credit]){ boxCredit.innerHTML = CREDITS[credit]; boxCredit.hidden = false; }
+    else { boxCredit.innerHTML = ''; boxCredit.hidden = true; }
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
@@ -548,9 +557,9 @@
     div.setAttribute('role','button');
     div.setAttribute('tabindex','0');
     div.setAttribute('aria-label','Enlarge image: ' + (img.alt || 'illustration'));
-    div.addEventListener('click', () => open(img.src, img.alt, caption));
+    div.addEventListener('click', () => open(img.src, img.alt, caption, img.dataset.credit));
     div.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption); }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(img.src, img.alt, caption, img.dataset.credit); }
     });
   });
   box.addEventListener('click', e => { if(e.target === box) close(); });
