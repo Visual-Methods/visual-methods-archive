@@ -222,7 +222,7 @@
   <!-- ── §03 · CONTRIBUTORS ──────────────────────────── -->
   <section class="block" id="contributors">
     <div class="sec-head"><span class="sn">§ 03</span><h2>Contributors</h2></div>
-    <p class="contrib-intro">The archive is built by its community. When a submitted method is reviewed and accepted, its author joins this page, credited beside the method they brought in.</p>
+    <p class="contrib-intro">The archive is built by its community. Contributors include the authors of the studies the methods are drawn from, and researchers whose submitted methods have been reviewed and accepted. Each is credited beside the method they brought in.</p>
     <div id="contribMount"></div>
   </section>
 
@@ -281,7 +281,9 @@
 
   /* ── Contributors: populate as submissions are accepted ────────────
      e.g. {name:'A. Researcher', photo:'about/a.jpg', method:'N° 007', href:'method-007.html'} */
-  const CONTRIBUTORS = [];
+  const CONTRIBUTORS = [
+    {name:'Jagoda Walny', photo:'about/jagoda-walny.jpg', method:'N° 001 · Data sketching', href:'method.html'}
+  ];
 
   const initials = n => n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
 
